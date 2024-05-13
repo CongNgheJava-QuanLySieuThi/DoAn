@@ -31,6 +31,7 @@ public class MainPage extends javax.swing.JFrame {
         listItem.add(new DanhMuc("TrangChu",jpnTrangChu,jlbTrangChu));
         listItem.add(new DanhMuc("SanPham",jpnSanPham,jlbSanPham));
         trans.setEvent(listItem);
+        setLocationRelativeTo(null);
     }
 
     /**

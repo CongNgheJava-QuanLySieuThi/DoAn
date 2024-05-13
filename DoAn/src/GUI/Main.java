@@ -5,14 +5,14 @@
  */
 package GUI;
 
-import GUI.View.MainPage;
-
 /**
  *
  * @author Admin
  */
 public class Main {
     public static void main(String[] args) {
-        new MainPage().setVisible(true);
+        Login loginForm = new Login();
+        // Đặt form ở giữa màn hình
+        loginForm.setVisible(true); // Hiển thị form
     }
 }
