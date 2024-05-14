@@ -5,14 +5,19 @@
  */
 package Pojo;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.Objects;
 
 /**
  *
  * @author Nguyễn Kế Bảo
  */
-public class NguoiDung {
-    private long maND;
+public class NguoiDung implements Serializable {
+
+    private static final long serialVersionUID = 1L;
+
+    private Long maND;
     private String ho;
     private String ten;
     private String tenTaiKhoan;
@@ -20,18 +25,29 @@ public class NguoiDung {
     private String chucVu;
     private LocalDateTime ngayTao;
     private LocalDateTime ngayCapNhat;
-    
-    public NguoiDung(long maND,String ho,String ten,String tenTaiKhoan,String matKhau,String chucVu,LocalDateTime ngayTao,LocalDateTime ngayCapNhat){
-        this.maND=maND;
-        this.ho=ho;
-        this.ten=ten;
-        this.tenTaiKhoan=tenTaiKhoan;
-        this.matKhau=matKhau;
-        this.chucVu=chucVu;
-        this.ngayTao=ngayTao;
-        this.ngayCapNhat=ngayCapNhat;
+
+    public NguoiDung(
+            Long maND,
+            String ho,
+            String ten,
+            String tenTaiKhoan,
+            String matKhau,
+            String chucVu,
+            LocalDateTime ngayTao,
+            LocalDateTime ngayCapNhat) {
+        this.maND = maND;
+        this.ho = ho;
+        this.ten = ten;
+        this.tenTaiKhoan = tenTaiKhoan;
+        this.matKhau = matKhau;
+        this.chucVu = chucVu;
+        this.ngayTao = ngayTao;
+        this.ngayCapNhat = ngayCapNhat;
     }
-    public NguoiDung(){}
+
+    public NguoiDung() {
+    }
+
     public long getMaND() {
         return maND;
     }
@@ -94,5 +110,55 @@ public class NguoiDung {
 
     public void setNgayCapNhat(LocalDateTime ngayCapNhat) {
         this.ngayCapNhat = ngayCapNhat;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 3;
+        hash = 97 * hash + Objects.hashCode(this.maND);
+        hash = 97 * hash + Objects.hashCode(this.ho);
+        hash = 97 * hash + Objects.hashCode(this.ten);
+        hash = 97 * hash + Objects.hashCode(this.tenTaiKhoan);
+        hash = 97 * hash + Objects.hashCode(this.matKhau);
+        hash = 97 * hash + Objects.hashCode(this.chucVu);
+        hash = 97 * hash + Objects.hashCode(this.ngayTao);
+        hash = 97 * hash + Objects.hashCode(this.ngayCapNhat);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final NguoiDung other = (NguoiDung) obj;
+        if (!Objects.equals(this.ho, other.ho)) {
+            return false;
+        }
+        if (!Objects.equals(this.ten, other.ten)) {
+            return false;
+        }
+        if (!Objects.equals(this.tenTaiKhoan, other.tenTaiKhoan)) {
+            return false;
+        }
+        if (!Objects.equals(this.matKhau, other.matKhau)) {
+            return false;
+        }
+        if (!Objects.equals(this.chucVu, other.chucVu)) {
+            return false;
+        }
+        if (!Objects.equals(this.maND, other.maND)) {
+            return false;
+        }
+        if (!Objects.equals(this.ngayTao, other.ngayTao)) {
+            return false;
+        }
+        return Objects.equals(this.ngayCapNhat, other.ngayCapNhat);
     }
 }
