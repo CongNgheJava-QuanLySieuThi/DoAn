@@ -16,7 +16,7 @@ public class HoaDon implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    private Long maHoaDon;
+    private Long maHD;
     private String tenHoaDon;
     private String phuongThucMuaHang;
     private DonHang donHang;
@@ -27,13 +27,13 @@ public class HoaDon implements Serializable {
     }
 
     public HoaDon(
-            Long maHoaDon,
+            Long maHD,
             String tenHoaDon,
             String phuongThucMuaHang,
             DonHang donHang,
             NguoiDung nguoiDung,
             LocalDateTime ngayTao) {
-        this.maHoaDon = maHoaDon;
+        this.maHD = maHD;
         this.tenHoaDon = tenHoaDon;
         this.phuongThucMuaHang = phuongThucMuaHang;
         this.donHang = donHang;
@@ -42,11 +42,11 @@ public class HoaDon implements Serializable {
     }
 
     public Long getMaHoaDon() {
-        return maHoaDon;
+        return maHD;
     }
 
     public void setMaHoaDon(Long maHoaDon) {
-        this.maHoaDon = maHoaDon;
+        this.maHD = maHD;
     }
 
     public String getTenHoaDon() {
@@ -92,7 +92,7 @@ public class HoaDon implements Serializable {
     @Override
     public int hashCode() {
         int hash = 5;
-        hash = 59 * hash + Objects.hashCode(this.maHoaDon);
+        hash = 59 * hash + Objects.hashCode(this.maHD);
         hash = 59 * hash + Objects.hashCode(this.tenHoaDon);
         hash = 59 * hash + Objects.hashCode(this.phuongThucMuaHang);
         hash = 59 * hash + Objects.hashCode(this.donHang);
@@ -119,7 +119,7 @@ public class HoaDon implements Serializable {
         if (!Objects.equals(this.phuongThucMuaHang, other.phuongThucMuaHang)) {
             return false;
         }
-        if (!Objects.equals(this.maHoaDon, other.maHoaDon)) {
+        if (!Objects.equals(this.maHD, other.maHD)) {
             return false;
         }
         if (!Objects.equals(this.donHang, other.donHang)) {

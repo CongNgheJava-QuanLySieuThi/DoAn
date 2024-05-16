@@ -17,15 +17,15 @@ public class SanPham implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    private Long maSanPham;
+    private Long maSP;
 
-    private String tenSanPham;
+    private String tenSP;
     private BigDecimal gia;
     private Integer giamGia;
     private String hinhAnh;
     private String tuKhoa;
     private String moTa;
-    private Integer soLuoưngTonKho;
+    private Integer soLuongTonKho;
 
     private LocalDateTime ngayTao;
 
@@ -38,8 +38,8 @@ public class SanPham implements Serializable {
     }
 
     public SanPham(
-            Long maSanPham, 
-            String tenSanPham, 
+            Long maSP, 
+            String tenSP, 
             BigDecimal gia, 
             Integer giamGia, 
             String hinhAnh, 
@@ -49,33 +49,33 @@ public class SanPham implements Serializable {
             LocalDateTime ngayTao, 
             LocalDateTime ngayCapNhat, 
             DanhMuc danhMuc) {
-        this.maSanPham = maSanPham;
-        this.tenSanPham = tenSanPham;
+        this.maSP = maSP;
+        this.tenSP = tenSP;
         this.gia = gia;
         this.giamGia = giamGia;
         this.hinhAnh = hinhAnh;
         this.tuKhoa = tuKhoa;
         this.moTa = moTa;
-        this.soLuoưngTonKho = soLuoưngTonKho;
+        this.soLuongTonKho = soLuongTonKho;
         this.ngayTao = ngayTao;
         this.ngayCapNhat = ngayCapNhat;
         this.danhMuc = danhMuc;
     }
 
     public Long getMaSanPham() {
-        return maSanPham;
+        return maSP;
     }
 
-    public void setMaSanPham(Long maSanPham) {
-        this.maSanPham = maSanPham;
+    public void setMaSanPham(Long maSP) {
+        this.maSP = maSP;
     }
 
     public String getTenSanPham() {
-        return tenSanPham;
+        return tenSP;
     }
 
-    public void setTenSanPham(String tenSanPham) {
-        this.tenSanPham = tenSanPham;
+    public void setTenSanPham(String tenSP) {
+        this.tenSP = tenSP;
     }
 
     public BigDecimal getGia() {
@@ -118,12 +118,12 @@ public class SanPham implements Serializable {
         this.moTa = moTa;
     }
 
-    public Integer getSoLuoưngTonKho() {
-        return soLuoưngTonKho;
+    public Integer getSoLuongTonKho() {
+        return soLuongTonKho;
     }
 
-    public void setSoLuoưngTonKho(Integer soLuoưngTonKho) {
-        this.soLuoưngTonKho = soLuoưngTonKho;
+    public void getSoLuongTonKho(Integer soLuongTonKho) {
+        this.soLuongTonKho = soLuongTonKho;
     }
 
     public LocalDateTime getNgayTao() {
@@ -153,14 +153,14 @@ public class SanPham implements Serializable {
     @Override
     public int hashCode() {
         int hash = 7;
-        hash = 31 * hash + Objects.hashCode(this.maSanPham);
-        hash = 31 * hash + Objects.hashCode(this.tenSanPham);
+        hash = 31 * hash + Objects.hashCode(this.maSP);
+        hash = 31 * hash + Objects.hashCode(this.tenSP);
         hash = 31 * hash + Objects.hashCode(this.gia);
         hash = 31 * hash + Objects.hashCode(this.giamGia);
         hash = 31 * hash + Objects.hashCode(this.hinhAnh);
         hash = 31 * hash + Objects.hashCode(this.tuKhoa);
         hash = 31 * hash + Objects.hashCode(this.moTa);
-        hash = 31 * hash + Objects.hashCode(this.soLuoưngTonKho);
+        hash = 31 * hash + Objects.hashCode(this.soLuongTonKho);
         hash = 31 * hash + Objects.hashCode(this.ngayTao);
         hash = 31 * hash + Objects.hashCode(this.ngayCapNhat);
         hash = 31 * hash + Objects.hashCode(this.danhMuc);
@@ -179,7 +179,7 @@ public class SanPham implements Serializable {
             return false;
         }
         final SanPham other = (SanPham) obj;
-        if (!Objects.equals(this.tenSanPham, other.tenSanPham)) {
+        if (!Objects.equals(this.tenSP, other.tenSP)) {
             return false;
         }
         if (!Objects.equals(this.hinhAnh, other.hinhAnh)) {
@@ -191,7 +191,7 @@ public class SanPham implements Serializable {
         if (!Objects.equals(this.moTa, other.moTa)) {
             return false;
         }
-        if (!Objects.equals(this.maSanPham, other.maSanPham)) {
+        if (!Objects.equals(this.maSP, other.maSP)) {
             return false;
         }
         if (!Objects.equals(this.gia, other.gia)) {
@@ -200,7 +200,7 @@ public class SanPham implements Serializable {
         if (!Objects.equals(this.giamGia, other.giamGia)) {
             return false;
         }
-        if (!Objects.equals(this.soLuoưngTonKho, other.soLuoưngTonKho)) {
+        if (!Objects.equals(this.soLuongTonKho, other.soLuongTonKho)) {
             return false;
         }
         if (!Objects.equals(this.ngayTao, other.ngayTao)) {
