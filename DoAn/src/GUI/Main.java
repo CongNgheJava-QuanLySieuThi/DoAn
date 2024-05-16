@@ -5,6 +5,7 @@
  */
 package GUI;
 
+
 /**
  *
  * @author Admin
@@ -14,5 +15,6 @@ public class Main {
         Login loginForm = new Login();
         // Đặt form ở giữa màn hình
         loginForm.setVisible(true); // Hiển thị form
+        
     }
 }

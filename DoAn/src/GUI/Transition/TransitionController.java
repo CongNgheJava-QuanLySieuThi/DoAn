@@ -6,8 +6,13 @@
 package GUI.Transition;
 
 import GUI.Bean.DanhMuc;
+import GUI.View.DonHang;
+import GUI.View.HangTonKho;
+import GUI.View.HoaDon;
+import GUI.View.MucDonHang;
 import GUI.View.QuanLySanPhamJPanel;
 import GUI.View.TrangChuJPanel;
+import GUI.View.User;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.event.MouseEvent;
@@ -75,6 +80,21 @@ public class TransitionController {
                     break;
                 case "SanPham":
                     node = new QuanLySanPhamJPanel();
+                    break;
+                case "DonHang":
+                    node = new DonHang();
+                    break;
+                case "HangTonKho":
+                    node = new HangTonKho();
+                    break;
+                case "HoaDon":
+                    node = new HoaDon();
+                    break;
+                case "MucDonHang":
+                    node = new MucDonHang();
+                    break;
+                case "User":
+                    node = new User();
                     break;
                 default:
                     break;
