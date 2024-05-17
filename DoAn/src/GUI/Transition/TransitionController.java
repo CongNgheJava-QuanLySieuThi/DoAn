@@ -51,7 +51,7 @@ public class TransitionController {
             this.listItem = listItem;
             for(DanhMuc item : listItem)
             {
-            item.getJlb().addMouseListener(new LabelEvent(item.getKind(), item.getJpn(),item.getJlb() ));
+                item.getJlb().addMouseListener(new LabelEvent(item.getKind(), item.getJpn(),item.getJlb() ));
             }
     }
     class LabelEvent implements MouseListener

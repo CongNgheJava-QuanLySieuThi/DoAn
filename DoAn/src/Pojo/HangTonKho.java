@@ -6,7 +6,6 @@ package Pojo;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
-import java.util.Objects;
 
 /**
  *
@@ -21,7 +20,7 @@ public class HangTonKho implements Serializable {
     private LocalDateTime ngayNhapHang;
     private LocalDateTime ngayXuatHang;
     private String trangThai;
-    private SanPham sanPham;
+    private Long maSP;
 
     public HangTonKho() {
     }
@@ -32,13 +31,13 @@ public class HangTonKho implements Serializable {
             LocalDateTime ngayNhapHang,
             LocalDateTime ngayXuatHang,
             String trangThai,
-            SanPham sanPham) {
+            Long maSP) {
         this.maHTK = maHTK;
         this.soLuongTrongKho = soLuongTrongKho;
         this.ngayNhapHang = ngayNhapHang;
         this.ngayXuatHang = ngayXuatHang;
         this.trangThai = trangThai;
-        this.sanPham = sanPham;
+        this.maSP = maSP;
     }
 
     public Long getMaHTK() {
@@ -81,53 +80,53 @@ public class HangTonKho implements Serializable {
         this.trangThai = trangThai;
     }
 
-    public SanPham getSanPham() {
-        return sanPham;
+    public Long getMaSanPham() {
+        return maSP;
     }
 
-    public void setSanPham(SanPham sanPham) {
-        this.sanPham = sanPham;
+    public void setMaSanPham(Long maSP) {
+        this.maSP = maSP;
     }
 
-    @Override
-    public int hashCode() {
-        int hash = 3;
-        hash = 89 * hash + Objects.hashCode(this.maHTK);
-        hash = 89 * hash + Objects.hashCode(this.soLuongTrongKho);
-        hash = 89 * hash + Objects.hashCode(this.ngayNhapHang);
-        hash = 89 * hash + Objects.hashCode(this.ngayXuatHang);
-        hash = 89 * hash + Objects.hashCode(this.trangThai);
-        hash = 89 * hash + Objects.hashCode(this.sanPham);
-        return hash;
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        final HangTonKho other = (HangTonKho) obj;
-        if (!Objects.equals(this.trangThai, other.trangThai)) {
-            return false;
-        }
-        if (!Objects.equals(this.maHTK, other.maHTK)) {
-            return false;
-        }
-        if (!Objects.equals(this.soLuongTrongKho, other.soLuongTrongKho)) {
-            return false;
-        }
-        if (!Objects.equals(this.ngayNhapHang, other.ngayNhapHang)) {
-            return false;
-        }
-        if (!Objects.equals(this.ngayXuatHang, other.ngayXuatHang)) {
-            return false;
-        }
-        return Objects.equals(this.sanPham, other.sanPham);
-    }
+//    @Override
+//    public int hashCode() {
+//        int hash = 3;
+//        hash = 89 * hash + Objects.hashCode(this.maHTK);
+//        hash = 89 * hash + Objects.hashCode(this.soLuongTrongKho);
+//        hash = 89 * hash + Objects.hashCode(this.ngayNhapHang);
+//        hash = 89 * hash + Objects.hashCode(this.ngayXuatHang);
+//        hash = 89 * hash + Objects.hashCode(this.trangThai);
+//        hash = 89 * hash + Objects.hashCode(this.sanPham);
+//        return hash;
+//    }
+//
+//    @Override
+//    public boolean equals(Object obj) {
+//        if (this == obj) {
+//            return true;
+//        }
+//        if (obj == null) {
+//            return false;
+//        }
+//        if (getClass() != obj.getClass()) {
+//            return false;
+//        }
+//        final HangTonKho other = (HangTonKho) obj;
+//        if (!Objects.equals(this.trangThai, other.trangThai)) {
+//            return false;
+//        }
+//        if (!Objects.equals(this.maHTK, other.maHTK)) {
+//            return false;
+//        }
+//        if (!Objects.equals(this.soLuongTrongKho, other.soLuongTrongKho)) {
+//            return false;
+//        }
+//        if (!Objects.equals(this.ngayNhapHang, other.ngayNhapHang)) {
+//            return false;
+//        }
+//        if (!Objects.equals(this.ngayXuatHang, other.ngayXuatHang)) {
+//            return false;
+//        }
+//        return Objects.equals(this.sanPham, other.sanPham);
+//    }
 }

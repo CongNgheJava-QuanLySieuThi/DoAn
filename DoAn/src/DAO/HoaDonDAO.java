@@ -38,8 +38,8 @@ public class HoaDonDAO {
             statement.setLong(1, hoaDon.getMaHoaDon());
             statement.setString(2, hoaDon.getTenHoaDon());
             statement.setString(3, hoaDon.getPhuongThucMuaHang());
-            statement.setLong(4, hoaDon.getDonHang().getMadonhang());
-            statement.setLong(5, hoaDon.getNguoiDung().getMaND());
+            statement.setLong(4, hoaDon.getMaDonHang());
+            statement.setLong(5, hoaDon.getMaNguoiDung());
             statement.setObject(6, hoaDon.getNgayTao());
             statement.executeUpdate();
         }
@@ -52,8 +52,8 @@ public class HoaDonDAO {
              PreparedStatement statement = connection.prepareStatement(query)) {
             statement.setString(1, hoaDon.getTenHoaDon());
             statement.setString(2, hoaDon.getPhuongThucMuaHang());
-            statement.setLong(3, hoaDon.getDonHang().getMadonhang());
-            statement.setLong(4, hoaDon.getNguoiDung().getMaND());
+            statement.setLong(3, hoaDon.getMaDonHang());
+            statement.setLong(4, hoaDon.getMaNguoiDung());
             statement.setObject(5, hoaDon.getNgayTao());
             statement.setLong(6, hoaDon.getMaHoaDon());
             statement.executeUpdate();
@@ -109,15 +109,8 @@ public class HoaDonDAO {
         long maNguoiDung = resultSet.getLong("maNguoiDung");
         LocalDateTime ngayTao = resultSet.getObject("ngayTao", LocalDateTime.class);
 
-        // Lấy đối tượng DonHang từ cơ sở dữ liệu hoặc các thông tin liên quan
-        DonHang donHang = new DonHang(); // Chưa cần gán chi tiết, chỉ cần ID của đơn hàng là đủ
-        donHang.setMadonhang(maDonHang);
 
-        // Lấy đối tượng NguoiDung từ cơ sở dữ liệu hoặc các thông tin liên quan
-        NguoiDung nguoiDung = new NguoiDung(); // Chưa cần gán chi tiết, chỉ cần ID của người dùng là đủ
-        nguoiDung.setMaND(maNguoiDung);
-
-        HoaDon hoaDon = new HoaDon(maHD, tenHoaDon, phuongThucMuaHang, donHang, nguoiDung, ngayTao);
+        HoaDon hoaDon = new HoaDon(maHD, tenHoaDon, phuongThucMuaHang, maDonHang, maNguoiDung, ngayTao);
         return hoaDon;
     }
 }

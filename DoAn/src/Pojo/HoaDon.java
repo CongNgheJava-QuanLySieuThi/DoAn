@@ -19,8 +19,8 @@ public class HoaDon implements Serializable {
     private Long maHD;
     private String tenHoaDon;
     private String phuongThucMuaHang;
-    private DonHang donHang;
-    private NguoiDung nguoiDung;
+    private Long maDonHang;
+    private Long maND;
     private LocalDateTime ngayTao;
 
     public HoaDon() {
@@ -30,14 +30,14 @@ public class HoaDon implements Serializable {
             Long maHD,
             String tenHoaDon,
             String phuongThucMuaHang,
-            DonHang donHang,
-            NguoiDung nguoiDung,
+            Long maDonHang,
+            Long maND,
             LocalDateTime ngayTao) {
         this.maHD = maHD;
         this.tenHoaDon = tenHoaDon;
         this.phuongThucMuaHang = phuongThucMuaHang;
-        this.donHang = donHang;
-        this.nguoiDung = nguoiDung;
+        this.maDonHang = maDonHang;
+        this.maND = maND;
         this.ngayTao = ngayTao;
     }
 
@@ -45,7 +45,7 @@ public class HoaDon implements Serializable {
         return maHD;
     }
 
-    public void setMaHoaDon(Long maHoaDon) {
+    public void setMaHoaDon(Long maHD) {
         this.maHD = maHD;
     }
 
@@ -65,20 +65,20 @@ public class HoaDon implements Serializable {
         this.phuongThucMuaHang = phuongThucMuaHang;
     }
 
-    public DonHang getDonHang() {
-        return donHang;
+    public Long getMaDonHang() {
+        return maDonHang;
     }
 
-    public void setDonHang(DonHang donHang) {
-        this.donHang = donHang;
+    public void setMaDonHang(Long maDonHang) {
+        this.maDonHang = maDonHang;
     }
 
-    public NguoiDung getNguoiDung() {
-        return nguoiDung;
+    public Long getMaNguoiDung() {
+        return maND;
     }
 
-    public void setNguoiDung(NguoiDung nguoiDung) {
-        this.nguoiDung = nguoiDung;
+    public void setMaNguoiDung(Long maND) {
+        this.maND = maND;
     }
 
     public LocalDateTime getNgayTao() {
@@ -89,46 +89,46 @@ public class HoaDon implements Serializable {
         this.ngayTao = ngayTao;
     }
 
-    @Override
-    public int hashCode() {
-        int hash = 5;
-        hash = 59 * hash + Objects.hashCode(this.maHD);
-        hash = 59 * hash + Objects.hashCode(this.tenHoaDon);
-        hash = 59 * hash + Objects.hashCode(this.phuongThucMuaHang);
-        hash = 59 * hash + Objects.hashCode(this.donHang);
-        hash = 59 * hash + Objects.hashCode(this.nguoiDung);
-        hash = 59 * hash + Objects.hashCode(this.ngayTao);
-        return hash;
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        final HoaDon other = (HoaDon) obj;
-        if (!Objects.equals(this.tenHoaDon, other.tenHoaDon)) {
-            return false;
-        }
-        if (!Objects.equals(this.phuongThucMuaHang, other.phuongThucMuaHang)) {
-            return false;
-        }
-        if (!Objects.equals(this.maHD, other.maHD)) {
-            return false;
-        }
-        if (!Objects.equals(this.donHang, other.donHang)) {
-            return false;
-        }
-        if (!Objects.equals(this.nguoiDung, other.nguoiDung)) {
-            return false;
-        }
-        return Objects.equals(this.ngayTao, other.ngayTao);
-    }
+//    @Override
+//    public int hashCode() {
+//        int hash = 5;
+//        hash = 59 * hash + Objects.hashCode(this.maHD);
+//        hash = 59 * hash + Objects.hashCode(this.tenHoaDon);
+//        hash = 59 * hash + Objects.hashCode(this.phuongThucMuaHang);
+//        hash = 59 * hash + Objects.hashCode(this.donHang);
+//        hash = 59 * hash + Objects.hashCode(this.nguoiDung);
+//        hash = 59 * hash + Objects.hashCode(this.ngayTao);
+//        return hash;
+//    }
+//
+//    @Override
+//    public boolean equals(Object obj) {
+//        if (this == obj) {
+//            return true;
+//        }
+//        if (obj == null) {
+//            return false;
+//        }
+//        if (getClass() != obj.getClass()) {
+//            return false;
+//        }
+//        final HoaDon other = (HoaDon) obj;
+//        if (!Objects.equals(this.tenHoaDon, other.tenHoaDon)) {
+//            return false;
+//        }
+//        if (!Objects.equals(this.phuongThucMuaHang, other.phuongThucMuaHang)) {
+//            return false;
+//        }
+//        if (!Objects.equals(this.maHD, other.maHD)) {
+//            return false;
+//        }
+//        if (!Objects.equals(this.donHang, other.donHang)) {
+//            return false;
+//        }
+//        if (!Objects.equals(this.nguoiDung, other.nguoiDung)) {
+//            return false;
+//        }
+//        return Objects.equals(this.ngayTao, other.ngayTao);
+//    }
 
 }

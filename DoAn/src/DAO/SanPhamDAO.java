@@ -1,8 +1,7 @@
-package dao;
+package DAO;
 
 import Pojo.SanPham;
 import Pojo.DanhMuc;
-import DAO.DanhMucDAO;
 import Pojo.SQLServerDataProvider;
 import java.math.BigDecimal;
 import java.sql.Connection;
@@ -34,7 +33,7 @@ public class SanPhamDAO {
             statement.setInt(7, sanPham.getSoLuongTonKho());
             statement.setObject(8, sanPham.getNgayTao());
             statement.setObject(9, sanPham.getNgayCapNhat());
-            statement.setLong(10, sanPham.getDanhMuc().getMaDanhMuc());
+            statement.setLong(10, sanPham.getMaDanhMuc());
             statement.executeUpdate();
         }
     }
@@ -53,7 +52,7 @@ public class SanPhamDAO {
             statement.setInt(7, sanPham.getSoLuongTonKho());
             statement.setObject(8, sanPham.getNgayTao());
             statement.setObject(9, sanPham.getNgayCapNhat());
-            statement.setLong(10, sanPham.getDanhMuc().getMaDanhMuc());
+            statement.setLong(10, sanPham.getMaDanhMuc());
             statement.setLong(11, sanPham.getMaSanPham());
             statement.executeUpdate();
         }
@@ -86,7 +85,7 @@ public class SanPhamDAO {
 
     // Lấy danh sách tất cả sản phẩm từ cơ sở dữ liệu
     public List<SanPham> getAllSanPham() throws SQLException {
-        List<SanPham> sanPhamList = new ArrayList<>();
+        ArrayList<SanPham> sanPhamList = new ArrayList<>();
         String query = "SELECT * FROM sanpham";
         try (Connection connection = dataProvider.getConnection();
              PreparedStatement statement = connection.prepareStatement(query);
@@ -108,15 +107,14 @@ public class SanPhamDAO {
         String hinhAnh = resultSet.getString("hinhanh");
         String tuKhoa = resultSet.getString("tukhoa");
         String moTa = resultSet.getString("mota");
-        Integer soLuoưngTonKho = resultSet.getInt("soluongtonkho");
+        Integer soLuongTonKho = resultSet.getInt("soluongtonkho");
         LocalDateTime ngayTao = resultSet.getObject("ngaytao", LocalDateTime.class);
         LocalDateTime ngayCapNhat = resultSet.getObject("ngaycapnhat", LocalDateTime.class);
         Long maDanhMuc = resultSet.getLong("madanhmuc");
         
         // Lấy danh mục từ mã danh mục
-        DanhMuc danhMuc = getDanhMucById(maDanhMuc);
         
-        return new SanPham(masp, tensp, gia, giamGia, hinhAnh, tuKhoa, moTa, soLuoưngTonKho, ngayTao, ngayCapNhat, danhMuc);
+        return new SanPham(masp, tensp, gia, giamGia, hinhAnh, tuKhoa, moTa, soLuongTonKho, ngayTao, ngayCapNhat, maDanhMuc);
     }
 
     // Phương thức hỗ trợ lấy danh mục từ mã danh mục
@@ -125,4 +123,20 @@ public class SanPhamDAO {
         DanhMucDAO danhMucDAO = new DanhMucDAO(dataProvider);
         return danhMucDAO.getDanhMucById(maDanhMuc);
     }
+    public List<SanPham> getSanPhamByDanhMucId(Long maDanhMuc) throws SQLException {
+        List<SanPham> sanPhamList = new ArrayList<>();
+        String query = "SELECT * FROM sanpham WHERE madanhmuc=?";
+        try (Connection connection = dataProvider.getConnection();
+             PreparedStatement statement = connection.prepareStatement(query)) {
+            statement.setLong(1, maDanhMuc);
+            try (ResultSet resultSet = statement.executeQuery()) {
+                while (resultSet.next()) {
+                    SanPham sanPham = extractSanPhamFromResultSet(resultSet);
+                    sanPhamList.add(sanPham);
+                }
+            }
+        }
+        return sanPhamList;
+    }
+
 }

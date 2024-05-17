@@ -38,8 +38,8 @@ public class MucDonHangDAO {
             statement.setInt(2, mucDonHang.getSoLuong());
             statement.setBigDecimal(3, mucDonHang.getGiaHienTai());
             statement.setBigDecimal(4, mucDonHang.getGiamGiaHienTai());
-            statement.setLong(5, mucDonHang.getDonHang().getMadonhang());
-            statement.setLong(6, mucDonHang.getSanPham().getMaSanPham());
+            statement.setLong(5, mucDonHang.getMaDonHang());
+            statement.setLong(6, mucDonHang.getMaSanPham());
             statement.executeUpdate();
         }
     }
@@ -52,8 +52,8 @@ public class MucDonHangDAO {
             statement.setInt(1, mucDonHang.getSoLuong());
             statement.setBigDecimal(2, mucDonHang.getGiaHienTai());
             statement.setBigDecimal(3, mucDonHang.getGiamGiaHienTai());
-            statement.setLong(4, mucDonHang.getDonHang().getMadonhang());
-            statement.setLong(5, mucDonHang.getSanPham().getMaSanPham());
+            statement.setLong(4, mucDonHang.getMaDonHang());
+            statement.setLong(5, mucDonHang.getMaSanPham());
             statement.setLong(6, mucDonHang.getMaMuc());
             statement.executeUpdate();
         }
@@ -109,14 +109,9 @@ public class MucDonHangDAO {
         long maSanPham = resultSet.getLong("maSanPham");
 
         // Lấy đối tượng DonHang từ cơ sở dữ liệu hoặc các thông tin liên quan
-        DonHang donHang = new DonHang(); // Chưa cần gán chi tiết, chỉ cần ID của đơn hàng là đủ
-        donHang.setMadonhang(maDonHang);
+        
 
-        // Lấy đối tượng SanPham từ cơ sở dữ liệu hoặc các thông tin liên quan
-        SanPham sanPham = new SanPham(); // Chưa cần gán chi tiết, chỉ cần ID của sản phẩm là đủ
-        sanPham.setMaSanPham(maSanPham);
-
-        MucDonHang mucDonHang = new MucDonHang(maMuc, soLuong, giaHienTai, giamGiaHienTai, donHang, sanPham);
+        MucDonHang mucDonHang = new MucDonHang(maMuc, soLuong, giaHienTai, giamGiaHienTai, maDonHang, maSanPham);
         return mucDonHang;
     }
 }

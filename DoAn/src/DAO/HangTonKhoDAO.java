@@ -30,7 +30,7 @@ public class HangTonKhoDAO {
             statement.setObject(3, hangTonKho.getNgayNhapHang());
             statement.setObject(4, hangTonKho.getNgayXuatHang());
             statement.setString(5, hangTonKho.getTrangThai());
-            statement.setLong(6, hangTonKho.getSanPham().getMaSanPham());
+            statement.setLong(6, hangTonKho.getMaSanPham());
             statement.executeUpdate();
         }
     }
@@ -44,7 +44,7 @@ public class HangTonKhoDAO {
             statement.setObject(2, hangTonKho.getNgayNhapHang());
             statement.setObject(3, hangTonKho.getNgayXuatHang());
             statement.setString(4, hangTonKho.getTrangThai());
-            statement.setLong(5, hangTonKho.getSanPham().getMaSanPham());
+            statement.setLong(5, hangTonKho.getMaSanPham());
             statement.setLong(6, hangTonKho.getMaHTK());
             statement.executeUpdate();
         }
@@ -100,11 +100,9 @@ public class HangTonKhoDAO {
 
         // Lấy thông tin sản phẩm từ cơ sở dữ liệu hoặc các thông tin liên quan
         long maSanPham = resultSet.getLong("maSanPham");
-        // Tạo đối tượng SanPham để gán cho HangTonKho
-        SanPham sanPham = new SanPham(); // Chưa cần gán chi tiết, chỉ cần ID của sản phẩm là đủ
-        sanPham.setMaSanPham(maSanPham);
+        
 
-        HangTonKho hangTonKho = new HangTonKho(maHTK, soLuongTrongKho, ngayNhapHang, ngayXuatHang, trangThai, sanPham);
+        HangTonKho hangTonKho = new HangTonKho(maHTK, soLuongTrongKho, ngayNhapHang, ngayXuatHang, trangThai, maSanPham);
         return hangTonKho;
     }
 }

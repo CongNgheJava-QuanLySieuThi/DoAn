@@ -16,7 +16,6 @@ public class DanhMucDAO {
     public DanhMucDAO(SQLServerDataProvider dataProvider) {
         this.dataProvider = dataProvider;
     }
-
     // Thêm danh mục vào cơ sở dữ liệu
     public void addDanhMuc(DanhMuc danhMuc) throws SQLException {
         String query = "INSERT INTO DanhMuc (maDanhMuc, tenDanhMuc, ngayTao) VALUES (?, ?, ?)";
@@ -87,5 +86,18 @@ public class DanhMucDAO {
         String tenDanhMuc = resultSet.getString("tenDanhMuc");
         LocalDateTime ngayTao = resultSet.getObject("ngayTao", LocalDateTime.class);
         return new DanhMuc(maDanhMuc, tenDanhMuc, ngayTao);
+    }
+    public DanhMuc getDanhMucByTenDanhMuc(String tenDanhMuc) throws SQLException {
+        String query = "SELECT * FROM DanhMuc WHERE tenDanhMuc=?";
+        try (Connection connection = dataProvider.getConnection();
+             PreparedStatement statement = connection.prepareStatement(query)) {
+            statement.setString(1, tenDanhMuc);
+            try (ResultSet resultSet = statement.executeQuery()) {
+                if (resultSet.next()) {
+                    return extractDanhMucFromResultSet(resultSet);
+                }
+            }
+        }
+        return null;
     }
 }

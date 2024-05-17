@@ -10,10 +10,9 @@ package DAO;
  * @author Nguyễn Kế Bảo
  */
 import Pojo.DonHang;
-import Pojo.NguoiDung;
+
 import Pojo.SQLServerDataProvider;
 import java.math.BigDecimal;
-import DAO.NguoiDungDAO;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -38,7 +37,7 @@ public class DonHangDAO {
             statement.setBigDecimal(3, donHang.getTongtien());
             statement.setBigDecimal(4, donHang.getTonggiamgia());
             statement.setObject(5, donHang.getNgaytao());
-            statement.setLong(6, donHang.getNguoiDung().getMaND()); // Assuming maNguoiDung is the foreign key in DonHang table
+            statement.setLong(6, donHang.getMaNguoiDung()); // Assuming maNguoiDung is the foreign key in DonHang table
             statement.executeUpdate();
         }
     }
@@ -52,7 +51,7 @@ public class DonHangDAO {
             statement.setBigDecimal(2, donHang.getTongtien());
             statement.setBigDecimal(3, donHang.getTonggiamgia());
             statement.setObject(4, donHang.getNgaytao());
-            statement.setLong(5, donHang.getNguoiDung().getMaND());
+            statement.setLong(5, donHang.getMaNguoiDung());
             statement.setLong(6, donHang.getMadonhang());
             statement.executeUpdate();
         }
@@ -107,10 +106,8 @@ public class DonHangDAO {
         LocalDateTime ngaytao = resultSet.getObject("ngaytao", LocalDateTime.class);
         Long maNguoiDung = resultSet.getLong("maNguoiDung");
 
-        // Lấy thông tin người dùng từ cơ sở dữ liệu
-        NguoiDungDAO nguoiDungDAO = new NguoiDungDAO(dataProvider);
-        NguoiDung nguoiDung = nguoiDungDAO.getNguoiDungById(maNguoiDung);
+        
 
-        return new DonHang(madonhang, tendonhang, tongtien, tonggiamgia, ngaytao, nguoiDung);
+        return new DonHang(madonhang, tendonhang, tongtien, tonggiamgia, ngaytao, maNguoiDung);
     }
 }

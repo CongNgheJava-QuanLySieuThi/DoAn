@@ -6,7 +6,6 @@ package Pojo;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.util.Objects;
 
 /**
  *
@@ -20,8 +19,8 @@ public class MucDonHang implements Serializable {
     private Integer soLuong;
     private BigDecimal giaHienTai;
     private BigDecimal giamGiaHienTai;
-    private DonHang donHang;
-    private SanPham sanPham;
+    private Long maDonHang;
+    private Long maSanPham;
 
     public MucDonHang() {
     }
@@ -31,14 +30,14 @@ public class MucDonHang implements Serializable {
             Integer soLuong,
             BigDecimal giaHienTai,
             BigDecimal giamGiaHienTai,
-            DonHang donHang,
-            SanPham sanPham) {
+            Long maDonHang,
+            Long maSanPham) {
         this.maMuc = maMuc;
         this.soLuong = soLuong;
         this.giaHienTai = giaHienTai;
         this.giamGiaHienTai = giamGiaHienTai;
-        this.donHang = donHang;
-        this.sanPham = sanPham;
+        this.maDonHang = maDonHang;
+        this.maSanPham = maSanPham;
     }
 
     public Long getMaMuc() {
@@ -73,62 +72,62 @@ public class MucDonHang implements Serializable {
         this.giamGiaHienTai = giamGiaHienTai;
     }
 
-    public DonHang getDonHang() {
-        return donHang;
+    public Long getMaDonHang() {
+        return maDonHang;
     }
 
-    public void setDonHang(DonHang donHang) {
-        this.donHang = donHang;
+    public void setMaDonHang(Long maDonHang) {
+        this.maDonHang = maDonHang;
     }
 
-    public SanPham getSanPham() {
-        return sanPham;
+    public Long getMaSanPham() {
+        return maSanPham;
     }
 
-    public void setSanPham(SanPham sanPham) {
-        this.sanPham = sanPham;
+    public void setSanPham(Long maSanPham) {
+        this.maSanPham = maSanPham;
     }
 
-    @Override
-    public int hashCode() {
-        int hash = 7;
-        hash = 43 * hash + Objects.hashCode(this.maMuc);
-        hash = 43 * hash + Objects.hashCode(this.soLuong);
-        hash = 43 * hash + Objects.hashCode(this.giaHienTai);
-        hash = 43 * hash + Objects.hashCode(this.giamGiaHienTai);
-        hash = 43 * hash + Objects.hashCode(this.donHang);
-        hash = 43 * hash + Objects.hashCode(this.sanPham);
-        return hash;
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        final MucDonHang other = (MucDonHang) obj;
-        if (!Objects.equals(this.maMuc, other.maMuc)) {
-            return false;
-        }
-        if (!Objects.equals(this.soLuong, other.soLuong)) {
-            return false;
-        }
-        if (!Objects.equals(this.giaHienTai, other.giaHienTai)) {
-            return false;
-        }
-        if (!Objects.equals(this.giamGiaHienTai, other.giamGiaHienTai)) {
-            return false;
-        }
-        if (!Objects.equals(this.donHang, other.donHang)) {
-            return false;
-        }
-        return Objects.equals(this.sanPham, other.sanPham);
-    }
+//    @Override
+//    public int hashCode() {
+//        int hash = 7;
+//        hash = 43 * hash + Objects.hashCode(this.maMuc);
+//        hash = 43 * hash + Objects.hashCode(this.soLuong);
+//        hash = 43 * hash + Objects.hashCode(this.giaHienTai);
+//        hash = 43 * hash + Objects.hashCode(this.giamGiaHienTai);
+//        hash = 43 * hash + Objects.hashCode(this.donHang);
+//        hash = 43 * hash + Objects.hashCode(this.sanPham);
+//        return hash;
+//    }
+//
+//    @Override
+//    public boolean equals(Object obj) {
+//        if (this == obj) {
+//            return true;
+//        }
+//        if (obj == null) {
+//            return false;
+//        }
+//        if (getClass() != obj.getClass()) {
+//            return false;
+//        }
+//        final MucDonHang other = (MucDonHang) obj;
+//        if (!Objects.equals(this.maMuc, other.maMuc)) {
+//            return false;
+//        }
+//        if (!Objects.equals(this.soLuong, other.soLuong)) {
+//            return false;
+//        }
+//        if (!Objects.equals(this.giaHienTai, other.giaHienTai)) {
+//            return false;
+//        }
+//        if (!Objects.equals(this.giamGiaHienTai, other.giamGiaHienTai)) {
+//            return false;
+//        }
+//        if (!Objects.equals(this.donHang, other.donHang)) {
+//            return false;
+//        }
+//        return Objects.equals(this.sanPham, other.sanPham);
+//    }
 
 }

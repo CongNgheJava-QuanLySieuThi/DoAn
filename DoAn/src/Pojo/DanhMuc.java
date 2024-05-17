@@ -7,15 +7,12 @@ package Pojo;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
-import java.util.Objects;
 
 /**
  *
  * @author Phi_Vu
  */
 public class DanhMuc implements Serializable {
-
-    private static final long serialVersionUID = 1L;
 
     private Long maDanhMuc;
 
@@ -56,34 +53,34 @@ public class DanhMuc implements Serializable {
         this.ngayTao = ngayTao;
     }
 
-    @Override
-    public int hashCode() {
-        int hash = 7;
-        hash = 59 * hash + Objects.hashCode(this.maDanhMuc);
-        hash = 59 * hash + Objects.hashCode(this.tenDanhMuc);
-        hash = 59 * hash + Objects.hashCode(this.ngayTao);
-        return hash;
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        final DanhMuc other = (DanhMuc) obj;
-        if (!Objects.equals(this.tenDanhMuc, other.tenDanhMuc)) {
-            return false;
-        }
-        if (!Objects.equals(this.maDanhMuc, other.maDanhMuc)) {
-            return false;
-        }
-        return Objects.equals(this.ngayTao, other.ngayTao);
-    }
+//    @Override
+//    public int hashCode() {
+//        int hash = 7;
+//        hash = 59 * hash + Objects.hashCode(this.maDanhMuc);
+//        hash = 59 * hash + Objects.hashCode(this.tenDanhMuc);
+//        hash = 59 * hash + Objects.hashCode(this.ngayTao);
+//        return hash;
+//    }
+//
+//    @Override
+//    public boolean equals(Object obj) {
+//        if (this == obj) {
+//            return true;
+//        }
+//        if (obj == null) {
+//            return false;
+//        }
+//        if (getClass() != obj.getClass()) {
+//            return false;
+//        }
+//        final DanhMuc other = (DanhMuc) obj;
+//        if (!Objects.equals(this.tenDanhMuc, other.tenDanhMuc)) {
+//            return false;
+//        }
+//        if (!Objects.equals(this.maDanhMuc, other.maDanhMuc)) {
+//            return false;
+//        }
+//        return Objects.equals(this.ngayTao, other.ngayTao);
+//    }
 
 }
