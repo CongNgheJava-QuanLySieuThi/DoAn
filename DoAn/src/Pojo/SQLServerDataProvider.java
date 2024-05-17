@@ -11,7 +11,7 @@ public class SQLServerDataProvider {
 
     // Phương thức mở kết nối tới cơ sở dữ liệu
     public void open() {
-        String strServer = "LAPTOP-GSL3DJO2";
+        String strServer = "NARIZMUSIC\\CHOCOPRO";
         String strDatabase = "QL_BH";
         try {
             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");

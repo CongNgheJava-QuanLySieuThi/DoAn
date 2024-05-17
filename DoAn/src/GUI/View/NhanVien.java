@@ -16,12 +16,12 @@ import javax.swing.JOptionPane;
  *
  * @author Admin
  */
-public class MainPage extends javax.swing.JFrame {
+public class NhanVien extends javax.swing.JFrame {
 
     /**
      * Creates new form MainPage
      */
-    public MainPage() {
+    public NhanVien() {
         initComponents();
         
         
@@ -73,10 +73,10 @@ public class MainPage extends javax.swing.JFrame {
         jpnMucDonHang = new javax.swing.JPanel();
         jlbMucDonHang = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
+        jLabel2 = new javax.swing.JLabel();
         jpnView = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(1920, 1080));
 
         jpnRoot.setPreferredSize(new java.awt.Dimension(1920, 1080));
 
@@ -274,6 +274,8 @@ public class MainPage extends javax.swing.JFrame {
             }
         });
 
+        jLabel2.setText("NhanVien");
+
         javax.swing.GroupLayout jpnMenuLayout = new javax.swing.GroupLayout(jpnMenu);
         jpnMenu.setLayout(jpnMenuLayout);
         jpnMenuLayout.setHorizontalGroup(
@@ -294,6 +296,10 @@ public class MainPage extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(jButton1)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpnMenuLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel2)
+                .addGap(88, 88, 88))
         );
         jpnMenuLayout.setVerticalGroup(
             jpnMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -313,7 +319,9 @@ public class MainPage extends javax.swing.JFrame {
                 .addComponent(jpnUser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jpnMucDonHang, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 93, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 76, Short.MAX_VALUE)
+                .addComponent(jLabel2)
+                .addGap(1, 1, 1)
                 .addComponent(jButton1)
                 .addContainerGap())
         );
@@ -384,6 +392,7 @@ public class MainPage extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JLabel jlbDonHang;
     private javax.swing.JLabel jlbHangTonKho;
