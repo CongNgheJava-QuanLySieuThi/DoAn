@@ -6,17 +6,16 @@
 package GUI.View;
 
 
+
 import DAO.DanhMucDAO;
-import Pojo.DanhMuc;
 import Pojo.SQLServerDataProvider;
 import Pojo.SanPham;
 import DAO.SanPhamDAO;
-import java.sql.SQLException;
+import Pojo.DanhMuc;
+
 import java.util.ArrayList;
-import java.util.List;
+
 import java.util.Vector;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.DefaultListModel;
 import javax.swing.table.DefaultTableModel;
 
@@ -36,19 +35,27 @@ public class FormKhachHang extends javax.swing.JFrame {
     }
 
     private void loadData() {
-        DanhMucDAO danhMucDAO = new DanhMucDAO(dataProvider); 
-        // Khởi tạo DanhMucDAO
-        try {
-            List<DanhMuc> danhMucList = danhMucDAO.getAllDanhMuc(); // Lấy danh sách các danh mục
-            DefaultListModel<String> listModel = new DefaultListModel<>();
-            danhMucList.forEach((danhMuc) -> {
-                listModel.addElement(danhMuc.getTenDanhMuc()); // Thêm tên của từng danh mục vào listModel
-            });
-            listDanhMuc.setModel(listModel); // Hiển thị danh sách danh mục trong listDanhMuc
-        } catch (SQLException ex) {
-            // Xử lý ngoại lệ khi có lỗi xảy ra trong quá trình lấy dữ liệu từ cơ sở dữ liệu
-        }
         
+        ArrayList<DanhMuc> danhMucList = DanhMucDAO.layDanhSachDanhMuc();
+        DefaultListModel<String> listModel = new DefaultListModel<>();
+        for (DanhMuc danhMuc : danhMucList) {
+            listModel.addElement(danhMuc.getTenDanhMuc()); // Thêm tên của từng danh mục vào listModel
+        }
+        listDanhMuc.setModel(listModel); // Hiển thị danh sách danh mục trong listDanhMuc
+        
+        ArrayList<SanPham> dsSanPham = SanPhamDAO.layDanhSachSanPham();
+        DefaultTableModel dtmSanPham = (DefaultTableModel)tblDanhSachMatHang.getModel();
+        dtmSanPham.setRowCount(0);
+        for(SanPham sp:dsSanPham)
+        {
+            Vector<Object> vec = new Vector<Object>();
+            vec.add(sp.getTenSanPham());
+            vec.add(sp.getGia());
+            vec.add(sp.getHinhAnh());
+            vec.add(sp.getMoTa());
+            dtmSanPham.addRow(vec);
+        }
+        tblDanhSachMatHang.setModel(dtmSanPham);
 
     }
     /**
@@ -67,7 +74,7 @@ public class FormKhachHang extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jtbDanhSachMatHang = new javax.swing.JTable();
+        tblDanhSachMatHang = new javax.swing.JTable();
         jPanel4 = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
         jPanel5 = new javax.swing.JPanel();
@@ -128,7 +135,7 @@ public class FormKhachHang extends javax.swing.JFrame {
 
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "DANH SÁCH MẶT HÀNG", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 0, 14))); // NOI18N
 
-        jtbDanhSachMatHang.setModel(new javax.swing.table.DefaultTableModel(
+        tblDanhSachMatHang.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -147,12 +154,12 @@ public class FormKhachHang extends javax.swing.JFrame {
                 return types [columnIndex];
             }
         });
-        jScrollPane2.setViewportView(jtbDanhSachMatHang);
-        if (jtbDanhSachMatHang.getColumnModel().getColumnCount() > 0) {
-            jtbDanhSachMatHang.getColumnModel().getColumn(0).setResizable(false);
-            jtbDanhSachMatHang.getColumnModel().getColumn(1).setResizable(false);
-            jtbDanhSachMatHang.getColumnModel().getColumn(2).setResizable(false);
-            jtbDanhSachMatHang.getColumnModel().getColumn(3).setResizable(false);
+        jScrollPane2.setViewportView(tblDanhSachMatHang);
+        if (tblDanhSachMatHang.getColumnModel().getColumnCount() > 0) {
+            tblDanhSachMatHang.getColumnModel().getColumn(0).setResizable(false);
+            tblDanhSachMatHang.getColumnModel().getColumn(1).setResizable(false);
+            tblDanhSachMatHang.getColumnModel().getColumn(2).setResizable(false);
+            tblDanhSachMatHang.getColumnModel().getColumn(3).setResizable(false);
         }
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
@@ -313,7 +320,7 @@ public class FormKhachHang extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTable jTable1;
-    private javax.swing.JTable jtbDanhSachMatHang;
     private javax.swing.JList<String> listDanhMuc;
+    private javax.swing.JTable tblDanhSachMatHang;
     // End of variables declaration//GEN-END:variables
 }

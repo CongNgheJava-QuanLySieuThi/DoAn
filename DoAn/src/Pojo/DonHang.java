@@ -82,48 +82,4 @@ public class DonHang implements Serializable {
     public void setMaNguoiDung(Long maND) {
         this.maND = maND;
     }
-
-//    @Override
-//    public int hashCode() {
-//        int hash = 7;
-//        hash = 53 * hash + Objects.hashCode(this.madonhang);
-//        hash = 53 * hash + Objects.hashCode(this.tendonhang);
-//        hash = 53 * hash + Objects.hashCode(this.tongtien);
-//        hash = 53 * hash + Objects.hashCode(this.tonggiamgia);
-//        hash = 53 * hash + Objects.hashCode(this.ngaytao);
-//        hash = 53 * hash + Objects.hashCode(this.nguoiDung);
-//        return hash;
-//    }
-//
-//    @Override
-//    public boolean equals(Object obj) {
-//        if (this == obj) {
-//            return true;
-//        }
-//        if (obj == null) {
-//            return false;
-//        }
-//        if (getClass() != obj.getClass()) {
-//            return false;
-//        }
-//        final DonHang other = (DonHang) obj;
-//        if (!Objects.equals(this.tendonhang, other.tendonhang)) {
-//            return false;
-//        }
-//        if (!Objects.equals(this.madonhang, other.madonhang)) {
-//            return false;
-//        }
-//        if (!Objects.equals(this.tongtien, other.tongtien)) {
-//            return false;
-//        }
-//        if (!Objects.equals(this.tonggiamgia, other.tonggiamgia)) {
-//            return false;
-//        }
-//        if (!Objects.equals(this.ngaytao, other.ngaytao)) {
-//            return false;
-//        }
-//        return Objects.equals(this.nguoiDung, other.nguoiDung);
-//    }
-
-    
 }

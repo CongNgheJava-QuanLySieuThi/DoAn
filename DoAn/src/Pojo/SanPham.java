@@ -122,7 +122,7 @@ public class SanPham implements Serializable {
         return soLuongTonKho;
     }
 
-    public void getSoLuongTonKho(Integer soLuongTonKho) {
+    public void setSoLuongTonKho(Integer soLuongTonKho) {
         this.soLuongTonKho = soLuongTonKho;
     }
 
@@ -149,66 +149,4 @@ public class SanPham implements Serializable {
     public void setMaDanhMuc(Long maDanhMuc) {
         this.maDanhMuc = maDanhMuc;
     }
-
-//    @Override
-//    public int hashCode() {
-//        int hash = 7;
-//        hash = 31 * hash + Objects.hashCode(this.maSP);
-//        hash = 31 * hash + Objects.hashCode(this.tenSP);
-//        hash = 31 * hash + Objects.hashCode(this.gia);
-//        hash = 31 * hash + Objects.hashCode(this.giamGia);
-//        hash = 31 * hash + Objects.hashCode(this.hinhAnh);
-//        hash = 31 * hash + Objects.hashCode(this.tuKhoa);
-//        hash = 31 * hash + Objects.hashCode(this.moTa);
-//        hash = 31 * hash + Objects.hashCode(this.soLuongTonKho);
-//        hash = 31 * hash + Objects.hashCode(this.ngayTao);
-//        hash = 31 * hash + Objects.hashCode(this.ngayCapNhat);
-//        hash = 31 * hash + Objects.hashCode(this.danhMuc);
-//        return hash;
-//}
-//
-//    @Override
-//    public boolean equals(Object obj) {
-//        if (this == obj) {
-//            return true;
-//        }
-//        if (obj == null) {
-//            return false;
-//        }
-//        if (getClass() != obj.getClass()) {
-//            return false;
-//        }
-//        final SanPham other = (SanPham) obj;
-//        if (!Objects.equals(this.tenSP, other.tenSP)) {
-//            return false;
-//        }
-//        if (!Objects.equals(this.hinhAnh, other.hinhAnh)) {
-//            return false;
-//        }
-//        if (!Objects.equals(this.tuKhoa, other.tuKhoa)) {
-//            return false;
-//        }
-//        if (!Objects.equals(this.moTa, other.moTa)) {
-//            return false;
-//        }
-//        if (!Objects.equals(this.maSP, other.maSP)) {
-//            return false;
-//        }
-//        if (!Objects.equals(this.gia, other.gia)) {
-//            return false;
-//        }
-//        if (!Objects.equals(this.giamGia, other.giamGia)) {
-//            return false;
-//        }
-//        if (!Objects.equals(this.soLuongTonKho, other.soLuongTonKho)) {
-//            return false;
-//        }
-//        if (!Objects.equals(this.ngayTao, other.ngayTao)) {
-//            return false;
-//        }
-//        if (!Objects.equals(this.ngayCapNhat, other.ngayCapNhat)) {
-//            return false;
-//        }
-//        return Objects.equals(this.danhMuc, other.danhMuc);
-//    }
 }

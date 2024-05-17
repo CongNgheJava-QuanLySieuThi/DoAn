@@ -87,46 +87,4 @@ public class HangTonKho implements Serializable {
     public void setMaSanPham(Long maSP) {
         this.maSP = maSP;
     }
-
-//    @Override
-//    public int hashCode() {
-//        int hash = 3;
-//        hash = 89 * hash + Objects.hashCode(this.maHTK);
-//        hash = 89 * hash + Objects.hashCode(this.soLuongTrongKho);
-//        hash = 89 * hash + Objects.hashCode(this.ngayNhapHang);
-//        hash = 89 * hash + Objects.hashCode(this.ngayXuatHang);
-//        hash = 89 * hash + Objects.hashCode(this.trangThai);
-//        hash = 89 * hash + Objects.hashCode(this.sanPham);
-//        return hash;
-//    }
-//
-//    @Override
-//    public boolean equals(Object obj) {
-//        if (this == obj) {
-//            return true;
-//        }
-//        if (obj == null) {
-//            return false;
-//        }
-//        if (getClass() != obj.getClass()) {
-//            return false;
-//        }
-//        final HangTonKho other = (HangTonKho) obj;
-//        if (!Objects.equals(this.trangThai, other.trangThai)) {
-//            return false;
-//        }
-//        if (!Objects.equals(this.maHTK, other.maHTK)) {
-//            return false;
-//        }
-//        if (!Objects.equals(this.soLuongTrongKho, other.soLuongTrongKho)) {
-//            return false;
-//        }
-//        if (!Objects.equals(this.ngayNhapHang, other.ngayNhapHang)) {
-//            return false;
-//        }
-//        if (!Objects.equals(this.ngayXuatHang, other.ngayXuatHang)) {
-//            return false;
-//        }
-//        return Objects.equals(this.sanPham, other.sanPham);
-//    }
 }

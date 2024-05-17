@@ -1,113 +1,89 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package DAO;
-
-/**
- *
- * @author Nguyễn Kế Bảo
- */
-import Pojo.DonHang;
-
-import Pojo.SQLServerDataProvider;
-import java.math.BigDecimal;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.List;
+import Pojo.DonHang;
+import Pojo.SQLServerDataProvider;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class DonHangDAO {
-    private SQLServerDataProvider dataProvider;
-
-    public DonHangDAO(SQLServerDataProvider dataProvider) {
-        this.dataProvider = dataProvider;
-    }
-    // Thêm đơn hàng vào cơ sở dữ liệu
-    public void addDonHang(DonHang donHang) throws SQLException {
-        String query = "INSERT INTO DonHang (madonhang, tendonhang, tongtien, tonggiamgia, ngaytao, maNguoiDung) VALUES (?, ?, ?, ?, ?, ?)";
-        try (Connection connection = dataProvider.getConnection();
-             PreparedStatement statement = connection.prepareStatement(query)) {
-            statement.setLong(1, donHang.getMadonhang());
-            statement.setString(2, donHang.getTendonhang());
-            statement.setBigDecimal(3, donHang.getTongtien());
-            statement.setBigDecimal(4, donHang.getTonggiamgia());
-            statement.setObject(5, donHang.getNgaytao());
-            statement.setLong(6, donHang.getMaNguoiDung()); // Assuming maNguoiDung is the foreign key in DonHang table
-            statement.executeUpdate();
-        }
-    }
-
-    // Cập nhật thông tin đơn hàng trong cơ sở dữ liệu
-    public void updateDonHang(DonHang donHang) throws SQLException {
-        String query = "UPDATE DonHang SET tendonhang=?, tongtien=?, tonggiamgia=?, ngaytao=?, maNguoiDung=? WHERE madonhang=?";
-        try (Connection connection = dataProvider.getConnection();
-             PreparedStatement statement = connection.prepareStatement(query)) {
-            statement.setString(1, donHang.getTendonhang());
-            statement.setBigDecimal(2, donHang.getTongtien());
-            statement.setBigDecimal(3, donHang.getTonggiamgia());
-            statement.setObject(4, donHang.getNgaytao());
-            statement.setLong(5, donHang.getMaNguoiDung());
-            statement.setLong(6, donHang.getMadonhang());
-            statement.executeUpdate();
-        }
-    }
-
-    // Xóa đơn hàng từ cơ sở dữ liệu
-    public void deleteDonHang(Long madonhang) throws SQLException {
-        String query = "DELETE FROM DonHang WHERE madonhang=?";
-        try (Connection connection = dataProvider.getConnection();
-             PreparedStatement statement = connection.prepareStatement(query)) {
-            statement.setLong(1, madonhang);
-            statement.executeUpdate();
-        }
-    }
-
-    // Lấy thông tin của một đơn hàng dựa trên mã đơn hàng
-    public DonHang getDonHangById(Long madonhang) throws SQLException {
-        String query = "SELECT * FROM DonHang WHERE madonhang=?";
-        try (Connection connection = dataProvider.getConnection();
-             PreparedStatement statement = connection.prepareStatement(query)) {
-            statement.setLong(1, madonhang);
-            try (ResultSet resultSet = statement.executeQuery()) {
-                if (resultSet.next()) {
-                    return extractDonHangFromResultSet(resultSet);
-                }
+    public static ArrayList<DonHang> layDanhSachDonHang() {
+        ArrayList<DonHang> dsDonHang = new ArrayList<>();
+        try {
+            String sql = "SELECT * FROM DonHang";
+            SQLServerDataProvider provider = new SQLServerDataProvider();
+            provider.open();
+            ResultSet rs = provider.executeQuery(sql);
+            while(rs.next()) {
+                DonHang dh = new DonHang();
+                dh.setMadonhang(rs.getLong("Madonhang"));
+                dh.setTendonhang(rs.getString("Tendonhang"));
+                dh.setTongtien(rs.getBigDecimal("Tongtien"));
+                dh.setTonggiamgia(rs.getBigDecimal("Tonggiamgia"));
+                dh.setNgaytao(rs.getTimestamp("Ngaytao").toLocalDateTime());
+                dh.setMaNguoiDung(rs.getLong("MaND"));
+                dsDonHang.add(dh);
             }
+            provider.close();
+        } catch(SQLException ex) {
         }
-        return null;
+        return dsDonHang;
     }
 
-    // Lấy danh sách tất cả đơn hàng từ cơ sở dữ liệu
-    public List<DonHang> getAllDonHang() throws SQLException {
-        List<DonHang> donHangList = new ArrayList<>();
-        String query = "SELECT * FROM DonHang";
-        try (Connection connection = dataProvider.getConnection();
-             PreparedStatement statement = connection.prepareStatement(query);
-             ResultSet resultSet = statement.executeQuery()) {
-            while (resultSet.next()) {
-                DonHang donHang = extractDonHangFromResultSet(resultSet);
-                donHangList.add(donHang);
+    public static boolean themDonHang(DonHang dh) {
+        try {
+            boolean kq = false;
+            String sql = String.format("INSERT INTO DonHang (Tendonhang, Tongtien, Tonggiamgia, Ngaytao, MaND) VALUES ('%s', %f, %f, '%s', %d)",
+                    dh.getTendonhang(), dh.getTongtien(), dh.getTonggiamgia(), dh.getNgaytao(), dh.getMaNguoiDung());
+            SQLServerDataProvider provider = new SQLServerDataProvider();
+            provider.open();
+            int n = provider.executeUpdate(sql);
+            if (n == 1) {
+                kq = true;
             }
+            provider.close();
+            return kq;
+        } catch (SQLException ex) {
+            Logger.getLogger(DonHangDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return donHangList;
+        return false;
     }
 
-    // Phương thức hỗ trợ trích xuất thông tin đơn hàng từ ResultSet
-    private DonHang extractDonHangFromResultSet(ResultSet resultSet) throws SQLException {
-        Long madonhang = resultSet.getLong("madonhang");
-        String tendonhang = resultSet.getString("tendonhang");
-        BigDecimal tongtien = resultSet.getBigDecimal("tongtien");
-        BigDecimal tonggiamgia = resultSet.getBigDecimal("tonggiamgia");
-        LocalDateTime ngaytao = resultSet.getObject("ngaytao", LocalDateTime.class);
-        Long maNguoiDung = resultSet.getLong("maNguoiDung");
+    public static boolean xoaDonHang(Long maDonHang) {
+        try {
+            boolean kq = false;
+            String sql = String.format("DELETE FROM DonHang WHERE Madonhang='%d'", maDonHang);
+            SQLServerDataProvider provider = new SQLServerDataProvider();
+            provider.open();
+            int n = provider.executeUpdate(sql);
+            if (n == 1) {
+                kq = true;
+            }
+            provider.close();
+            return kq;
+        } catch (SQLException ex) {
+            Logger.getLogger(DonHangDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return false;
+    }
 
-        
-
-        return new DonHang(madonhang, tendonhang, tongtien, tonggiamgia, ngaytao, maNguoiDung);
+    public static boolean capNhatDonHang(DonHang dh) {
+        try {
+            boolean kq = false;
+            String sql = String.format("UPDATE DonHang SET Tendonhang = '%s', Tongtien = %f, Tonggiamgia = %f, Ngaytao = '%s', MaND = %d WHERE Madonhang= %d",
+                    dh.getTendonhang(), dh.getTongtien(), dh.getTonggiamgia(), dh.getNgaytao(), dh.getMaNguoiDung(), dh.getMadonhang());
+            SQLServerDataProvider provider = new SQLServerDataProvider();
+            provider.open();
+            int n = provider.executeUpdate(sql);
+            if (n == 1) {
+                kq = true;
+            }
+            provider.close();
+            return kq;
+        } catch (SQLException ex) {
+            Logger.getLogger(DonHangDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return false;
     }
 }

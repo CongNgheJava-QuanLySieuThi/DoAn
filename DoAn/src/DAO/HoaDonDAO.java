@@ -1,117 +1,90 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package DAO;
 
-/**
- *
- * @author Nguyễn Kế Bảo
- */
-import Pojo.HoaDon;
-import Pojo.DonHang;
-import Pojo.NguoiDung;
-import Pojo.SQLServerDataProvider;
-
-import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
+import Pojo.HoaDon;
+import Pojo.SQLServerDataProvider;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class HoaDonDAO {
-    private SQLServerDataProvider dataProvider;
-
-    public HoaDonDAO(SQLServerDataProvider dataProvider) {
-        this.dataProvider = dataProvider;
-    }
-
-    // Thêm hóa đơn vào cơ sở dữ liệu
-    public void addHoaDon(HoaDon hoaDon) throws SQLException {
-        String query = "INSERT INTO HoaDon (maHD, tenHoaDon, phuongThucMuaHang, maDonHang, maNguoiDung, ngayTao) VALUES (?, ?, ?, ?, ?, ?)";
-        try (Connection connection = dataProvider.getConnection();
-             PreparedStatement statement = connection.prepareStatement(query)) {
-            statement.setLong(1, hoaDon.getMaHoaDon());
-            statement.setString(2, hoaDon.getTenHoaDon());
-            statement.setString(3, hoaDon.getPhuongThucMuaHang());
-            statement.setLong(4, hoaDon.getMaDonHang());
-            statement.setLong(5, hoaDon.getMaNguoiDung());
-            statement.setObject(6, hoaDon.getNgayTao());
-            statement.executeUpdate();
-        }
-    }
-
-    // Cập nhật thông tin hóa đơn trong cơ sở dữ liệu
-    public void updateHoaDon(HoaDon hoaDon) throws SQLException {
-        String query = "UPDATE HoaDon SET tenHoaDon=?, phuongThucMuaHang=?, maDonHang=?, maNguoiDung=?, ngayTao=? WHERE maHD=?";
-        try (Connection connection = dataProvider.getConnection();
-             PreparedStatement statement = connection.prepareStatement(query)) {
-            statement.setString(1, hoaDon.getTenHoaDon());
-            statement.setString(2, hoaDon.getPhuongThucMuaHang());
-            statement.setLong(3, hoaDon.getMaDonHang());
-            statement.setLong(4, hoaDon.getMaNguoiDung());
-            statement.setObject(5, hoaDon.getNgayTao());
-            statement.setLong(6, hoaDon.getMaHoaDon());
-            statement.executeUpdate();
-        }
-    }
-
-    // Xóa hóa đơn từ cơ sở dữ liệu
-    public void deleteHoaDon(long maHoaDon) throws SQLException {
-        String query = "DELETE FROM HoaDon WHERE maHD=?";
-        try (Connection connection = dataProvider.getConnection();
-             PreparedStatement statement = connection.prepareStatement(query)) {
-            statement.setLong(1, maHoaDon);
-            statement.executeUpdate();
-        }
-    }
-
-    // Lấy thông tin của một hóa đơn dựa trên mã hóa đơn
-    public HoaDon getHoaDonById(long maHoaDon) throws SQLException {
-        String query = "SELECT * FROM HoaDon WHERE maHD=?";
-        try (Connection connection = dataProvider.getConnection();
-             PreparedStatement statement = connection.prepareStatement(query)) {
-            statement.setLong(1, maHoaDon);
-            try (ResultSet resultSet = statement.executeQuery()) {
-                if (resultSet.next()) {
-                    return extractHoaDonFromResultSet(resultSet);
-                }
+    public static ArrayList<HoaDon> layDanhSachHoaDon() {
+        ArrayList<HoaDon> dsHoaDon = new ArrayList<>();
+        try {
+            String sql = "SELECT * FROM HoaDon";
+            SQLServerDataProvider provider = new SQLServerDataProvider();
+            provider.open();
+            ResultSet rs = provider.executeQuery(sql);
+            while(rs.next()) {
+                HoaDon hd = new HoaDon();
+                hd.setMaHoaDon(rs.getLong("MaHD"));
+                hd.setTenHoaDon(rs.getString("TenHoaDon"));
+                hd.setPhuongThucMuaHang(rs.getString("PhuongThucMuaHang"));
+                hd.setMaDonHang(rs.getLong("MaDonHang"));
+                hd.setMaNguoiDung(rs.getLong("MaND"));
+                hd.setNgayTao(rs.getTimestamp("NgayTao").toLocalDateTime());
+                dsHoaDon.add(hd);
             }
+            provider.close();
+        } catch(SQLException ex) {
         }
-        return null;
+        return dsHoaDon;
     }
 
-    // Lấy danh sách tất cả các hóa đơn từ cơ sở dữ liệu
-    public List<HoaDon> getAllHoaDon() throws SQLException {
-        List<HoaDon> hoaDonList = new ArrayList<>();
-        String query = "SELECT * FROM HoaDon";
-        try (Connection connection = dataProvider.getConnection();
-             PreparedStatement statement = connection.prepareStatement(query);
-             ResultSet resultSet = statement.executeQuery()) {
-            while (resultSet.next()) {
-                HoaDon hoaDon = extractHoaDonFromResultSet(resultSet);
-                hoaDonList.add(hoaDon);
+    public static boolean themHoaDon(HoaDon hd) {
+        try {
+            boolean kq = false;
+            String sql = String.format("INSERT INTO HoaDon (TenHoaDon, PhuongThucMuaHang, MaDonHang, MaND, NgayTao) VALUES ('%s', '%s', %d, %d, '%s')",
+                    hd.getTenHoaDon(), hd.getPhuongThucMuaHang(), hd.getMaDonHang(), hd.getMaNguoiDung(), hd.getNgayTao());
+            SQLServerDataProvider provider = new SQLServerDataProvider();
+            provider.open();
+            int n = provider.executeUpdate(sql);
+            if (n == 1) {
+                kq = true;
             }
+            provider.close();
+            return kq;
+        } catch (SQLException ex) {
+            Logger.getLogger(HoaDonDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return hoaDonList;
+        return false;
     }
 
-    // Phương thức hỗ trợ trích xuất thông tin hóa đơn từ ResultSet
-    private HoaDon extractHoaDonFromResultSet(ResultSet resultSet) throws SQLException {
-        long maHD = resultSet.getLong("maHD");
-        String tenHoaDon = resultSet.getString("tenHoaDon");
-        String phuongThucMuaHang = resultSet.getString("phuongThucMuaHang");
-        long maDonHang = resultSet.getLong("maDonHang");
-        long maNguoiDung = resultSet.getLong("maNguoiDung");
-        LocalDateTime ngayTao = resultSet.getObject("ngayTao", LocalDateTime.class);
+    public static boolean xoaHoaDon(Long maHoaDon) {
+        try {
+            boolean kq = false;
+            String sql = String.format("DELETE FROM HoaDon WHERE MaHD='%d'", maHoaDon);
+            SQLServerDataProvider provider = new SQLServerDataProvider();
+            provider.open();
+            int n = provider.executeUpdate(sql);
+            if (n == 1) {
+                kq = true;
+            }
+            provider.close();
+            return kq;
+        } catch (SQLException ex) {
+            Logger.getLogger(HoaDonDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return false;
+    }
 
-
-        HoaDon hoaDon = new HoaDon(maHD, tenHoaDon, phuongThucMuaHang, maDonHang, maNguoiDung, ngayTao);
-        return hoaDon;
+    public static boolean capNhatHoaDon(HoaDon hd) {
+        try {
+            boolean kq = false;
+            String sql = String.format("UPDATE HoaDon SET TenHoaDon = '%s', PhuongThucMuaHang = '%s', MaDonHang = %d, MaND = %d, NgayTao = '%s' WHERE MaHD= %d",
+                    hd.getTenHoaDon(), hd.getPhuongThucMuaHang(), hd.getMaDonHang(), hd.getMaNguoiDung(), hd.getNgayTao(), hd.getMaHoaDon());
+            SQLServerDataProvider provider = new SQLServerDataProvider();
+            provider.open();
+            int n = provider.executeUpdate(sql);
+            if (n == 1) {
+                kq = true;
+            }
+            provider.close();
+            return kq;
+        } catch (SQLException ex) {
+            Logger.getLogger(HoaDonDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return false;
     }
 }
-

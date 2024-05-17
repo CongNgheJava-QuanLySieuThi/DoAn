@@ -1,117 +1,89 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package DAO;
-
-/**
- *
- * @author Nguyễn Kế Bảo
- */
-import Pojo.MucDonHang;
-import Pojo.DonHang;
-import Pojo.SQLServerDataProvider;
-import Pojo.SanPham;
-import java.math.BigDecimal;
-
-import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.List;
+import Pojo.MucDonHang;
+import Pojo.SQLServerDataProvider;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class MucDonHangDAO {
-    private SQLServerDataProvider dataProvider;
-
-    public MucDonHangDAO(SQLServerDataProvider dataProvider) {
-        this.dataProvider = dataProvider;
-    }
-
-    // Thêm mục đơn hàng vào cơ sở dữ liệu
-    public void addMucDonHang(MucDonHang mucDonHang) throws SQLException {
-        String query = "INSERT INTO MucDonHang (maMuc, soLuong, giaHienTai, giamGiaHienTai, maDonHang, maSanPham) VALUES (?, ?, ?, ?, ?, ?)";
-        try (Connection connection = dataProvider.getConnection();
-             PreparedStatement statement = connection.prepareStatement(query)) {
-            statement.setLong(1, mucDonHang.getMaMuc());
-            statement.setInt(2, mucDonHang.getSoLuong());
-            statement.setBigDecimal(3, mucDonHang.getGiaHienTai());
-            statement.setBigDecimal(4, mucDonHang.getGiamGiaHienTai());
-            statement.setLong(5, mucDonHang.getMaDonHang());
-            statement.setLong(6, mucDonHang.getMaSanPham());
-            statement.executeUpdate();
-        }
-    }
-
-    // Cập nhật thông tin mục đơn hàng trong cơ sở dữ liệu
-    public void updateMucDonHang(MucDonHang mucDonHang) throws SQLException {
-        String query = "UPDATE MucDonHang SET soLuong=?, giaHienTai=?, giamGiaHienTai=?, maDonHang=?, maSanPham=? WHERE maMuc=?";
-        try (Connection connection = dataProvider.getConnection();
-             PreparedStatement statement = connection.prepareStatement(query)) {
-            statement.setInt(1, mucDonHang.getSoLuong());
-            statement.setBigDecimal(2, mucDonHang.getGiaHienTai());
-            statement.setBigDecimal(3, mucDonHang.getGiamGiaHienTai());
-            statement.setLong(4, mucDonHang.getMaDonHang());
-            statement.setLong(5, mucDonHang.getMaSanPham());
-            statement.setLong(6, mucDonHang.getMaMuc());
-            statement.executeUpdate();
-        }
-    }
-
-    // Xóa mục đơn hàng từ cơ sở dữ liệu
-    public void deleteMucDonHang(long maMuc) throws SQLException {
-        String query = "DELETE FROM MucDonHang WHERE maMuc=?";
-        try (Connection connection = dataProvider.getConnection();
-             PreparedStatement statement = connection.prepareStatement(query)) {
-            statement.setLong(1, maMuc);
-            statement.executeUpdate();
-        }
-    }
-
-    // Lấy thông tin của một mục đơn hàng dựa trên mã mục
-    public MucDonHang getMucDonHangById(long maMuc) throws SQLException {
-        String query = "SELECT * FROM MucDonHang WHERE maMuc=?";
-        try (Connection connection = dataProvider.getConnection();
-             PreparedStatement statement = connection.prepareStatement(query)) {
-            statement.setLong(1, maMuc);
-            try (ResultSet resultSet = statement.executeQuery()) {
-                if (resultSet.next()) {
-                    return extractMucDonHangFromResultSet(resultSet);
-                }
+    public static ArrayList<MucDonHang> layDanhSachMucDonHang() {
+        ArrayList<MucDonHang> dsMucDonHang = new ArrayList<>();
+        try {
+            String sql = "SELECT * FROM MucDonHang";
+            SQLServerDataProvider provider = new SQLServerDataProvider();
+            provider.open();
+            ResultSet rs = provider.executeQuery(sql);
+            while(rs.next()) {
+                MucDonHang mdh = new MucDonHang();
+                mdh.setMaMuc(rs.getLong("MaMuc"));
+                mdh.setSoLuong(rs.getInt("SoLuong"));
+                mdh.setGiaHienTai(rs.getBigDecimal("GiaHienTai"));
+                mdh.setGiamGiaHienTai(rs.getBigDecimal("GiamGiaHienTai"));
+                mdh.setMaDonHang(rs.getLong("MaDonHang"));
+                mdh.setMaSanPham(rs.getLong("MaSanPham"));
+                dsMucDonHang.add(mdh);
             }
+            provider.close();
+        } catch(SQLException ex) {
         }
-        return null;
+        return dsMucDonHang;
     }
 
-    // Lấy danh sách tất cả các mục đơn hàng từ cơ sở dữ liệu
-    public List<MucDonHang> getAllMucDonHang() throws SQLException {
-        List<MucDonHang> mucDonHangList = new ArrayList<>();
-        String query = "SELECT * FROM MucDonHang";
-        try (Connection connection = dataProvider.getConnection();
-             PreparedStatement statement = connection.prepareStatement(query);
-             ResultSet resultSet = statement.executeQuery()) {
-            while (resultSet.next()) {
-                MucDonHang mucDonHang = extractMucDonHangFromResultSet(resultSet);
-                mucDonHangList.add(mucDonHang);
+    public static boolean themMucDonHang(MucDonHang mdh) {
+        try {
+            boolean kq = false;
+            String sql = String.format("INSERT INTO MucDonHang (SoLuong, GiaHienTai, GiamGiaHienTai, MaDonHang, MaSanPham) VALUES (%d, %f, %f, %d, %d)",
+                    mdh.getSoLuong(), mdh.getGiaHienTai(), mdh.getGiamGiaHienTai(), mdh.getMaDonHang(), mdh.getMaSanPham());
+            SQLServerDataProvider provider = new SQLServerDataProvider();
+            provider.open();
+            int n = provider.executeUpdate(sql);
+            if (n == 1) {
+                kq = true;
             }
+            provider.close();
+            return kq;
+        } catch (SQLException ex) {
+            Logger.getLogger(MucDonHangDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return mucDonHangList;
+        return false;
     }
 
-    // Phương thức hỗ trợ trích xuất thông tin mục đơn hàng từ ResultSet
-    private MucDonHang extractMucDonHangFromResultSet(ResultSet resultSet) throws SQLException {
-        long maMuc = resultSet.getLong("maMuc");
-        int soLuong = resultSet.getInt("soLuong");
-        BigDecimal giaHienTai = resultSet.getBigDecimal("giaHienTai");
-        BigDecimal giamGiaHienTai = resultSet.getBigDecimal("giamGiaHienTai");
-        long maDonHang = resultSet.getLong("maDonHang");
-        long maSanPham = resultSet.getLong("maSanPham");
+    public static boolean xoaMucDonHang(Long maMuc) {
+        try {
+            boolean kq = false;
+            String sql = String.format("DELETE FROM MucDonHang WHERE MaMuc='%d'", maMuc);
+            SQLServerDataProvider provider = new SQLServerDataProvider();
+            provider.open();
+            int n = provider.executeUpdate(sql);
+            if (n == 1) {
+                kq = true;
+            }
+            provider.close();
+            return kq;
+        } catch (SQLException ex) {
+            Logger.getLogger(MucDonHangDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return false;
+    }
 
-        // Lấy đối tượng DonHang từ cơ sở dữ liệu hoặc các thông tin liên quan
-        
-
-        MucDonHang mucDonHang = new MucDonHang(maMuc, soLuong, giaHienTai, giamGiaHienTai, maDonHang, maSanPham);
-        return mucDonHang;
+    public static boolean capNhatMucDonHang(MucDonHang mdh) {
+        try {
+            boolean kq = false;
+            String sql = String.format("UPDATE MucDonHang SET SoLuong = %d, GiaHienTai = %f, GiamGiaHienTai = %f, MaDonHang = %d, MaSanPham = %d WHERE MaMuc= %d",
+                    mdh.getSoLuong(), mdh.getGiaHienTai(), mdh.getGiamGiaHienTai(), mdh.getMaDonHang(), mdh.getMaSanPham(), mdh.getMaMuc());
+            SQLServerDataProvider provider = new SQLServerDataProvider();
+            provider.open();
+            int n = provider.executeUpdate(sql);
+            if (n == 1) {
+                kq = true;
+            }
+            provider.close();
+            return kq;
+        } catch (SQLException ex) {
+            Logger.getLogger(MucDonHangDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return false;
     }
 }

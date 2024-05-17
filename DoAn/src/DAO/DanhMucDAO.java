@@ -1,103 +1,86 @@
 package DAO;
-
+import java.sql.ResultSet;
+import java.util.ArrayList;
 import Pojo.DanhMuc;
 import Pojo.SQLServerDataProvider;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class DanhMucDAO {
-    private SQLServerDataProvider dataProvider;
-
-    public DanhMucDAO(SQLServerDataProvider dataProvider) {
-        this.dataProvider = dataProvider;
-    }
-    // Thêm danh mục vào cơ sở dữ liệu
-    public void addDanhMuc(DanhMuc danhMuc) throws SQLException {
-        String query = "INSERT INTO DanhMuc (maDanhMuc, tenDanhMuc, ngayTao) VALUES (?, ?, ?)";
-        try (Connection connection = dataProvider.getConnection();
-             PreparedStatement statement = connection.prepareStatement(query)) {
-            statement.setLong(1, danhMuc.getMaDanhMuc());
-            statement.setString(2, danhMuc.getTenDanhMuc());
-            statement.setObject(3, danhMuc.getNgayTao());
-            statement.executeUpdate();
-        }
-    }
-
-    // Cập nhật thông tin danh mục trong cơ sở dữ liệu
-    public void updateDanhMuc(DanhMuc danhMuc) throws SQLException {
-        String query = "UPDATE DanhMuc SET tenDanhMuc=?, ngayTao=? WHERE maDanhMuc=?";
-        try (Connection connection = dataProvider.getConnection();
-             PreparedStatement statement = connection.prepareStatement(query)) {
-            statement.setString(1, danhMuc.getTenDanhMuc());
-            statement.setObject(2, danhMuc.getNgayTao());
-            statement.setLong(3, danhMuc.getMaDanhMuc());
-            statement.executeUpdate();
-        }
-    }
-
-    // Xóa danh mục từ cơ sở dữ liệu
-    public void deleteDanhMuc(Long maDanhMuc) throws SQLException {
-        String query = "DELETE FROM DanhMuc WHERE maDanhMuc=?";
-        try (Connection connection = dataProvider.getConnection();
-             PreparedStatement statement = connection.prepareStatement(query)) {
-            statement.setLong(1, maDanhMuc);
-            statement.executeUpdate();
-        }
-    }
-
-    // Lấy thông tin của một danh mục dựa trên mã danh mục
-    public DanhMuc getDanhMucById(Long maDanhMuc) throws SQLException {
-        String query = "SELECT * FROM DanhMuc WHERE maDanhMuc=?";
-        try (Connection connection = dataProvider.getConnection();
-             PreparedStatement statement = connection.prepareStatement(query)) {
-            statement.setLong(1, maDanhMuc);
-            try (ResultSet resultSet = statement.executeQuery()) {
-                if (resultSet.next()) {
-                    return extractDanhMucFromResultSet(resultSet);
-                }
+    public static ArrayList<DanhMuc> layDanhSachDanhMuc() {
+        ArrayList<DanhMuc> dsDanhMuc = new ArrayList<>();
+        try {
+            String sql = "SELECT * FROM DanhMuc";
+            SQLServerDataProvider provider = new SQLServerDataProvider();
+            provider.open();
+            ResultSet rs = provider.executeQuery(sql);
+            while(rs.next()) {
+                DanhMuc dm = new DanhMuc();
+                dm.setMaDanhMuc(rs.getLong("MaDanhMuc"));
+                dm.setTenDanhMuc(rs.getString("TenDanhMuc"));
+                dm.setNgayTao(rs.getTimestamp("NgayTao").toLocalDateTime());
+                dsDanhMuc.add(dm);
             }
+            provider.close();
+        } catch(SQLException ex) {
         }
-        return null;
+        return dsDanhMuc;
     }
 
-    // Lấy danh sách tất cả danh mục từ cơ sở dữ liệu
-    public List<DanhMuc> getAllDanhMuc() throws SQLException {
-        List<DanhMuc> danhMucList = new ArrayList<>();
-        String query = "SELECT * FROM DanhMuc";
-        try (Connection connection = dataProvider.getConnection();
-             PreparedStatement statement = connection.prepareStatement(query);
-             ResultSet resultSet = statement.executeQuery()) {
-            while (resultSet.next()) {
-                DanhMuc danhMuc = extractDanhMucFromResultSet(resultSet);
-                danhMucList.add(danhMuc);
+    public static boolean themDanhMuc(DanhMuc dm) {
+        try {
+            boolean kq = false;
+            String sql = String.format("INSERT INTO DanhMuc (TenDanhMuc, NgayTao) VALUES ('%s', '%s')",
+                    dm.getTenDanhMuc(), dm.getNgayTao());
+            SQLServerDataProvider provider = new SQLServerDataProvider();
+            provider.open();
+            int n = provider.executeUpdate(sql);
+            if (n == 1) {
+                kq = true;
             }
+            provider.close();
+            return kq;
+        } catch (SQLException ex) {
+            Logger.getLogger(DanhMucDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return danhMucList;
+        return false;
     }
 
-    // Phương thức hỗ trợ trích xuất thông tin danh mục từ ResultSet
-    private DanhMuc extractDanhMucFromResultSet(ResultSet resultSet) throws SQLException {
-        Long maDanhMuc = resultSet.getLong("maDanhMuc");
-        String tenDanhMuc = resultSet.getString("tenDanhMuc");
-        LocalDateTime ngayTao = resultSet.getObject("ngayTao", LocalDateTime.class);
-        return new DanhMuc(maDanhMuc, tenDanhMuc, ngayTao);
-    }
-    public DanhMuc getDanhMucByTenDanhMuc(String tenDanhMuc) throws SQLException {
-        String query = "SELECT * FROM DanhMuc WHERE tenDanhMuc=?";
-        try (Connection connection = dataProvider.getConnection();
-             PreparedStatement statement = connection.prepareStatement(query)) {
-            statement.setString(1, tenDanhMuc);
-            try (ResultSet resultSet = statement.executeQuery()) {
-                if (resultSet.next()) {
-                    return extractDanhMucFromResultSet(resultSet);
-                }
+    public static boolean xoaDanhMuc(Long maDanhMuc) {
+        try {
+            boolean kq = false;
+            String sql = String.format("DELETE FROM DanhMuc WHERE MaDanhMuc='%d'", maDanhMuc);
+            SQLServerDataProvider provider = new SQLServerDataProvider();
+            provider.open();
+            int n = provider.executeUpdate(sql);
+            if (n == 1) {
+                kq = true;
             }
+            provider.close();
+            return kq;
+        } catch (SQLException ex) {
+            Logger.getLogger(DanhMucDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return null;
+        return false;
+    }
+
+    public static boolean capNhatDanhMuc(DanhMuc dm) {
+        try {
+            boolean kq = false;
+            String sql = String.format("UPDATE DanhMuc SET TenDanhMuc = '%s', NgayTao = '%s' WHERE MaDanhMuc= %d",
+                    dm.getTenDanhMuc(), dm.getNgayTao(), dm.getMaDanhMuc());
+            SQLServerDataProvider provider = new SQLServerDataProvider();
+            provider.open();
+            int n = provider.executeUpdate(sql);
+            if (n == 1) {
+                kq = true;
+            }
+            provider.close();
+            return kq;
+        } catch (SQLException ex) {
+            Logger.getLogger(DanhMucDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return false;
     }
 }

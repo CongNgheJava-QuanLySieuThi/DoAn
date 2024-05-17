@@ -89,46 +89,4 @@ public class HoaDon implements Serializable {
         this.ngayTao = ngayTao;
     }
 
-//    @Override
-//    public int hashCode() {
-//        int hash = 5;
-//        hash = 59 * hash + Objects.hashCode(this.maHD);
-//        hash = 59 * hash + Objects.hashCode(this.tenHoaDon);
-//        hash = 59 * hash + Objects.hashCode(this.phuongThucMuaHang);
-//        hash = 59 * hash + Objects.hashCode(this.donHang);
-//        hash = 59 * hash + Objects.hashCode(this.nguoiDung);
-//        hash = 59 * hash + Objects.hashCode(this.ngayTao);
-//        return hash;
-//    }
-//
-//    @Override
-//    public boolean equals(Object obj) {
-//        if (this == obj) {
-//            return true;
-//        }
-//        if (obj == null) {
-//            return false;
-//        }
-//        if (getClass() != obj.getClass()) {
-//            return false;
-//        }
-//        final HoaDon other = (HoaDon) obj;
-//        if (!Objects.equals(this.tenHoaDon, other.tenHoaDon)) {
-//            return false;
-//        }
-//        if (!Objects.equals(this.phuongThucMuaHang, other.phuongThucMuaHang)) {
-//            return false;
-//        }
-//        if (!Objects.equals(this.maHD, other.maHD)) {
-//            return false;
-//        }
-//        if (!Objects.equals(this.donHang, other.donHang)) {
-//            return false;
-//        }
-//        if (!Objects.equals(this.nguoiDung, other.nguoiDung)) {
-//            return false;
-//        }
-//        return Objects.equals(this.ngayTao, other.ngayTao);
-//    }
-
 }
