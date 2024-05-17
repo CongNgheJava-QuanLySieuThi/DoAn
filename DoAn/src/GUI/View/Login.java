@@ -4,16 +4,12 @@
  * and open the template in the editor.
  */
 package GUI.View;
-import GUI.View.MainPage;
 import Pojo.SQLServerDataProvider;
-import java.awt.Dimension;
-import java.awt.Toolkit;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 /**
  *
@@ -26,8 +22,8 @@ public class Login extends javax.swing.JFrame {
      */
     public Login() {
         //setFullScreen();
-         initComponents();
-           setLocationRelativeTo(null);
+        initComponents();
+        setLocationRelativeTo(null);
     }
   
     /**
@@ -198,9 +194,16 @@ public class Login extends javax.swing.JFrame {
             if (txtUserName.getText().isEmpty() || new String(txtPass.getPassword()).isEmpty()) {
                 JOptionPane.showMessageDialog(this, "Chưa nhập tài khoản mật khẩu");
             } else if (rs.next()) {
+                  String role = rs.getString("CHUCVU");
                 JOptionPane.showMessageDialog(this, "Đăng nhập thành công");
-                MainPage mainPage = new MainPage();
-                mainPage.setVisible(true);
+
+                if ("Admin".equalsIgnoreCase(role)) {
+                    MainPage mainPage = new MainPage();
+                    mainPage.setVisible(true);
+                } else if ("khách hàng".equalsIgnoreCase(role)) {
+                    FormKhachHang formKhachHang = new FormKhachHang();
+                    formKhachHang.setVisible(true);
+                }
 
                 // Đóng cửa sổ Login sau khi đăng nhập thành công
                 this.dispose();

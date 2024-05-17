@@ -83,7 +83,6 @@ public class MainPage extends javax.swing.JFrame {
         jpnMenu.setBackground(new java.awt.Color(204, 204, 204));
 
         jPanel4.setBackground(new java.awt.Color(102, 255, 255));
-        jPanel4.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resource/Image/2x profile user.png"))); // NOI18N
@@ -94,7 +93,7 @@ public class MainPage extends javax.swing.JFrame {
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
-                .addContainerGap(57, Short.MAX_VALUE)
+                .addContainerGap(49, Short.MAX_VALUE)
                 .addComponent(jLabel1)
                 .addGap(44, 44, 44))
         );
@@ -105,8 +104,6 @@ public class MainPage extends javax.swing.JFrame {
                 .addComponent(jLabel1)
                 .addContainerGap(28, Short.MAX_VALUE))
         );
-
-        jpnDanhMuc.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
         jlbTrangChu.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jlbTrangChu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resource/Image/1x profile user.png"))); // NOI18N
@@ -129,8 +126,6 @@ public class MainPage extends javax.swing.JFrame {
                 .addContainerGap(30, Short.MAX_VALUE))
         );
 
-        jpnSanPham.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-
         jlbSanPham.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jlbSanPham.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resource/Image/store_FILL0_wght400_GRAD0_opsz24.png"))); // NOI18N
         jlbSanPham.setText("QUẢN LÝ SẢN PHẨM");
@@ -151,8 +146,6 @@ public class MainPage extends javax.swing.JFrame {
                 .addComponent(jlbSanPham)
                 .addContainerGap(32, Short.MAX_VALUE))
         );
-
-        jpnDonHang.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
         jlbDonHang.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jlbDonHang.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resource/Image/description_FILL0_wght400_GRAD0_opsz24.png"))); // NOI18N
@@ -175,8 +168,6 @@ public class MainPage extends javax.swing.JFrame {
                 .addContainerGap(32, Short.MAX_VALUE))
         );
 
-        jpnHangTonKho.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-
         jlbHangTonKho.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jlbHangTonKho.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resource/Image/category_FILL0_wght400_GRAD0_opsz24.png"))); // NOI18N
         jlbHangTonKho.setText("QUẢN LÝ HÀNG TỒN KHO");
@@ -197,8 +188,6 @@ public class MainPage extends javax.swing.JFrame {
                 .addComponent(jlbHangTonKho)
                 .addContainerGap(32, Short.MAX_VALUE))
         );
-
-        jpnUser.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
         jlbUser.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jlbUser.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resource/Image/category_FILL0_wght400_GRAD0_opsz24.png"))); // NOI18N
@@ -221,8 +210,6 @@ public class MainPage extends javax.swing.JFrame {
                 .addContainerGap(35, Short.MAX_VALUE))
         );
 
-        jpnHoaDon.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-
         jlbHoaDon.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jlbHoaDon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resource/Image/category_FILL0_wght400_GRAD0_opsz24.png"))); // NOI18N
         jlbHoaDon.setText("QUẢN LÝ HÓA ĐƠN");
@@ -234,7 +221,7 @@ public class MainPage extends javax.swing.JFrame {
             .addGroup(jpnHoaDonLayout.createSequentialGroup()
                 .addGap(50, 50, 50)
                 .addComponent(jlbHoaDon)
-                .addContainerGap(88, Short.MAX_VALUE))
+                .addContainerGap(84, Short.MAX_VALUE))
         );
         jpnHoaDonLayout.setVerticalGroup(
             jpnHoaDonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -243,8 +230,6 @@ public class MainPage extends javax.swing.JFrame {
                 .addComponent(jlbHoaDon)
                 .addContainerGap(32, Short.MAX_VALUE))
         );
-
-        jpnMucDonHang.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
         jlbMucDonHang.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jlbMucDonHang.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resource/Image/category_FILL0_wght400_GRAD0_opsz24.png"))); // NOI18N
@@ -313,7 +298,7 @@ public class MainPage extends javax.swing.JFrame {
                 .addComponent(jpnUser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jpnMucDonHang, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 93, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 137, Short.MAX_VALUE)
                 .addComponent(jButton1)
                 .addContainerGap())
         );
@@ -322,7 +307,7 @@ public class MainPage extends javax.swing.JFrame {
         jpnView.setLayout(jpnViewLayout);
         jpnViewLayout.setHorizontalGroup(
             jpnViewLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1529, Short.MAX_VALUE)
+            .addGap(0, 1545, Short.MAX_VALUE)
         );
         jpnViewLayout.setVerticalGroup(
             jpnViewLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -364,20 +349,15 @@ public class MainPage extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-         int choice = JOptionPane.showConfirmDialog(rootPane, "Bạn có muốn thoát không?", "Xác nhận thoát", JOptionPane.YES_NO_CANCEL_OPTION);
-    if (choice == JOptionPane.YES_OPTION) {
-        // If the user selects Yes, dispose of the current form and show the login form
-        this.dispose();
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new Login().setVisible(true);
-            }
-        });
-    } else if (choice == JOptionPane.NO_OPTION) {
-        // If the user selects No, do nothing
-    } else if (choice == JOptionPane.CANCEL_OPTION) {
-        // If the user selects Cancel, do nothing
-    }
+        int choice = JOptionPane.showConfirmDialog(rootPane, "Bạn có muốn thoát không?", "Xác nhận thoát", JOptionPane.YES_NO_CANCEL_OPTION);
+                if (choice == JOptionPane.YES_OPTION) {
+                    // Nếu người dùng chọn Yes, thoát ứng dụng
+                    System.exit(0);
+                } else if (choice == JOptionPane.NO_OPTION) {
+                    // Nếu người dùng chọn No, không làm gì cả
+                } else if (choice == JOptionPane.CANCEL_OPTION) {
+                    // Nếu người dùng chọn Cancel, không làm gì cả
+                }
     }//GEN-LAST:event_jButton1ActionPerformed
 
 
