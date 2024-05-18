@@ -16,7 +16,10 @@ import javax.swing.JOptionPane;
  * @author Admin
  */
 public class Login extends javax.swing.JFrame {
-
+    long maND;
+    public long getMaND() {
+        return maND;
+    }
     /**
      * Creates new form GUI
      */
@@ -191,7 +194,7 @@ public class Login extends javax.swing.JFrame {
                 return;
             }
 
-            String query = "SELECT HO, TEN, CHUCVU FROM NGUOIDUNG WHERE TENTAIKHOAN = ? AND MATKHAU = ?";
+            String query = "SELECT MaND, HO, TEN, CHUCVU FROM NGUOIDUNG WHERE TENTAIKHOAN = ? AND MATKHAU = ?";
             PreparedStatement ps = provider.getConnection().prepareStatement(query);
             ps.setString(1, username);
             ps.setString(2, password);
@@ -199,6 +202,7 @@ public class Login extends javax.swing.JFrame {
             ResultSet rs = ps.executeQuery();
 
             if (rs.next()) {
+                maND = rs.getLong("MaND");
                 String ho = rs.getString("HO");
                 String ten = rs.getString("TEN");
                 String role = rs.getString("CHUCVU");
@@ -208,7 +212,8 @@ public class Login extends javax.swing.JFrame {
                     MainPage mainPage = new MainPage();
                     mainPage.setVisible(true);
                 } else if ("khách hàng".equalsIgnoreCase(role)) {
-                    KhachHang.Menu formKhachHang = new KhachHang.Menu(ho, ten);
+                    maND = rs.getLong(1);
+                    KhachHang.Menu formKhachHang = new KhachHang.Menu(maND, ho, ten);
                     formKhachHang.setVisible(true);
                 }
 
