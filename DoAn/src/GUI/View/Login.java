@@ -208,7 +208,7 @@ public class Login extends javax.swing.JFrame {
                     MainPage mainPage = new MainPage();
                     mainPage.setVisible(true);
                 } else if ("khách hàng".equalsIgnoreCase(role)) {
-                    FormKhachHang formKhachHang = new FormKhachHang(ho,ten);
+                    KhachHang.Menu formKhachHang = new KhachHang.Menu(ho, ten);
                     formKhachHang.setVisible(true);
                 }
 
