@@ -4,6 +4,7 @@ import Pojo.SQLServerDataProvider;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import Pojo.SanPham;
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -91,5 +92,35 @@ public class SanPhamDAO {
             Logger.getLogger(SanPhamDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
         return false;
+    }
+    public static ArrayList<SanPham> layDanhSachSanPhamTheoDanhMuc(String tenDanhMuc) {
+        ArrayList<SanPham> dsSanPham = new ArrayList<>();
+        try {
+            String sql = "SELECT * FROM SanPham WHERE MaDanhMuc = (SELECT MaDanhMuc FROM DanhMuc WHERE TenDanhMuc = ?)";
+            SQLServerDataProvider provider = new SQLServerDataProvider();
+            provider.open();
+            PreparedStatement ps = provider.getConnection().prepareStatement(sql);
+            ps.setString(1, tenDanhMuc);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                SanPham sp = new SanPham();
+                sp.setMaSanPham(rs.getLong("MaSP"));
+                sp.setTenSanPham(rs.getString("TenSP"));
+                sp.setGia(rs.getBigDecimal("Gia"));
+                sp.setGiamGia(rs.getInt("GiamGia"));
+                sp.setHinhAnh(rs.getString("HinhAnh"));
+                sp.setTuKhoa(rs.getString("TuKhoa"));
+                sp.setMoTa(rs.getString("MoTa"));
+                sp.setSoLuongTonKho(rs.getInt("SoLuongTonKho"));
+                sp.setNgayTao(rs.getTimestamp("NgayTao").toLocalDateTime());
+                sp.setNgayCapNhat(rs.getTimestamp("NgayCapNhat").toLocalDateTime());
+                sp.setMaDanhMuc(rs.getLong("MaDanhMuc"));
+                dsSanPham.add(sp);
+            }
+            provider.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(SanPhamDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return dsSanPham;
     }
 }

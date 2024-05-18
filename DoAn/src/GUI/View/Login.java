@@ -183,25 +183,32 @@ public class Login extends javax.swing.JFrame {
         provider.open();    
 
         try {
-            String query = "SELECT * FROM NGUOIDUNG WHERE TENTAIKHOAN = ? AND MATKHAU = ?";
+            String username = txtUserName.getText();
+            String password = new String(txtPass.getPassword());
+
+            if (username.isEmpty() || password.isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Chưa nhập tài khoản mật khẩu");
+                return;
+            }
+
+            String query = "SELECT HO, TEN, CHUCVU FROM NGUOIDUNG WHERE TENTAIKHOAN = ? AND MATKHAU = ?";
             PreparedStatement ps = provider.getConnection().prepareStatement(query);
-            ps.setString(1, txtUserName.getText());
-            ps.setString(2, new String(txtPass.getPassword())); // Lấy mật khẩu từ JPasswordField
+            ps.setString(1, username);
+            ps.setString(2, password);
 
             ResultSet rs = ps.executeQuery();
 
-            // Xử lý kết quả trả về từ ResultSet
-            if (txtUserName.getText().isEmpty() || new String(txtPass.getPassword()).isEmpty()) {
-                JOptionPane.showMessageDialog(this, "Chưa nhập tài khoản mật khẩu");
-            } else if (rs.next()) {
-                  String role = rs.getString("CHUCVU");
+            if (rs.next()) {
+                String ho = rs.getString("HO");
+                String ten = rs.getString("TEN");
+                String role = rs.getString("CHUCVU");
                 JOptionPane.showMessageDialog(this, "Đăng nhập thành công");
 
                 if ("Admin".equalsIgnoreCase(role)) {
                     MainPage mainPage = new MainPage();
                     mainPage.setVisible(true);
                 } else if ("khách hàng".equalsIgnoreCase(role)) {
-                    FormKhachHang formKhachHang = new FormKhachHang();
+                    FormKhachHang formKhachHang = new FormKhachHang(ho,ten);
                     formKhachHang.setVisible(true);
                 }
 
@@ -211,7 +218,6 @@ public class Login extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(this, "Đăng nhập thất bại");
             }
 
-            // Đóng ResultSet, PreparedStatement và Connection sau khi sử dụng xong
             rs.close();
             ps.close();
             provider.close(); // Đóng kết nối sau khi hoàn thành công việc
