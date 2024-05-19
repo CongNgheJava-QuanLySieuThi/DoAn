@@ -23,6 +23,15 @@ public class DanhMuc implements Serializable {
     public DanhMuc() {
     }
 
+    public DanhMuc(String tenDanhMuc) {
+        this.tenDanhMuc = tenDanhMuc;
+    }
+
+    public DanhMuc(Long maDanhMuc, String tenDanhMuc) {
+        this.maDanhMuc = maDanhMuc;
+        this.tenDanhMuc = tenDanhMuc;
+    }
+
     public DanhMuc(Long maDanhMuc, String tenDanhMuc, LocalDateTime ngayTao) {
         this.maDanhMuc = maDanhMuc;
         this.tenDanhMuc = tenDanhMuc;

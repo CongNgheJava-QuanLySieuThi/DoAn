@@ -31,6 +31,34 @@ public class NguoiDung {
         this.ngayTao=ngayTao;
         this.ngayCapNhat=ngayCapNhat;
     }
+
+    public NguoiDung(String ho, String ten, String tenTaiKhoan, String matKhau, String chucVu) {
+        this.ho = ho;
+        this.ten = ten;
+        this.tenTaiKhoan = tenTaiKhoan;
+        this.matKhau = matKhau;
+        this.chucVu = chucVu;
+    }
+
+    public NguoiDung(long maND, String ho, String ten, String tenTaiKhoan, String matKhau, String chucVu) {
+        this.maND = maND;
+        this.ho = ho;
+        this.ten = ten;
+        this.tenTaiKhoan = tenTaiKhoan;
+        this.matKhau = matKhau;
+        this.chucVu = chucVu;
+    }
+
+
+    public NguoiDung(String ho, String ten, String tenTaiKhoan, String matKhau, String chucVu, LocalDateTime ngayTao, LocalDateTime ngayCapNhat) {
+        this.ho = ho;
+        this.ten = ten;
+        this.tenTaiKhoan = tenTaiKhoan;
+        this.matKhau = matKhau;
+        this.chucVu = chucVu;
+        this.ngayTao = ngayTao;
+        this.ngayCapNhat = ngayCapNhat;
+    }
     public NguoiDung(){}
     public long getMaND() {
         return maND;

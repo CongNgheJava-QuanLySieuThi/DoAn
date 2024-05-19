@@ -28,11 +28,12 @@ public class DanhMucDAO {
         return dsDanhMuc;
     }
 
+
     public static boolean themDanhMuc(DanhMuc dm) {
         try {
             boolean kq = false;
-            String sql = String.format("INSERT INTO DanhMuc (TenDanhMuc, NgayTao) VALUES ('%s', '%s')",
-                    dm.getTenDanhMuc(), dm.getNgayTao());
+            String sql = String.format("INSERT INTO DanhMuc (TenDanhMuc) VALUES (N'%s')",
+                    dm.getTenDanhMuc());
             SQLServerDataProvider provider = new SQLServerDataProvider();
             provider.open();
             int n = provider.executeUpdate(sql);
@@ -68,8 +69,8 @@ public class DanhMucDAO {
     public static boolean capNhatDanhMuc(DanhMuc dm) {
         try {
             boolean kq = false;
-            String sql = String.format("UPDATE DanhMuc SET TenDanhMuc = '%s', NgayTao = '%s' WHERE MaDanhMuc= %d",
-                    dm.getTenDanhMuc(), dm.getNgayTao(), dm.getMaDanhMuc());
+            String sql = String.format("UPDATE DanhMuc SET TenDanhMuc = N'%s'  WHERE MaDanhMuc= %d",
+                    dm.getTenDanhMuc(), dm.getMaDanhMuc());
             SQLServerDataProvider provider = new SQLServerDataProvider();
             provider.open();
             int n = provider.executeUpdate(sql);
@@ -82,5 +83,5 @@ public class DanhMucDAO {
             Logger.getLogger(DanhMucDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
         return false;
-    }
+}
 }
