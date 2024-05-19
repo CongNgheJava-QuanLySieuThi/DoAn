@@ -11,14 +11,19 @@ import java.util.logging.Logger;
 
 public class NguoiDungDAO {
 
-    public static ArrayList<NguoiDung> layDanhSachNguoiDung() {
+    public NguoiDungDAO() {
+        
+    }
+    
+     public ArrayList<NguoiDung> layDanhSachNguoiDung() {
         ArrayList<NguoiDung> dsNguoiDung = new ArrayList<>();
+        SQLServerDataProvider provider = null;
         try {
             String sql = "SELECT * FROM NguoiDung";
-            SQLServerDataProvider provider = new SQLServerDataProvider();
+            provider = new SQLServerDataProvider();
             provider.open();
             ResultSet rs = provider.executeQuery(sql);
-            while (rs.next()) {
+            while(rs.next()) {
                 NguoiDung nd = new NguoiDung();
                 nd.setMaND(rs.getLong("MaND"));
                 nd.setHo(rs.getString("Ho"));
@@ -30,8 +35,12 @@ public class NguoiDungDAO {
                 nd.setNgayCapNhat(rs.getTimestamp("NgayCapNhat").toLocalDateTime());
                 dsNguoiDung.add(nd);
             }
-            provider.close();
-        } catch (SQLException ex) {
+        } catch(SQLException ex) {
+            ex.printStackTrace();  // Print the stack trace for debugging
+        } finally {
+            if (provider != null) {
+                provider.close();
+            }
         }
         return dsNguoiDung;
     }
@@ -39,8 +48,8 @@ public class NguoiDungDAO {
     public static boolean themNguoiDung(NguoiDung nd) {
         try {
             boolean kq = false;
-            String sql = String.format("INSERT INTO NguoiDung (Ho, Ten, TenTaiKhoan, MatKhau, ChucVu, NgayTao, NgayCapNhat) VALUES ('%s', '%s', '%s', '%s', '%s', '%s', '%s')",
-                    nd.getHo(), nd.getTen(), nd.getTenTaiKhoan(), nd.getMatKhau(), nd.getChucVu(), nd.getNgayTao(), nd.getNgayCapNhat());
+            String sql = String.format("INSERT INTO NguoiDung (Ho, Ten, TenTaiKhoan, MatKhau, ChucVu) VALUES (N'%s', N'%s', '%s', '%s', N'%s')",
+                    nd.getHo(), nd.getTen(), nd.getTenTaiKhoan(), nd.getMatKhau(), nd.getChucVu());
             SQLServerDataProvider provider = new SQLServerDataProvider();
             provider.open();
             int n = provider.executeUpdate(sql);
@@ -76,8 +85,8 @@ public class NguoiDungDAO {
     public static boolean capNhatNguoiDung(NguoiDung nd) {
         try {
             boolean kq = false;
-            String sql = String.format("UPDATE NguoiDung SET Ho = '%s', Ten = '%s', TenTaiKhoan = '%s', MatKhau = '%s', ChucVu = '%s', NgayTao = '%s', NgayCapNhat = '%s' WHERE MaND= %d",
-                    nd.getHo(), nd.getTen(), nd.getTenTaiKhoan(), nd.getMatKhau(), nd.getChucVu(), nd.getNgayTao(), nd.getNgayCapNhat(), nd.getMaND());
+            String sql = String.format("UPDATE NguoiDung SET Ho = N'%s', Ten = N'%s', TenTaiKhoan = '%s', MatKhau = '%s', ChucVu = N'%s' WHERE MaND= %d",
+                    nd.getHo(), nd.getTen(), nd.getTenTaiKhoan(), nd.getMatKhau(), nd.getChucVu(), nd.getMaND());
             SQLServerDataProvider provider = new SQLServerDataProvider();
             provider.open();
             int n = provider.executeUpdate(sql);
