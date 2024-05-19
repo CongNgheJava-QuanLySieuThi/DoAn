@@ -25,7 +25,11 @@ public class DonHangView extends javax.swing.JPanel {
      * Creates new form DonHangView
      */
     public DonHangView() {
+<<<<<<< Updated upstream
         this.pageNumber = 1;
+=======
+        this.pageNumber =1;
+>>>>>>> Stashed changes
         this.pageSize = 5;
         initComponents();
         loadTable(pageNumber, pageSize);
@@ -346,7 +350,6 @@ public class DonHangView extends javax.swing.JPanel {
     private void search(String name) {
         DonHang rowData = service.timTheoTen(name.toLowerCase());
         DefaultTableModel tableModel = (DefaultTableModel) table.getModel();
-
         tableModel.setRowCount(0);
         if (rowData != null) {
             tableModel.addRow(rowData.toRow());

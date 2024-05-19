@@ -334,8 +334,8 @@ public class TrangChuJPanel extends javax.swing.JPanel {
 
     private void jbtLuuMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbtLuuMouseClicked
         // TODO add your handling code here:
-                int choice = JOptionPane.showConfirmDialog(jbtXoa, "Bạn có muốn thêm danh mục này không?", "Xác nhận thêm", JOptionPane.YES_NO_CANCEL_OPTION);
-                if (choice == JOptionPane.YES_OPTION) {
+        int choice = JOptionPane.showConfirmDialog(jbtXoa, "Bạn có muốn thêm danh mục này không?", "Xác nhận thêm", JOptionPane.YES_NO_CANCEL_OPTION);
+        if (choice == JOptionPane.YES_OPTION) {
         String tenDanhMuc = jtftenDanhMuc.getText();
         DanhMuc dm = new DanhMuc(tenDanhMuc);
         boolean kq = danhmucdao.themDanhMuc(dm);
