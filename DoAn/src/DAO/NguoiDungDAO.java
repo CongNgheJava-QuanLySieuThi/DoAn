@@ -1,13 +1,16 @@
 package DAO;
+
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import Pojo.NguoiDung;
 import Pojo.SQLServerDataProvider;
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class NguoiDungDAO {
+
     public static ArrayList<NguoiDung> layDanhSachNguoiDung() {
         ArrayList<NguoiDung> dsNguoiDung = new ArrayList<>();
         try {
@@ -15,7 +18,7 @@ public class NguoiDungDAO {
             SQLServerDataProvider provider = new SQLServerDataProvider();
             provider.open();
             ResultSet rs = provider.executeQuery(sql);
-            while(rs.next()) {
+            while (rs.next()) {
                 NguoiDung nd = new NguoiDung();
                 nd.setMaND(rs.getLong("MaND"));
                 nd.setHo(rs.getString("Ho"));
@@ -28,7 +31,7 @@ public class NguoiDungDAO {
                 dsNguoiDung.add(nd);
             }
             provider.close();
-        } catch(SQLException ex) {
+        } catch (SQLException ex) {
         }
         return dsNguoiDung;
     }
@@ -87,5 +90,32 @@ public class NguoiDungDAO {
             Logger.getLogger(NguoiDungDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
         return false;
+    }
+
+    public static NguoiDung layThongTinNguoiDung(long maND) {
+        NguoiDung nguoiDung = null;
+        try {
+            String sql = "SELECT * FROM NguoiDung WHERE MaND = ?";
+            SQLServerDataProvider provider = new SQLServerDataProvider();
+            provider.open();
+            PreparedStatement ps = provider.getConnection().prepareStatement(sql);
+            ps.setLong(1, maND);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                nguoiDung = new NguoiDung();
+                nguoiDung.setMaND(rs.getLong("MaND"));
+                nguoiDung.setHo(rs.getString("Ho"));
+                nguoiDung.setTen(rs.getString("Ten"));
+                nguoiDung.setTenTaiKhoan(rs.getString("TenTaiKhoan"));
+                nguoiDung.setMatKhau(rs.getString("MatKhau"));
+                nguoiDung.setChucVu(rs.getString("ChucVu"));
+                nguoiDung.setNgayTao(rs.getTimestamp("NgayTao").toLocalDateTime());
+                nguoiDung.setNgayCapNhat(rs.getTimestamp("NgayCapNhat").toLocalDateTime());
+            }
+            provider.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(NguoiDungDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return nguoiDung;
     }
 }
