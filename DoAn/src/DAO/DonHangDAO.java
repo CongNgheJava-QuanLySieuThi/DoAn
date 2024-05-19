@@ -1,4 +1,5 @@
 package DAO;
+
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import Pojo.DonHang;
@@ -8,6 +9,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class DonHangDAO {
+
     public static ArrayList<DonHang> layDanhSachDonHang() {
         ArrayList<DonHang> dsDonHang = new ArrayList<>();
         try {
@@ -15,7 +17,7 @@ public class DonHangDAO {
             SQLServerDataProvider provider = new SQLServerDataProvider();
             provider.open();
             ResultSet rs = provider.executeQuery(sql);
-            while(rs.next()) {
+            while (rs.next()) {
                 DonHang dh = new DonHang();
                 dh.setMadonhang(rs.getLong("Madonhang"));
                 dh.setTendonhang(rs.getString("Tendonhang"));
@@ -26,7 +28,7 @@ public class DonHangDAO {
                 dsDonHang.add(dh);
             }
             provider.close();
-        } catch(SQLException ex) {
+        } catch (SQLException ex) {
         }
         return dsDonHang;
     }

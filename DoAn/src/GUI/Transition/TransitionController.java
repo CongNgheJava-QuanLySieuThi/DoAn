@@ -6,7 +6,7 @@
 package GUI.Transition;
 
 import GUI.Bean.DanhMuc;
-import GUI.View.DonHang;
+import GUI.View.donhang.DonHangView;
 import GUI.View.HangTonKho;
 import GUI.View.HoaDon;
 import GUI.View.MucDonHang;
@@ -26,40 +26,38 @@ import javax.swing.JPanel;
  * @author Admin
  */
 public class TransitionController {
-        private JPanel root;
-        private  String kindSelected = "";
-        
-        private List<DanhMuc> listItem = null;
-                
+
+    private JPanel root;
+    private String kindSelected = "";
+
+    private List<DanhMuc> listItem = null;
+
     public TransitionController(JPanel jpnRoot) {
         this.root = jpnRoot;
     }
-    public  void setView(JPanel jpnItem, JLabel jlbItem)
-    {
-         kindSelected = "TrangChu";
-         jpnItem.setBackground(new Color(96,100,191));
-          jlbItem.setBackground(new Color(96,100,191));
-          root.removeAll();
-          root.setLayout(new BorderLayout());
-          root.add(new TrangChuJPanel());
-          root.validate();
-          root.repaint();
-    }
-    
-    public void setEvent(List<DanhMuc> listItem)
-    {
-            this.listItem = listItem;
-            for(DanhMuc item : listItem)
-            {
-                item.getJlb().addMouseListener(new LabelEvent(item.getKind(), item.getJpn(),item.getJlb() ));
-            }
-    }
-    class LabelEvent implements MouseListener
-    {
 
-        
+    public void setView(JPanel jpnItem, JLabel jlbItem) {
+        kindSelected = "TrangChu";
+        jpnItem.setBackground(new Color(96, 100, 191));
+        jlbItem.setBackground(new Color(96, 100, 191));
+        root.removeAll();
+        root.setLayout(new BorderLayout());
+        root.add(new TrangChuJPanel());
+        root.validate();
+        root.repaint();
+    }
+
+    public void setEvent(List<DanhMuc> listItem) {
+        this.listItem = listItem;
+        for (DanhMuc item : listItem) {
+            item.getJlb().addMouseListener(new LabelEvent(item.getKind(), item.getJpn(), item.getJlb()));
+        }
+    }
+
+    class LabelEvent implements MouseListener {
+
         private JPanel node;
-        
+
         private String kind;
         private JPanel jpnItem;
         private JLabel jlbItem;
@@ -69,12 +67,10 @@ public class TransitionController {
             this.jpnItem = jpnItem;
             this.jlbItem = jlbItem;
         }
-        
-        
+
         @Override
         public void mouseClicked(MouseEvent e) {
-            switch(kind)
-            {
+            switch (kind) {
                 case "TrangChu":
                     node = new TrangChuJPanel();
                     break;
@@ -82,7 +78,7 @@ public class TransitionController {
                     node = new QuanLySanPhamJPanel();
                     break;
                 case "DonHang":
-                    node = new DonHang();
+                    node = new DonHangView();
                     break;
                 case "HangTonKho":
                     node = new HangTonKho();
@@ -110,8 +106,8 @@ public class TransitionController {
         @Override
         public void mousePressed(MouseEvent e) {
             kindSelected = kind;
-             jpnItem.setBackground(new Color(96,100,191));
-             jlbItem.setBackground(new Color(96,100,191));
+            jpnItem.setBackground(new Color(96, 100, 191));
+            jlbItem.setBackground(new Color(96, 100, 191));
         }
 
         @Override
@@ -121,32 +117,28 @@ public class TransitionController {
 
         @Override
         public void mouseEntered(MouseEvent e) {
-             jpnItem.setBackground(new Color(96,100,191));
-             jlbItem.setBackground(new Color(96,100,191));
+            jpnItem.setBackground(new Color(96, 100, 191));
+            jlbItem.setBackground(new Color(96, 100, 191));
         }
 
         @Override
         public void mouseExited(MouseEvent e) {
-            if(! kindSelected.equalsIgnoreCase(kind))
-            {
-             jpnItem.setBackground(new Color(76,175,80));
-             jlbItem.setBackground(new Color(76,175,80));
+            if (!kindSelected.equalsIgnoreCase(kind)) {
+                jpnItem.setBackground(new Color(76, 175, 80));
+                jlbItem.setBackground(new Color(76, 175, 80));
             }
         }
-    
+
     }
-    private void setChangeBackground(String kind)
-    {
-        for(DanhMuc item : listItem){
-            if(item.getKind().equalsIgnoreCase(kind))
-            {
-                item.getJpn().setBackground(new Color(96,100,191));
-                item.getJlb().setBackground(new Color(96,100,191));
-            }
-            else
-            {
-                item.getJpn().setBackground(new Color(76,175,80));
-                item.getJlb().setBackground(new Color(76,175,80));
+
+    private void setChangeBackground(String kind) {
+        for (DanhMuc item : listItem) {
+            if (item.getKind().equalsIgnoreCase(kind)) {
+                item.getJpn().setBackground(new Color(96, 100, 191));
+                item.getJlb().setBackground(new Color(96, 100, 191));
+            } else {
+                item.getJpn().setBackground(new Color(76, 175, 80));
+                item.getJlb().setBackground(new Color(76, 175, 80));
             }
         }
     }

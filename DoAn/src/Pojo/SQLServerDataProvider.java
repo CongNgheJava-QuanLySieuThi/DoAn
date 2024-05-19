@@ -7,17 +7,18 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 public class SQLServerDataProvider {
+
     private Connection connection; // Sử dụng private để tránh truy cập trực tiếp từ bên ngoài
 
     // Phương thức mở kết nối tới cơ sở dữ liệu
     public void open() {
-        String strServer = "LAPTOP-GSL3DJO2";
+        String strServer = "localhost";
         String strDatabase = "QL_BH";
         try {
             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-            String connectionURL = "jdbc:sqlserver://" + strServer 
-                                  + ":1433;databaseName=" + strDatabase 
-                                  + ";user=sa;password=123;";
+            String connectionURL = "jdbc:sqlserver://" + strServer
+                    + ":1433;databaseName=" + strDatabase
+                    + ";user=sa;password=Tuan@2003;";
             // Khởi tạo kết nối và gán vào trường connection của lớp
             this.connection = DriverManager.getConnection(connectionURL);
             if (this.connection != null && !this.connection.isClosed()) {

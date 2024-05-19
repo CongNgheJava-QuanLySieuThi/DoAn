@@ -9,6 +9,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class HangTonKhoDAO {
+
     public static ArrayList<HangTonKho> layDanhSachHangTonKho() {
         ArrayList<HangTonKho> dsHangTonKho = new ArrayList<>();
         try {
@@ -16,7 +17,7 @@ public class HangTonKhoDAO {
             SQLServerDataProvider provider = new SQLServerDataProvider();
             provider.open();
             ResultSet rs = provider.executeQuery(sql);
-            while(rs.next()) {
+            while (rs.next()) {
                 HangTonKho htk = new HangTonKho();
                 htk.setMaHTK(rs.getLong("MaHTK"));
                 htk.setSoLuongTrongKho(rs.getLong("SoLuongTrongKho"));
@@ -27,7 +28,7 @@ public class HangTonKhoDAO {
                 dsHangTonKho.add(htk);
             }
             provider.close();
-        } catch(SQLException ex) {
+        } catch (SQLException ex) {
         }
         return dsHangTonKho;
     }

@@ -7,6 +7,7 @@ package Pojo;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 /**
  *
@@ -26,6 +27,13 @@ public class DonHang implements Serializable {
     public DonHang() {
     }
 
+    public DonHang(String tendonhang, BigDecimal tongtien, BigDecimal tonggiamgia, LocalDateTime ngaytao) {
+        this.tendonhang = tendonhang;
+        this.tongtien = tongtien;
+        this.tonggiamgia = tonggiamgia;
+        this.ngaytao = ngaytao;
+    }
+
     public DonHang(Long madonhang, String tendonhang, BigDecimal tongtien, BigDecimal tonggiamgia, LocalDateTime ngaytao, Long maND) {
         this.madonhang = madonhang;
         this.tendonhang = tendonhang;
@@ -33,6 +41,18 @@ public class DonHang implements Serializable {
         this.tonggiamgia = tonggiamgia;
         this.ngaytao = ngaytao;
         this.maND = maND;
+    }
+
+    public Object[] toRow() {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm:ss dd/MM/yyyy");
+        return new Object[]{
+            this.madonhang,
+            this.tendonhang,
+            this.tongtien,
+            this.tonggiamgia,
+            this.ngaytao.format(formatter),
+            this.maND
+        };
     }
 
     public Long getMadonhang() {
