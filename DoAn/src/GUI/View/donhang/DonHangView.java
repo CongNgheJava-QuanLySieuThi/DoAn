@@ -6,11 +6,6 @@ import Pojo.DonHang;
 import Pojo.Pageable;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.List;
-import java.util.Optional;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
@@ -31,7 +26,7 @@ public class DonHangView extends javax.swing.JPanel {
      */
     public DonHangView() {
         this.pageNumber = 1;
-        this.pageSize = 1;
+        this.pageSize = 5;
         initComponents();
         loadTable(pageNumber, pageSize);
         deleteBtn.setEnabled(false);

@@ -39,7 +39,7 @@ public class DonHangService {
             Connection connection = provider.getConnection();
             PreparedStatement prepareStatement
                     = connection.prepareStatement(SELECT_QUERY);
-            prepareStatement.setInt(1, pageNumber - 1);
+            prepareStatement.setInt(1, --pageNumber * pageSize);
             prepareStatement.setInt(2, pageSize);
             ResultSet result = prepareStatement.executeQuery();
             while (result.next()) {
