@@ -6,11 +6,13 @@ import Pojo.DonHang;
 import GUI.View.donhang.service.Pageable;
 import GUI.View.donhang.service.Statistics;
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
+import jdk.vm.ci.meta.Local;
 
 /**
  *
@@ -21,8 +23,6 @@ public class DonHangView extends javax.swing.JPanel {
     private final DonHangService service = new DonHangService();
     private Integer pageNumber;
     private Integer pageSize;
-    private String from;
-    private String to;
 
     /**
      * Creates new form DonHangView
@@ -34,14 +34,38 @@ public class DonHangView extends javax.swing.JPanel {
         loadTable(pageNumber, pageSize);
         deleteBtn.setEnabled(false);
         resetSearchFieldBtn.setEnabled(false);
-        paginationComp1.addEventPagination(new PaginationEvent() {
-            @Override
-            public void pageChanged(int page) {
-                pageNumber = page;
-                loadTable(page, pageSize);
-            }
+        fromDatePicker.setDate(LocalDate.now().minusMonths(1));
+        toDatePicker.setDate(LocalDate.now());
+        loadThongKe(LocalDate.now().minusMonths(1), LocalDate.now());
+        addEvents();
+    }
+
+    private void addEvents() {
+        paginationComp1.addEventPagination((int page) -> {
+            pageNumber = page;
+            loadTable(page, pageSize);
         });
-        loadThongKe();
+
+        fromDatePicker.addDateChangeListener((dce) -> {
+            LocalDate newDate = dce.getNewDate();
+
+            if (newDate.isAfter(toDatePicker.getDate())
+                    || newDate.equals(toDatePicker.getDate())) {
+                toDatePicker.setDate(newDate.plusDays(1));
+            }
+
+            loadThongKe(newDate, toDatePicker.getDate());
+        });
+
+        toDatePicker.addDateChangeListener((dce) -> {
+            LocalDate newDate = dce.getNewDate();
+
+            if (newDate.isBefore(fromDatePicker.getDate())
+                    || newDate.equals(fromDatePicker.getDate())) {
+                fromDatePicker.setDate(newDate.minusDays(1));
+            }
+            loadThongKe(fromDatePicker.getDate(), newDate);
+        });
     }
 
     /**
@@ -98,6 +122,10 @@ public class DonHangView extends javax.swing.JPanel {
         jLabel13 = new javax.swing.JLabel();
         tongDoanhThuLabel = new javax.swing.JLabel();
         jPanel6 = new javax.swing.JPanel();
+        toDatePicker = new GUI.View.donhang.components.datepicker.DatePicker();
+        fromDatePicker = new GUI.View.donhang.components.datepicker.DatePicker();
+        jLabel12 = new javax.swing.JLabel();
+        jLabel14 = new javax.swing.JLabel();
 
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
@@ -354,7 +382,7 @@ public class DonHangView extends javax.swing.JPanel {
 
         jPanel5.setPreferredSize(new java.awt.Dimension(1164, 100));
 
-        jLabel11.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
+        jLabel11.setFont(new java.awt.Font("Segoe UI", 1, 38)); // NOI18N
         jLabel11.setText("Thống kê");
 
         jPanel4.setLayout(new javax.swing.BoxLayout(jPanel4, javax.swing.BoxLayout.X_AXIS));
@@ -434,6 +462,10 @@ public class DonHangView extends javax.swing.JPanel {
 
         jPanel4.add(jPanel6);
 
+        jLabel12.setText("Bắt đầu");
+
+        jLabel14.setText("Kết thúc");
+
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
@@ -442,13 +474,33 @@ public class DonHangView extends javax.swing.JPanel {
                 .addGap(0, 0, 0)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel11, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addGroup(jPanel5Layout.createSequentialGroup()
+                        .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 298, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jLabel14, javax.swing.GroupLayout.DEFAULT_SIZE, 60, Short.MAX_VALUE)
+                            .addComponent(jLabel12, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(fromDatePicker, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(toDatePicker, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addContainerGap())))
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel5Layout.createSequentialGroup()
-                .addComponent(jLabel11)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addContainerGap()
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel5Layout.createSequentialGroup()
+                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel12)
+                            .addComponent(fromDatePicker, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(14, 14, 14)
+                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel14)
+                            .addComponent(toDatePicker, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -621,11 +673,14 @@ public class DonHangView extends javax.swing.JPanel {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton deleteBtn;
+    private GUI.View.donhang.components.datepicker.DatePicker fromDatePicker;
     private javax.swing.JButton insertBtn;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -658,6 +713,7 @@ public class DonHangView extends javax.swing.JPanel {
     private javax.swing.JButton searchBtn;
     private javax.swing.JTextField searchField;
     private javax.swing.JTable table;
+    private GUI.View.donhang.components.datepicker.DatePicker toDatePicker;
     private javax.swing.JLabel tongDoanhThuLabel;
     private javax.swing.JLabel tongDonHangLabel;
     private javax.swing.JTextField totalPriceEditField;
@@ -732,9 +788,12 @@ public class DonHangView extends javax.swing.JPanel {
         }
     }
 
-    private void loadThongKe() {
-        LocalDateTime now = LocalDateTime.now();
-        Statistics statistics = service.thongKeTheoPhamVi(now.minusMonths(1), now);
+    private void loadThongKe(LocalDate from, LocalDate to) {
+        Statistics statistics = service.thongKeTheoPhamVi(from, to);
+        if (statistics == null) {
+            return;
+        }
+
         tongDoanhThuLabel.setText(statistics.getTotal().toString() + " VNĐ");
         tongDonHangLabel.setText(statistics.getCount().toString() + " đơn");
     }

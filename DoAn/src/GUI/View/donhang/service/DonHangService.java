@@ -6,7 +6,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -29,12 +29,11 @@ public class DonHangService {
     private final String UPDATE_QUERY = "UPDATE DonHang SET tendonhang = ?, tongtien = ?, tonggiamgia = ? WHERE madonhang = ?";
     private final String DELETE_QUERY = "DELETE FROM DonHang WHERE madonhang = ?";
 
-    private final String STATICSTICAL_QUERY = "SELECT YEAR(NGAYTAO) AS Nam, MONTH(NGAYTAO) AS Thang, "
-            + "COUNT(MADONHANG) AS SoLuongDonHang, SUM(TONGTIEN) AS TongTien "
+    private final String STATICSTICAL_QUERY = "SELECT YEAR(NGAYTAO) AS Year, MONTH(NGAYTAO) AS Month, COUNT(*) AS SoLuongDonHang, SUM(TONGTIEN) AS TongTien "
             + "FROM DONHANG "
-            + "WHERE NGAYTAO >= ? AND NGAYTAO <= ? "
+            + "WHERE NGAYTAO BETWEEN ? AND ? "
             + "GROUP BY YEAR(NGAYTAO), MONTH(NGAYTAO) "
-            + "ORDER BY Nam, Thang";
+            + "ORDER BY Year, Month";
 
     public DonHangService() {
         provider.open();
@@ -165,7 +164,7 @@ public class DonHangService {
         return dh;
     }
 
-    public Statistics thongKeTheoPhamVi(LocalDateTime from, LocalDateTime to) {
+    public Statistics thongKeTheoPhamVi(LocalDate from, LocalDate to) {
         Connection connection = provider.getConnection();
         try {
             PreparedStatement statement = connection.prepareStatement(STATICSTICAL_QUERY);
@@ -173,10 +172,9 @@ public class DonHangService {
             statement.setObject(2, to);
 
             ResultSet resultSet = statement.executeQuery();
-            resultSet.next();
-            Integer count = resultSet.getInt("SoLuongDonHang");
-            Double total = resultSet.getDouble("TongTien");
-            return new Statistics(count, total);
+            return resultSet.next()
+                    ? new Statistics(resultSet.getInt("SoLuongDonHang"), resultSet.getDouble("TongTien"))
+                    : new Statistics(0, 0d);
         } catch (SQLException e) {
             LOGGER.log(Level.SEVERE, e.getMessage(), e);
             return null;
