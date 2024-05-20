@@ -1,12 +1,13 @@
 package DAO;
 
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.util.ArrayList;
-import Pojo.DonHang;
-import Pojo.SQLServerDataProvider;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import Pojo.DonHang;
+import Pojo.SQLServerDataProvider;
 
 public class DonHangDAO {
 
@@ -29,6 +30,7 @@ public class DonHangDAO {
             }
             provider.close();
         } catch (SQLException ex) {
+            Logger.getLogger(DonHangDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
         return dsDonHang;
     }
@@ -36,13 +38,26 @@ public class DonHangDAO {
     public static boolean themDonHang(DonHang dh) {
         try {
             boolean kq = false;
-            String sql = String.format("INSERT INTO DonHang (Tendonhang, Tongtien, Tonggiamgia, Ngaytao, MaND) VALUES ('%s', %f, %f, '%s', %d)",
-                    dh.getTendonhang(), dh.getTongtien(), dh.getTonggiamgia(), dh.getNgaytao(), dh.getMaNguoiDung());
+            String sql = "INSERT INTO DonHang (Tendonhang, Tongtien, Tonggiamgia, Ngaytao, MaND) VALUES (?, ?, ?, ?, ?)";
             SQLServerDataProvider provider = new SQLServerDataProvider();
             provider.open();
-            int n = provider.executeUpdate(sql);
+
+            PreparedStatement pstmt = provider.getConnection().prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS);
+            pstmt.setString(1, dh.getTendonhang());
+            pstmt.setBigDecimal(2, dh.getTongtien());
+            pstmt.setBigDecimal(3, dh.getTonggiamgia());
+            pstmt.setTimestamp(4, java.sql.Timestamp.valueOf(dh.getNgaytao()));
+            pstmt.setLong(5, dh.getMaNguoiDung());
+
+            int n = pstmt.executeUpdate();
             if (n == 1) {
                 kq = true;
+
+                // Lấy mã đơn hàng tự động tăng
+                ResultSet generatedKeys = pstmt.getGeneratedKeys();
+                if (generatedKeys.next()) {
+                    dh.setMadonhang(generatedKeys.getLong(1));
+                }
             }
             provider.close();
             return kq;
@@ -55,10 +70,14 @@ public class DonHangDAO {
     public static boolean xoaDonHang(Long maDonHang) {
         try {
             boolean kq = false;
-            String sql = String.format("DELETE FROM DonHang WHERE Madonhang='%d'", maDonHang);
+            String sql = "DELETE FROM DonHang WHERE Madonhang=?";
             SQLServerDataProvider provider = new SQLServerDataProvider();
             provider.open();
-            int n = provider.executeUpdate(sql);
+
+            PreparedStatement pstmt = provider.getConnection().prepareStatement(sql);
+            pstmt.setLong(1, maDonHang);
+
+            int n = pstmt.executeUpdate();
             if (n == 1) {
                 kq = true;
             }
@@ -73,11 +92,19 @@ public class DonHangDAO {
     public static boolean capNhatDonHang(DonHang dh) {
         try {
             boolean kq = false;
-            String sql = String.format("UPDATE DonHang SET Tendonhang = '%s', Tongtien = %f, Tonggiamgia = %f, Ngaytao = '%s', MaND = %d WHERE Madonhang= %d",
-                    dh.getTendonhang(), dh.getTongtien(), dh.getTonggiamgia(), dh.getNgaytao(), dh.getMaNguoiDung(), dh.getMadonhang());
+            String sql = "UPDATE DonHang SET Tendonhang=?, Tongtien=?, Tonggiamgia=?, Ngaytao=?, MaND=? WHERE Madonhang=?";
             SQLServerDataProvider provider = new SQLServerDataProvider();
             provider.open();
-            int n = provider.executeUpdate(sql);
+
+            PreparedStatement pstmt = provider.getConnection().prepareStatement(sql);
+            pstmt.setString(1, dh.getTendonhang());
+            pstmt.setBigDecimal(2, dh.getTongtien());
+            pstmt.setBigDecimal(3, dh.getTonggiamgia());
+            pstmt.setTimestamp(4, java.sql.Timestamp.valueOf(dh.getNgaytao()));
+            pstmt.setLong(5, dh.getMaNguoiDung());
+            pstmt.setLong(6, dh.getMadonhang());
+
+            int n = pstmt.executeUpdate();
             if (n == 1) {
                 kq = true;
             }
@@ -87,5 +114,32 @@ public class DonHangDAO {
             Logger.getLogger(DonHangDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
         return false;
+    }
+    public static ArrayList<DonHang> layDanhSachDonHangCuaNguoiDung(Long maNguoiDung) {
+        ArrayList<DonHang> dsDonHang = new ArrayList<>();
+        try {
+            String sql = "SELECT * FROM DonHang WHERE MaND = ?";
+            SQLServerDataProvider provider = new SQLServerDataProvider();
+            provider.open();
+
+            PreparedStatement pstmt = provider.getConnection().prepareStatement(sql);
+            pstmt.setLong(1, maNguoiDung);
+
+            ResultSet rs = pstmt.executeQuery();
+            while (rs.next()) {
+                DonHang dh = new DonHang();
+                dh.setMadonhang(rs.getLong("Madonhang"));
+                dh.setTendonhang(rs.getString("Tendonhang"));
+                dh.setTongtien(rs.getBigDecimal("Tongtien"));
+                dh.setTonggiamgia(rs.getBigDecimal("Tonggiamgia"));
+                dh.setNgaytao(rs.getTimestamp("Ngaytao").toLocalDateTime());
+                dh.setMaNguoiDung(rs.getLong("MaND"));
+                dsDonHang.add(dh);
+            }
+            provider.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(DonHangDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return dsDonHang;
     }
 }

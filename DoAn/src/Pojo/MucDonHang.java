@@ -22,9 +22,7 @@ public class MucDonHang implements Serializable {
     private Long maDonHang;
     private Long maSanPham;
 
-    public MucDonHang() {
-    }
-
+    
     public MucDonHang(
             Long maMuc,
             Integer soLuong,
@@ -38,6 +36,20 @@ public class MucDonHang implements Serializable {
         this.giamGiaHienTai = giamGiaHienTai;
         this.maDonHang = maDonHang;
         this.maSanPham = maSanPham;
+    }
+    public MucDonHang(
+            Integer soLuong,
+            BigDecimal giaHienTai,
+            BigDecimal giamGiaHienTai,
+            Long maDonHang,
+            Long maSanPham) {
+        this.soLuong = soLuong;
+        this.giaHienTai = giaHienTai;
+        this.giamGiaHienTai = giamGiaHienTai;
+        this.maDonHang = maDonHang;
+        this.maSanPham = maSanPham;
+    }
+    public MucDonHang() {
     }
 
     public Long getMaMuc() {

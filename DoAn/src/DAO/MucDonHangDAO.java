@@ -22,7 +22,7 @@ public class MucDonHangDAO {
                 mdh.setGiaHienTai(rs.getBigDecimal("GiaHienTai"));
                 mdh.setGiamGiaHienTai(rs.getBigDecimal("GiamGiaHienTai"));
                 mdh.setMaDonHang(rs.getLong("MaDonHang"));
-                mdh.setMaSanPham(rs.getLong("MaSanPham"));
+                mdh.setMaSanPham(rs.getLong("masp"));
                 dsMucDonHang.add(mdh);
             }
             provider.close();
@@ -32,22 +32,16 @@ public class MucDonHangDAO {
     }
 
     public static boolean themMucDonHang(MucDonHang mdh) {
-        try {
-            boolean kq = false;
-            String sql = String.format("INSERT INTO MucDonHang (SoLuong, GiaHienTai, GiamGiaHienTai, MaDonHang, MaSanPham) VALUES (%d, %f, %f, %d, %d)",
-                    mdh.getSoLuong(), mdh.getGiaHienTai(), mdh.getGiamGiaHienTai(), mdh.getMaDonHang(), mdh.getMaSanPham());
-            SQLServerDataProvider provider = new SQLServerDataProvider();
+         String sql = "INSERT INTO MucDonHang (SoLuong, GiaHienTai, GiamGiaHienTai, MaDonHang, masp) VALUES (?, ?, ?, ?, ?)";
+        try (SQLServerDataProvider provider = new SQLServerDataProvider()) {
             provider.open();
-            int n = provider.executeUpdate(sql);
-            if (n == 1) {
-                kq = true;
-            }
+            int n = provider.executeUpdate(sql, mdh.getSoLuong(), mdh.getGiaHienTai(), mdh.getGiamGiaHienTai(), mdh.getMaDonHang(), mdh.getMaSanPham());
             provider.close();
-            return kq;
+            return n == 1;
         } catch (SQLException ex) {
             Logger.getLogger(MucDonHangDAO.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
         }
-        return false;
     }
 
     public static boolean xoaMucDonHang(Long maMuc) {

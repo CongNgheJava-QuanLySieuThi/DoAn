@@ -67,7 +67,7 @@ public class MucDonHang extends javax.swing.JPanel {
                 .addComponent(jLabel1)
                 .addGap(45, 45, 45)
                 .addComponent(jButton1)
-                .addContainerGap(595, Short.MAX_VALUE))
+                .addContainerGap(593, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);

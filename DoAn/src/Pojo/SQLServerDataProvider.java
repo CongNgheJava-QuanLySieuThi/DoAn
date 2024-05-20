@@ -2,11 +2,11 @@ package Pojo;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 
-public class SQLServerDataProvider {
+public class SQLServerDataProvider implements AutoCloseable{
 
     private Connection connection; // Sử dụng private để tránh truy cập trực tiếp từ bên ngoài
 
@@ -50,13 +50,22 @@ public class SQLServerDataProvider {
 
     // Phương thức thực thi truy vấn SELECT và trả về ResultSet
     public ResultSet executeQuery(String sql) throws SQLException {
-        Statement sm = this.connection.createStatement();
-        return sm.executeQuery(sql);
+        PreparedStatement ps = this.connection.prepareStatement(sql);
+        return ps.executeQuery();
     }
 
     // Phương thức thực thi truy vấn INSERT, UPDATE hoặc DELETE
     public int executeUpdate(String sql) throws SQLException {
-        Statement sm = this.connection.createStatement();
-        return sm.executeUpdate(sql);
+        PreparedStatement ps = this.connection.prepareStatement(sql);
+        return ps.executeUpdate();
+    }
+
+    // Phương thức thực thi truy vấn INSERT, UPDATE hoặc DELETE với tham số
+    public int executeUpdate(String sql, Object... params) throws SQLException {
+        PreparedStatement ps = this.connection.prepareStatement(sql);
+        for (int i = 0; i < params.length; i++) {
+            ps.setObject(i + 1, params[i]);
+        }
+        return ps.executeUpdate();
     }
 }
