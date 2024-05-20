@@ -23,23 +23,20 @@ public class MainPage extends javax.swing.JFrame {
      */
     public MainPage() {
         initComponents();
-        
-        
+
         setTitle("QUẢN LÝ SIÊU THỊ");
-        TransitionController trans =  new TransitionController(jpnView);
+        TransitionController trans = new TransitionController(jpnView);
         trans.setView(jpnDanhMuc, jlbTrangChu);
-        
+
         List<DanhMuc> listItem = new ArrayList<>();
-        listItem.add(new DanhMuc("TrangChu",jpnDanhMuc,jlbTrangChu));
-        listItem.add(new DanhMuc("SanPham",jpnSanPham,jlbSanPham));
-        listItem.add(new DanhMuc("DonHang",jpnDonHang,jlbDonHang));
-        listItem.add(new DanhMuc("HangTonKho",jpnHangTonKho,jlbHangTonKho));
-        listItem.add(new DanhMuc("HoaDon",jpnHoaDon,jlbHoaDon));
-        listItem.add(new DanhMuc("User",jpnUser,jlbUser));
-        listItem.add(new DanhMuc("MucDonHang",jpnMucDonHang,jlbMucDonHang));
-        
-        
-        
+        listItem.add(new DanhMuc("TrangChu", jpnDanhMuc, jlbTrangChu));
+        listItem.add(new DanhMuc("SanPham", jpnSanPham, jlbSanPham));
+        listItem.add(new DanhMuc("DonHang", jpnDonHang, jlbDonHang));
+        listItem.add(new DanhMuc("HangTonKho", jpnHangTonKho, jlbHangTonKho));
+        listItem.add(new DanhMuc("HoaDon", jpnHoaDon, jlbHoaDon));
+        listItem.add(new DanhMuc("User", jpnUser, jlbUser));
+        listItem.add(new DanhMuc("MucDonHang", jpnMucDonHang, jlbMucDonHang));
+
         trans.setEvent(listItem);
         setLocationRelativeTo(null);
         setExtendedState(JFrame.MAXIMIZED_BOTH);
@@ -379,14 +376,19 @@ public class MainPage extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
         int choice = JOptionPane.showConfirmDialog(rootPane, "Bạn có muốn thoát không?", "Xác nhận thoát", JOptionPane.YES_NO_CANCEL_OPTION);
-                if (choice == JOptionPane.YES_OPTION) {
-                    // Nếu người dùng chọn Yes, thoát ứng dụng
-                    System.exit(0);
-                } else if (choice == JOptionPane.NO_OPTION) {
-                    // Nếu người dùng chọn No, không làm gì cả
-                } else if (choice == JOptionPane.CANCEL_OPTION) {
-                    // Nếu người dùng chọn Cancel, không làm gì cả
-                }
+        switch (choice) {
+            case JOptionPane.YES_OPTION:
+                // Nếu người dùng chọn Yes, thoát ứng dụng
+                System.exit(0);
+            // Nếu người dùng chọn No, không làm gì cả
+            case JOptionPane.NO_OPTION:
+                break;
+            // Nếu người dùng chọn Cancel, không làm gì cả
+            case JOptionPane.CANCEL_OPTION:
+                break;
+            default:
+                break;
+        }
     }//GEN-LAST:event_jButton1ActionPerformed
 
 

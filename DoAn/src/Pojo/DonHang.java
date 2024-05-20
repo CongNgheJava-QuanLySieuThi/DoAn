@@ -43,6 +43,14 @@ public class DonHang implements Serializable {
         this.maND = maND;
     }
 
+    public DonHang(Long madonhang, String tendonhang, BigDecimal tongtien, BigDecimal tonggiamgia, LocalDateTime ngaytao) {
+        this.madonhang = madonhang;
+        this.tendonhang = tendonhang;
+        this.tongtien = tongtien;
+        this.tonggiamgia = tonggiamgia;
+        this.ngaytao = ngaytao;
+    }
+
     public Object[] toRow() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm:ss dd/MM/yyyy");
         return new Object[]{

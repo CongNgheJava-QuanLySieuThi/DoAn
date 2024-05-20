@@ -22,9 +22,10 @@ public class DonHangService {
     private final Logger LOGGER = Logger.getLogger(this.getClass().getName());
 
     private final String SELECT_QUERY = "SELECT * FROM DonHang ORDER BY madonhang OFFSET ? ROWS FETCH NEXT ? ROWS ONLY";
-    private final String FIND_BY_NAME_QUERY = "SELECT * FROM DonHang WHERE LOWER(tendonhang) = ?";
-    private final String INSERT_QUERY = "INSERT INTO DonHang(tendonhang, tongtien, tonggiamgia, ngaytao) VALUES (?, ?, ?, ?)";
     private final String COUNT_QUERY = "SELECT COUNT(*) FROM DonHang";
+    private final String FIND_BY_NAME_QUERY = "SELECT * FROM DonHang WHERE LOWER(tendonhang) = ?";
+
+    private final String INSERT_QUERY = "INSERT INTO DonHang(tendonhang, tongtien, tonggiamgia, ngaytao, mand) VALUES (?, ?, ?, ?, ?)";
     private final String UPDATE_QUERY = "UPDATE DonHang SET tendonhang = ?, tongtien = ?, tonggiamgia = ? WHERE madonhang = ?";
     private final String DELETE_QUERY = "DELETE FROM DonHang WHERE madonhang = ?";
 
@@ -50,10 +51,10 @@ public class DonHangService {
         } catch (SQLException e) {
             LOGGER.log(Level.SEVERE, e.getMessage(), e);
         }
-        return new Pageable<>(list, count());
+        return new Pageable<>(list, dem());
     }
 
-    public int count() {
+    public int dem() {
         try {
             ResultSet result = provider.executeQuery(COUNT_QUERY);
             int count = result.next() ? result.getInt(1) : 0;
@@ -72,7 +73,7 @@ public class DonHangService {
             pstmt.setString(1, donHang.getTendonhang());
             pstmt.setBigDecimal(2, donHang.getTongtien());
             pstmt.setBigDecimal(3, donHang.getTonggiamgia());
-            pstmt.setLong(5, id);
+            pstmt.setLong(4, id);
 
             int affectedRows = pstmt.executeUpdate();
             pstmt.close();
@@ -131,6 +132,7 @@ public class DonHangService {
             pstmt.setBigDecimal(2, donHangMoi.getTongtien());
             pstmt.setBigDecimal(3, donHangMoi.getTonggiamgia());
             pstmt.setString(4, donHangMoi.getNgaytao().toString());
+            pstmt.setLong(5, donHangMoi.getMaNguoiDung());
 
             int affectedRows = pstmt.executeUpdate();
             pstmt.close();
