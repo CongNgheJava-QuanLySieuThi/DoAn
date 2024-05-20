@@ -136,12 +136,6 @@ public class DonHangView extends javax.swing.JPanel {
 
         jLabel1.setText("Tên đơn hàng");
 
-        nameField.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                nameFieldActionPerformed(evt);
-            }
-        });
-
         jLabel3.setText("Tổng tiền");
 
         totalPriceLabel.setText("Tổng giảm giá");
@@ -288,10 +282,6 @@ public class DonHangView extends javax.swing.JPanel {
     private void searchFieldKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_searchFieldKeyTyped
         resetBtn.setEnabled(!searchField.getText().isEmpty());
     }//GEN-LAST:event_searchFieldKeyTyped
-
-    private void nameFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nameFieldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_nameFieldActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
