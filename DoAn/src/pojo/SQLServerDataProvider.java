@@ -18,7 +18,7 @@ public class SQLServerDataProvider implements AutoCloseable{
             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
             String connectionURL = "jdbc:sqlserver://" + strServer
                     + ":1433;databaseName=" + strDatabase
-                    + ";user=sa;password=Tuan@2003;";
+                    + ";user=sa;password=123;";
             // Khởi tạo kết nối và gán vào trường connection của lớp
             this.connection = DriverManager.getConnection(connectionURL);
             if (this.connection != null && !this.connection.isClosed()) {

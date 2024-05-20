@@ -1,4 +1,5 @@
 package dao;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import pojo.MucDonHang;
@@ -79,5 +80,35 @@ public class MucDonHangDAO {
             Logger.getLogger(MucDonHangDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
         return false;
+    }
+    public static ArrayList<MucDonHang> layDanhSachMucDonHangTheoMaDonHang(Long maDonHang) {
+        ArrayList<MucDonHang> dsMucDonHang = new ArrayList<>();
+        try {
+            String sql = "SELECT mdh.*, sp.TenSP " +
+                         "FROM MucDonHang mdh " +
+                         "INNER JOIN SanPham sp ON mdh.masp = sp.masp " +
+                         "WHERE mdh.MaDonHang = ?";
+            try (SQLServerDataProvider provider = new SQLServerDataProvider()) {
+                provider.open();
+                PreparedStatement ps = provider.getConnection().prepareStatement(sql);
+                ps.setLong(1, maDonHang); // Thiết lập giá trị cho tham số
+                ResultSet rs = ps.executeQuery();
+                while (rs.next()) {
+                    MucDonHang mdh = new MucDonHang();
+                    mdh.setMaMuc(rs.getLong("MaMuc"));
+                    mdh.setSoLuong(rs.getInt("SoLuong"));
+                    mdh.setGiaHienTai(rs.getBigDecimal("GiaHienTai"));
+                    mdh.setGiamGiaHienTai(rs.getBigDecimal("GiamGiaHienTai"));
+                    mdh.setMaDonHang(rs.getLong("MaDonHang"));
+                    mdh.setMaSanPham(rs.getLong("masp"));
+                    // Lấy tên sản phẩm thay vì mã sản phẩm
+                    mdh.setTenSanPham(rs.getString("TenSP"));
+                    dsMucDonHang.add(mdh);
+                }
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(MucDonHangDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return dsMucDonHang;
     }
 }

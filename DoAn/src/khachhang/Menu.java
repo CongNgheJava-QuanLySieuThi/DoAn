@@ -203,7 +203,8 @@ public class Menu extends javax.swing.JFrame {
         txtTongGiamGia = new javax.swing.JTextField();
         txtNgayDat = new javax.swing.JTextField();
         txtTongTien = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
+        btnXoaDonHang = new javax.swing.JButton();
+        btnChiTiet = new javax.swing.JButton();
         jPanel12 = new javax.swing.JPanel();
         jScrollPane4 = new javax.swing.JScrollPane();
         tblDanhSachDonHang = new javax.swing.JTable();
@@ -815,10 +816,7 @@ public class Menu extends javax.swing.JFrame {
 
         tblChiTietDonHang.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+
             },
             new String [] {
                 "Tên sản phẩm", "Số lượng mua", "Giá giảm", "Thành tiền"
@@ -861,7 +859,7 @@ public class Menu extends javax.swing.JFrame {
             .addGroup(jPanel10Layout.createSequentialGroup()
                 .addGap(35, 35, 35)
                 .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(283, Short.MAX_VALUE))
         );
 
         jPanel11.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "DANH SÁCH ĐƠN HÀNG", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 1, 14))); // NOI18N
@@ -918,7 +916,19 @@ public class Menu extends javax.swing.JFrame {
             }
         });
 
-        jButton1.setText("Xóa đơn hàng");
+        btnXoaDonHang.setText("Xóa đơn hàng");
+        btnXoaDonHang.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnXoaDonHangActionPerformed(evt);
+            }
+        });
+
+        btnChiTiet.setText("Xem chi tiết");
+        btnChiTiet.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnChiTietActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel9Layout = new javax.swing.GroupLayout(jPanel9);
         jPanel9.setLayout(jPanel9Layout);
@@ -935,17 +945,20 @@ public class Menu extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel9Layout.createSequentialGroup()
-                        .addComponent(txtNgayDat, javax.swing.GroupLayout.PREFERRED_SIZE, 204, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton1))
-                    .addGroup(jPanel9Layout.createSequentialGroup()
                         .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(txtMaDonHang, javax.swing.GroupLayout.PREFERRED_SIZE, 204, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(txtTenDonHang, javax.swing.GroupLayout.PREFERRED_SIZE, 204, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtTongGiamGia, javax.swing.GroupLayout.PREFERRED_SIZE, 204, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(txtTongTien, javax.swing.GroupLayout.PREFERRED_SIZE, 204, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addContainerGap())
+                        .addContainerGap(290, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel9Layout.createSequentialGroup()
+                        .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtNgayDat, javax.swing.GroupLayout.PREFERRED_SIZE, 204, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtTongGiamGia, javax.swing.GroupLayout.PREFERRED_SIZE, 204, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(btnXoaDonHang, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnChiTiet, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(22, 22, 22))))
         );
         jPanel9Layout.setVerticalGroup(
             jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -965,12 +978,13 @@ public class Menu extends javax.swing.JFrame {
                 .addGap(12, 12, 12)
                 .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel16)
-                    .addComponent(txtTongGiamGia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(txtTongGiamGia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnChiTiet))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
                 .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel17)
                     .addComponent(txtNgayDat, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton1))
+                    .addComponent(btnXoaDonHang))
                 .addContainerGap())
         );
 
@@ -978,10 +992,7 @@ public class Menu extends javax.swing.JFrame {
 
         tblDanhSachDonHang.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+
             },
             new String [] {
                 "Mã đơn hàng", "Tên đơn hàng", "Tổng tiền đơn hàng", "Giá giảm", "Ngày đặt"
@@ -1000,6 +1011,11 @@ public class Menu extends javax.swing.JFrame {
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
+            }
+        });
+        tblDanhSachDonHang.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblDanhSachDonHangMouseClicked(evt);
             }
         });
         jScrollPane4.setViewportView(tblDanhSachDonHang);
@@ -1183,69 +1199,70 @@ public class Menu extends javax.swing.JFrame {
     }//GEN-LAST:event_listDanhMucValueChanged
 
     private void btnXacNhanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXacNhanActionPerformed
-       try {
-    // Thu thập thông tin đơn hàng
-    String tendonhang = "Đơn hàng của " + lable_TenKhachHang.getText();
-    BigDecimal tongtien = new BigDecimal(txtTongHoaDon.getText());
-    BigDecimal tonggiamgia = BigDecimal.ZERO;
-    LocalDateTime ngaytao = LocalDateTime.now();
-    Long MaND = maND;
+        try {
+            // Thu thập thông tin đơn hàng
+            String tendonhang = "Đơn hàng của " + lable_TenKhachHang.getText();
+            BigDecimal tongtien = new BigDecimal(txtTongHoaDon.getText());
+            BigDecimal tonggiamgia = BigDecimal.ZERO;
+            LocalDateTime ngaytao = LocalDateTime.now();
+            Long MaND = maND;
 
-    // Tạo đối tượng DonHang
-    DonHang donHang = new DonHang(tendonhang, tongtien, tonggiamgia, ngaytao);
-    donHang.setMaNguoiDung(maND);
+            // Tạo đối tượng DonHang
+            DonHang donHang = new DonHang(tendonhang, tongtien, tonggiamgia, ngaytao);
+            donHang.setMaNguoiDung(maND);
 
-    // Lưu đơn hàng vào cơ sở dữ liệu và lấy mã đơn hàng mới tạo
-    boolean isDonHangSaved = DonHangDAO.themDonHang(donHang);
-    if (!isDonHangSaved) {
-        JOptionPane.showMessageDialog(this, "Lỗi khi lưu đơn hàng");
-        return;
-    }
+            // Lưu đơn hàng vào cơ sở dữ liệu và lấy mã đơn hàng mới tạo
+            boolean isDonHangSaved = DonHangDAO.themDonHang(donHang);
+            if (!isDonHangSaved) {
+                JOptionPane.showMessageDialog(this, "Lỗi khi lưu đơn hàng");
+                return;
+            }
 
-    // Giả sử mã đơn hàng được trả về sau khi lưu
-    Long maDonHang = donHang.getMadonhang();
+            // Giả sử mã đơn hàng được trả về sau khi lưu
+            Long maDonHang = donHang.getMadonhang();
 
-    // Thu thập chi tiết sản phẩm từ bảng tblMatHangDaChon
-    List<MucDonHang> dsMucDonHang = new ArrayList<>();
-    DefaultTableModel modelMatHangDaChon = (DefaultTableModel) tblMatHangDaChon.getModel();
-    for (int i = 0; i < modelMatHangDaChon.getRowCount(); i++) {
-        Long maSanPham = Long.parseLong(modelMatHangDaChon.getValueAt(i, 0).toString());
-        String tenSP = modelMatHangDaChon.getValueAt(i, 1).toString();
-        BigDecimal giaHienTai = new BigDecimal(modelMatHangDaChon.getValueAt(i, 2).toString());
-        BigDecimal giamGiaHienTai = new BigDecimal(modelMatHangDaChon.getValueAt(i, 3).toString());
-        int soLuong = Integer.parseInt(modelMatHangDaChon.getValueAt(i, 4).toString());
-        // Tính tổng giảm giá
-        tonggiamgia = tonggiamgia.add(giamGiaHienTai);
+            // Thu thập chi tiết sản phẩm từ bảng tblMatHangDaChon
+            List<MucDonHang> dsMucDonHang = new ArrayList<>();
+            DefaultTableModel modelMatHangDaChon = (DefaultTableModel) tblMatHangDaChon.getModel();
+            for (int i = 0; i < modelMatHangDaChon.getRowCount(); i++) {
+                Long maSanPham = Long.parseLong(modelMatHangDaChon.getValueAt(i, 0).toString());
+                String tenSP = modelMatHangDaChon.getValueAt(i, 1).toString();
+                BigDecimal giaHienTai = new BigDecimal(modelMatHangDaChon.getValueAt(i, 2).toString());
+                BigDecimal giamGiaHienTai = new BigDecimal(modelMatHangDaChon.getValueAt(i, 3).toString());
+                int soLuong = Integer.parseInt(modelMatHangDaChon.getValueAt(i, 4).toString());
+                // Tính tổng giảm giá
+                tonggiamgia = tonggiamgia.add(giamGiaHienTai);
 
-        // Tạo đối tượng MucDonHang
-        MucDonHang mucDonHang = new MucDonHang(soLuong, giaHienTai, giamGiaHienTai, maDonHang, maSanPham);
-        dsMucDonHang.add(mucDonHang);
-    }
+                // Tạo đối tượng MucDonHang
+                MucDonHang mucDonHang = new MucDonHang(soLuong, giaHienTai, giamGiaHienTai, maDonHang, maSanPham);
+                dsMucDonHang.add(mucDonHang);
+            }
 
-    // Cập nhật tổng giảm giá vào đơn hàng
-    donHang.setTonggiamgia(tonggiamgia);
+            // Cập nhật tổng giảm giá vào đơn hàng
+            donHang.setTonggiamgia(tonggiamgia);
 
-    // Lưu chi tiết sản phẩm vào cơ sở dữ liệu
-    boolean allMucDonHangSaved = true;
-    for (MucDonHang mucDonHang : dsMucDonHang) {
-        boolean isMucDonHangSaved = MucDonHangDAO.themMucDonHang(mucDonHang);
-        if (!isMucDonHangSaved) {
-            allMucDonHangSaved = false;
-            break;
+            // Lưu chi tiết sản phẩm vào cơ sở dữ liệu
+            boolean allMucDonHangSaved = true;
+            for (MucDonHang mucDonHang : dsMucDonHang) {
+                boolean isMucDonHangSaved = MucDonHangDAO.themMucDonHang(mucDonHang);
+                if (!isMucDonHangSaved) {
+                    allMucDonHangSaved = false;
+                    break;
+                }
+            }
+
+            if (allMucDonHangSaved) {
+                JOptionPane.showMessageDialog(this, "Đơn hàng đã được lưu thành công!");
+            } else {
+                JOptionPane.showMessageDialog(this, "Lỗi khi lưu chi tiết sản phẩm");
+            }
+
+        } catch (Exception ex) {
+            Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(this, "Đã xảy ra lỗi: " + ex.getMessage());
         }
-    }
-
-    if (allMucDonHangSaved) {
-        JOptionPane.showMessageDialog(this, "Đơn hàng đã được lưu thành công!");
-    } else {
-        JOptionPane.showMessageDialog(this, "Lỗi khi lưu chi tiết sản phẩm");
-    }
-
-} catch (Exception ex) {
-    Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, null, ex);
-    JOptionPane.showMessageDialog(this, "Đã xảy ra lỗi: " + ex.getMessage());
-}
- 
+        loadData();
+       
     }//GEN-LAST:event_btnXacNhanActionPerformed
 
     private void btnCapNhatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCapNhatActionPerformed
@@ -1336,6 +1353,67 @@ public class Menu extends javax.swing.JFrame {
     private void txtTongTienActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTongTienActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtTongTienActionPerformed
+
+    private void btnChiTietActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChiTietActionPerformed
+        // Lấy mã đơn hàng từ JTextField
+        Long maDonHang = Long.parseLong(txtMaDonHang.getText());
+        // Truy vấn dữ liệu từ bảng MucDonHang dựa trên mã đơn hàng
+        ArrayList<MucDonHang> dsMucDonHang = MucDonHangDAO.layDanhSachMucDonHangTheoMaDonHang(maDonHang);
+        DefaultTableModel model = new DefaultTableModel();
+        // Thêm các cột vào model
+        model.addColumn("Tên sản phẩm");
+        model.addColumn("Số lượng mua");
+        model.addColumn("Giá giảm");
+        model.addColumn("Thành tiền");
+        // Thêm dữ liệu từ danh sách mục đơn hàng vào model
+        for (MucDonHang mucDonHang : dsMucDonHang) {
+            // Tính toán thành tiền
+            BigDecimal soLuong = new BigDecimal(mucDonHang.getSoLuong());
+            BigDecimal giaHienTai = mucDonHang.getGiaHienTai();
+
+            // Tính toán thành tiền
+            BigDecimal thanhTien = soLuong.multiply(giaHienTai);
+
+            // Thêm hàng mới vào model
+            model.addRow(new Object[]{
+                mucDonHang.getTenSanPham(), // Sử dụng phương thức lấy tên sản phẩm
+                mucDonHang.getSoLuong(),
+                mucDonHang.getGiamGiaHienTai(),
+                thanhTien
+            });
+        }
+
+        // Cập nhật model cho bảng tblChiTietDonHang
+        tblChiTietDonHang.setModel(model);
+    }//GEN-LAST:event_btnChiTietActionPerformed
+
+    private void tblDanhSachDonHangMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblDanhSachDonHangMouseClicked
+        // TODO add your handling code here:
+        int row = tblDanhSachDonHang.getSelectedRow();
+        if (row != -1) {
+            txtMaDonHang.setText(String.valueOf(tblDanhSachDonHang.getValueAt(row, 0)));
+            txtTenDonHang.setText(String.valueOf(tblDanhSachDonHang.getValueAt(row, 1)));
+            txtTongTien.setText(String.valueOf(tblDanhSachDonHang.getValueAt(row, 2)));
+            txtTongGiamGia.setText(String.valueOf(tblDanhSachDonHang.getValueAt(row, 3)));
+            txtNgayDat.setText(String.valueOf(tblDanhSachDonHang.getValueAt(row, 4)));
+        }
+    }//GEN-LAST:event_tblDanhSachDonHangMouseClicked
+
+    private void btnXoaDonHangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaDonHangActionPerformed
+        Long maDonHang = Long.parseLong(txtMaDonHang.getText());
+        int confirmed = JOptionPane.showConfirmDialog(null, "Bạn có chắc chắn muốn xóa đơn hàng này?", "Xác nhận xóa đơn hàng", JOptionPane.YES_NO_OPTION);
+        if (confirmed == JOptionPane.YES_OPTION) {
+            // Thực hiện xóa đơn hàng từ cơ sở dữ liệu
+            boolean deleted = DonHangDAO.xoaDonHang(maDonHang);
+            if (deleted) {
+                JOptionPane.showMessageDialog(null, "Đơn hàng đã được xóa thành công.");
+                // Cập nhật giao diện hoặc làm các công việc khác sau khi xóa
+            } else {
+                JOptionPane.showMessageDialog(null, "Đã xảy ra lỗi khi xóa đơn hàng.");
+            }
+        }
+        hienThiDanhSachDonHangCuaNguoiDung();
+    }//GEN-LAST:event_btnXoaDonHangActionPerformed
     private void updateTotalBill() {
         DefaultTableModel modelMatHangDaChon = (DefaultTableModel) tblMatHangDaChon.getModel();
         double tongHoaDon = 0.0;
@@ -1388,15 +1466,16 @@ public class Menu extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCapNhat;
+    private javax.swing.JButton btnChiTiet;
     private javax.swing.JButton btnChonSanPham;
     private javax.swing.JButton btnReset;
     private javax.swing.JButton btnXacNhan;
     private javax.swing.JButton btnXoa;
+    private javax.swing.JButton btnXoaDonHang;
     private javax.swing.JButton btnXoaTatCa;
     private javax.swing.JPanel cardLichSuMuaHang;
     private javax.swing.JPanel cardMuaHang;
     private javax.swing.JPanel cardThongTinKH;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -1493,8 +1572,6 @@ public class Menu extends javax.swing.JFrame {
     }
 
     public void hienThiDanhSachDonHangCuaNguoiDung() {
-        // Xác định người dùng đang đăng nhập
-        // MaNguoiDung là mã người dùng đang đăng nhập
 
         // Truy vấn cơ sở dữ liệu để lấy danh sách các đơn hàng của người dùng đang đăng nhập từ bảng tblDanhSachDonHang
         ArrayList<DonHang> dsDonHang = DonHangDAO.layDanhSachDonHangCuaNguoiDung(maND);
