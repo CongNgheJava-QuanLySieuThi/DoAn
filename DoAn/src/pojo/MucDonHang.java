@@ -99,5 +99,13 @@ public class MucDonHang implements Serializable {
     public void setMaSanPham(Long maSanPham) {
         this.maSanPham = maSanPham;
     }
+    private String TenSP;
 
+    public String getTenSanPham() {
+        return TenSP;
+    }
+
+    public void setTenSanPham(String tenSanPham) {
+        this.TenSP = tenSanPham;
+    }
 }
