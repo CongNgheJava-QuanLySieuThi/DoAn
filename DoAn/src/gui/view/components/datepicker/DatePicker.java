@@ -18,7 +18,7 @@ public class DatePicker extends com.github.lgooddatepicker.components.DatePicker
         DatePickerSettings dateSettings = new DatePickerSettings();
         dateSettings.setFormatForDatesCommonEra(DateTimeFormatter.ofPattern("dd-MM-yyyy"));
         dateSettings.setFirstDayOfWeek(DayOfWeek.MONDAY);
-        dateSettings.setAllowEmptyDates(false);
+        dateSettings.setAllowEmptyDates(true);
         dateSettings.setTranslationClear("Xóa");
         dateSettings.setTranslationToday("Hôm nay");
     }

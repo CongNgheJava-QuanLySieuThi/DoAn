@@ -6,6 +6,7 @@ package pojo;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 /**
  *
@@ -38,6 +39,23 @@ public class HangTonKho implements Serializable {
         this.ngayXuatHang = ngayXuatHang;
         this.trangThai = trangThai;
         this.maSP = maSP;
+    }
+
+    public HangTonKho(Long soLuongTrongKho, LocalDateTime ngayNhapHang, String trangThai) {
+        this.soLuongTrongKho = soLuongTrongKho;
+        this.ngayNhapHang = ngayNhapHang;
+        this.trangThai = trangThai;
+    }
+
+    public Object[] toRow() {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm:ss dd/MM/yyyy");
+        return new Object[]{
+            this.maHTK,
+            this.soLuongTrongKho,
+            this.ngayNhapHang == null ? "" : this.ngayNhapHang.format(formatter),
+            this.ngayXuatHang == null ? "" : this.ngayXuatHang.format(formatter),
+            this.trangThai
+        };
     }
 
     public Long getMaHTK() {

@@ -39,7 +39,7 @@ public class DonHangView extends javax.swing.JPanel {
     }
 
     private void addEvents() {
-        paginationComp1.addEventPagination((int page) -> {
+        paginationComp.addEventPagination((int page) -> {
             pageNumber = page;
             loadTable(page, pageSize);
         });
@@ -80,7 +80,6 @@ public class DonHangView extends javax.swing.JPanel {
         searchField = new javax.swing.JTextField();
         jScrollPane3 = new javax.swing.JScrollPane();
         table = new javax.swing.JTable();
-        paginationComp1 = new gui.view.components.pagination.PaginationComp();
         jLabel2 = new javax.swing.JLabel();
         searchBtn = new javax.swing.JButton();
         deleteBtn = new javax.swing.JButton();
@@ -120,15 +119,16 @@ public class DonHangView extends javax.swing.JPanel {
         jLabel13 = new javax.swing.JLabel();
         tongDoanhThuLabel = new javax.swing.JLabel();
         jPanel6 = new javax.swing.JPanel();
-        toDatePicker = new gui.view.components.datepicker.DatePicker();
-        fromDatePicker = new gui.view.components.datepicker.DatePicker();
         jLabel12 = new javax.swing.JLabel();
         jLabel14 = new javax.swing.JLabel();
+        fromDatePicker = new gui.view.components.datepicker.DatePicker();
+        toDatePicker = new gui.view.components.datepicker.DatePicker();
+        paginationComp = new gui.view.components.pagination.PaginationComp();
 
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
-        jScrollPane5.setBorder(null);
         jScrollPane5.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+        jScrollPane5.setBorder(null);
 
         searchField.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
@@ -200,8 +200,8 @@ public class DonHangView extends javax.swing.JPanel {
             }
         });
 
-        jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
         jLabel4.setText("Thông tin đơn hàng");
+        jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
 
         pageSizeSelection.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "5", "10", "50", "100" }));
         pageSizeSelection.addActionListener(new java.awt.event.ActionListener() {
@@ -215,8 +215,8 @@ public class DonHangView extends javax.swing.JPanel {
         jLabel7.setText("Tên đơn hàng");
         jLabel7.setPreferredSize(new java.awt.Dimension(100, 16));
 
-        jLabel8.setFont(new java.awt.Font("Segoe UI", 3, 12)); // NOI18N
         jLabel8.setText("Thêm đơn hàng mới");
+        jLabel8.setFont(new java.awt.Font("Segoe UI", 3, 12)); // NOI18N
 
         totalPriceLabel1.setText("Tổng giảm giá");
 
@@ -239,8 +239,8 @@ public class DonHangView extends javax.swing.JPanel {
         jLabel1.setText("Tên đơn hàng");
         jLabel1.setPreferredSize(new java.awt.Dimension(100, 16));
 
-        jLabel5.setFont(new java.awt.Font("Segoe UI", 3, 12)); // NOI18N
         jLabel5.setText("Chỉnh sửa đơn hàng");
+        jLabel5.setFont(new java.awt.Font("Segoe UI", 3, 12)); // NOI18N
 
         totalPriceLabel.setText("Tổng giảm giá");
 
@@ -380,18 +380,18 @@ public class DonHangView extends javax.swing.JPanel {
 
         jPanel5.setPreferredSize(new java.awt.Dimension(1164, 100));
 
-        jLabel11.setFont(new java.awt.Font("Segoe UI", 1, 38)); // NOI18N
         jLabel11.setText("Thống kê");
+        jLabel11.setFont(new java.awt.Font("Segoe UI", 1, 38)); // NOI18N
 
         jPanel4.setLayout(new javax.swing.BoxLayout(jPanel4, javax.swing.BoxLayout.X_AXIS));
 
         jPanel7.setPreferredSize(new java.awt.Dimension(300, 254));
 
-        jLabel10.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel10.setText("Tổng đơn hàng");
+        jLabel10.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
 
-        tongDonHangLabel.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
         tongDonHangLabel.setText("jLabel12");
+        tongDonHangLabel.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
 
         javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
         jPanel7.setLayout(jPanel7Layout);
@@ -418,11 +418,11 @@ public class DonHangView extends javax.swing.JPanel {
 
         jPanel8.setPreferredSize(new java.awt.Dimension(300, 0));
 
-        jLabel13.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel13.setText("Tổng doanh thu");
+        jLabel13.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
 
-        tongDoanhThuLabel.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
         tongDoanhThuLabel.setText("jLabel14");
+        tongDoanhThuLabel.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
 
         javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
         jPanel8.setLayout(jPanel8Layout);
@@ -488,16 +488,16 @@ public class DonHangView extends javax.swing.JPanel {
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel5Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(jPanel5Layout.createSequentialGroup()
                         .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel12)
-                            .addComponent(fromDatePicker, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(14, 14, 14)
+                            .addComponent(fromDatePicker, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
                         .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel14)
-                            .addComponent(toDatePicker, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(toDatePicker, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(jLabel11, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -520,8 +520,8 @@ public class DonHangView extends javax.swing.JPanel {
                         .addComponent(resetSearchFieldBtn)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(deleteBtn))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(paginationComp1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                        .addComponent(paginationComp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(pageSizeSelection, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 751, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -532,9 +532,9 @@ public class DonHangView extends javax.swing.JPanel {
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addGap(0, 0, 0)
+                .addComponent(jLabel4)
+                .addGap(30, 30, 30)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -545,14 +545,14 @@ public class DonHangView extends javax.swing.JPanel {
                             .addComponent(resetSearchFieldBtn))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 415, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(8, 8, 8)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(paginationComp1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(pageSizeSelection, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(pageSizeSelection, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(paginationComp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, 204, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 6, Short.MAX_VALUE))
+                .addGap(0, 18, Short.MAX_VALUE))
         );
 
         jScrollPane5.setViewportView(jPanel2);
@@ -607,7 +607,6 @@ public class DonHangView extends javax.swing.JPanel {
             clearFields(nameEditField, priceEditField, totalPriceEditField);
         }
     }//GEN-LAST:event_updateBtnActionPerformed
-
 
     private void deleteBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteBtnActionPerformed
         int selectedRow = table.getSelectedRow();
@@ -702,7 +701,7 @@ public class DonHangView extends javax.swing.JPanel {
     private javax.swing.JTextField nameEditField;
     private javax.swing.JTextField nameInsertField;
     private javax.swing.JComboBox<String> pageSizeSelection;
-    private gui.view.components.pagination.PaginationComp paginationComp1;
+    private gui.view.components.pagination.PaginationComp paginationComp;
     private javax.swing.JTextField priceEditField;
     private javax.swing.JTextField priceInsertField;
     private javax.swing.JButton resetEditFormBtn;
@@ -730,7 +729,7 @@ public class DonHangView extends javax.swing.JPanel {
             model.addRow(row.toRow());
         }
 
-        paginationComp1.setPagination(pageNumber, calculateTotalPage(danhSach.getTotals()));
+        paginationComp.setPagination(pageNumber, calculateTotalPage(danhSach.getTotals()));
         table.setModel(model);
         resetSearchFieldBtn.setEnabled(false);
         deleteBtn.setEnabled(false);
