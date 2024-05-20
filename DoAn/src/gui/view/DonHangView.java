@@ -127,8 +127,8 @@ public class DonHangView extends javax.swing.JPanel {
 
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
-        jScrollPane5.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
         jScrollPane5.setBorder(null);
+        jScrollPane5.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 
         searchField.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
@@ -200,8 +200,8 @@ public class DonHangView extends javax.swing.JPanel {
             }
         });
 
-        jLabel4.setText("Thông tin đơn hàng");
         jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
+        jLabel4.setText("Thông tin đơn hàng");
 
         pageSizeSelection.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "5", "10", "50", "100" }));
         pageSizeSelection.addActionListener(new java.awt.event.ActionListener() {
@@ -215,8 +215,8 @@ public class DonHangView extends javax.swing.JPanel {
         jLabel7.setText("Tên đơn hàng");
         jLabel7.setPreferredSize(new java.awt.Dimension(100, 16));
 
-        jLabel8.setText("Thêm đơn hàng mới");
         jLabel8.setFont(new java.awt.Font("Segoe UI", 3, 12)); // NOI18N
+        jLabel8.setText("Thêm đơn hàng mới");
 
         totalPriceLabel1.setText("Tổng giảm giá");
 
@@ -239,8 +239,8 @@ public class DonHangView extends javax.swing.JPanel {
         jLabel1.setText("Tên đơn hàng");
         jLabel1.setPreferredSize(new java.awt.Dimension(100, 16));
 
-        jLabel5.setText("Chỉnh sửa đơn hàng");
         jLabel5.setFont(new java.awt.Font("Segoe UI", 3, 12)); // NOI18N
+        jLabel5.setText("Chỉnh sửa đơn hàng");
 
         totalPriceLabel.setText("Tổng giảm giá");
 
@@ -324,7 +324,7 @@ public class DonHangView extends javax.swing.JPanel {
                     .addComponent(jSeparator1)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, 85, Short.MAX_VALUE)
+                            .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 1, Short.MAX_VALUE)
                             .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(totalPriceLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jLabel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -375,23 +375,23 @@ public class DonHangView extends javax.swing.JPanel {
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(15, 15, 15)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(8, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jPanel5.setPreferredSize(new java.awt.Dimension(1164, 100));
 
-        jLabel11.setText("Thống kê");
         jLabel11.setFont(new java.awt.Font("Segoe UI", 1, 38)); // NOI18N
+        jLabel11.setText("Thống kê");
 
         jPanel4.setLayout(new javax.swing.BoxLayout(jPanel4, javax.swing.BoxLayout.X_AXIS));
 
         jPanel7.setPreferredSize(new java.awt.Dimension(300, 254));
 
-        jLabel10.setText("Tổng đơn hàng");
         jLabel10.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabel10.setText("Tổng đơn hàng");
 
-        tongDonHangLabel.setText("jLabel12");
         tongDonHangLabel.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
+        tongDonHangLabel.setText("jLabel12");
 
         javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
         jPanel7.setLayout(jPanel7Layout);
@@ -418,11 +418,11 @@ public class DonHangView extends javax.swing.JPanel {
 
         jPanel8.setPreferredSize(new java.awt.Dimension(300, 0));
 
-        jLabel13.setText("Tổng doanh thu");
         jLabel13.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabel13.setText("Tổng doanh thu");
 
-        tongDoanhThuLabel.setText("jLabel14");
         tongDoanhThuLabel.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
+        tongDoanhThuLabel.setText("jLabel14");
 
         javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
         jPanel8.setLayout(jPanel8Layout);
@@ -729,7 +729,7 @@ public class DonHangView extends javax.swing.JPanel {
             model.addRow(row.toRow());
         }
 
-        paginationComp.setPagination(pageNumber, calculateTotalPage(danhSach.getTotals()));
+//        paginationComp.setPagination(pageNumber, calculateTotalPage(danhSach.getTotals()));
         table.setModel(model);
         resetSearchFieldBtn.setEnabled(false);
         deleteBtn.setEnabled(false);
