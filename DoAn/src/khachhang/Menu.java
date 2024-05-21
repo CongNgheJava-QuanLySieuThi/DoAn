@@ -1145,26 +1145,64 @@ public class Menu extends javax.swing.JFrame {
             Long maSP = Long.parseLong(modelDanhSachMatHang.getValueAt(selectedRow, 0).toString());
             String tenSP = modelDanhSachMatHang.getValueAt(selectedRow, 1).toString();
             double gia = Double.parseDouble(modelDanhSachMatHang.getValueAt(selectedRow, 2).toString());
-            
-            int soLuongMua;
 
+            int soLuongMua;
             try {
                 soLuongMua = Integer.parseInt(txtSoLuongMua.getText());
                 if (soLuongMua <= 0) {
                     throw new NumberFormatException();
                 }
-                double giamGia = (Double.parseDouble(modelDanhSachMatHang.getValueAt(selectedRow, 3).toString()))*soLuongMua;
-                double thanhTien = (gia * soLuongMua)-giamGia;
 
-                // Thêm dữ liệu vào đầu bảng MatHangDaChon
-                Vector<Object> rowData = new Vector<>();
-                rowData.add(maSP);
-                rowData.add(tenSP);
-                rowData.add(gia);
-                rowData.add(giamGia);
-                rowData.add(soLuongMua);
-                rowData.add(thanhTien);
-                modelMatHangDaChon.insertRow(0, rowData); // Thêm dòng mới vào đầu bảng
+                // Lấy số lượng tồn kho của sản phẩm
+                int soLuongTonKho = SanPhamDAO.laySoLuongTonKho(maSP);
+
+                // Kiểm tra nếu số lượng mua lớn hơn số lượng tồn kho
+                if (soLuongMua > soLuongTonKho) {
+                    JOptionPane.showMessageDialog(this, "Số lượng mua vượt quá số lượng tồn kho. Số lượng tồn kho hiện tại: " + soLuongTonKho, "Lỗi", JOptionPane.ERROR_MESSAGE);
+                    return;
+                }
+
+                double giamGia = (Double.parseDouble(modelDanhSachMatHang.getValueAt(selectedRow, 3).toString())) * soLuongMua;
+                double thanhTien = (gia * soLuongMua) - giamGia;
+
+                boolean found = false;
+
+                // Kiểm tra xem sản phẩm đã có trong bảng MatHangDaChon chưa
+                for (int i = 0; i < modelMatHangDaChon.getRowCount(); i++) {
+                    Long existingMaSP = Long.parseLong(modelMatHangDaChon.getValueAt(i, 0).toString());
+                    if (existingMaSP.equals(maSP)) {
+                        int existingSoLuong = Integer.parseInt(modelMatHangDaChon.getValueAt(i, 4).toString());
+                        double existingGia = Double.parseDouble(modelMatHangDaChon.getValueAt(i, 2).toString());
+                        double existingGiamGia = Double.parseDouble(modelMatHangDaChon.getValueAt(i, 3).toString());
+
+                        // Cập nhật số lượng và tổng giá trị
+                        int newSoLuong = existingSoLuong + soLuongMua;
+                        double newTongGia = existingGia * newSoLuong;
+                        double newTongGiamGia = existingGiamGia + giamGia;
+                        double newThanhTien = (newTongGia * newSoLuong) - newTongGiamGia;
+
+                        modelMatHangDaChon.setValueAt(newSoLuong, i, 4);
+                        modelMatHangDaChon.setValueAt(newTongGia, i, 2);
+                        modelMatHangDaChon.setValueAt(newTongGiamGia, i, 3);
+                        modelMatHangDaChon.setValueAt(newThanhTien, i, 5);
+
+                        found = true;
+                        break;
+                    }
+                }
+
+                if (!found) {
+                    // Thêm dữ liệu vào đầu bảng MatHangDaChon
+                    Vector<Object> rowData = new Vector<>();
+                    rowData.add(maSP);
+                    rowData.add(tenSP);
+                    rowData.add(gia);
+                    rowData.add(giamGia);
+                    rowData.add(soLuongMua);
+                    rowData.add(thanhTien);
+                    modelMatHangDaChon.insertRow(0, rowData); // Thêm dòng mới vào đầu bảng
+                }
+
                 // Cập nhật tổng hóa đơn
                 updateTotalBill();
             } catch (NumberFormatException e) {
@@ -1176,6 +1214,7 @@ public class Menu extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Chưa có sản phẩm nào được chọn. Vui lòng chọn một sản phẩm.", "Lỗi", JOptionPane.ERROR_MESSAGE);
         }
         txtSoLuongMua.setText("");
+
     }//GEN-LAST:event_btnChonSanPhamActionPerformed
 
     private void listDanhMucValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_listDanhMucValueChanged
@@ -1185,13 +1224,15 @@ public class Menu extends javax.swing.JFrame {
         ArrayList<SanPham> dsSanPhamTheoDanhMuc = SanPhamDAO.layDanhSachSanPhamTheoDanhMuc(danhMucDuocChon);
 
         // Cập nhật dữ liệu cho bảng tblDanhSachMatHang
-        DefaultTableModel dtmSanPham = (DefaultTableModel) tblDanhSachMatHang.getModel();
-        dtmSanPham.setRowCount(0); // Xóa dữ liệu cũ trước khi cập nhật mới
-        for (SanPham sp : dsSanPhamTheoDanhMuc) {
+         DefaultTableModel dtmSanPham = (DefaultTableModel)tblDanhSachMatHang.getModel();
+        dtmSanPham.setRowCount(0);
+        for(SanPham sp:dsSanPhamTheoDanhMuc)
+        {
             Vector<Object> vec = new Vector<Object>();
+            vec.add(sp.getMaSanPham());
             vec.add(sp.getTenSanPham());
             vec.add(sp.getGia());
-            vec.add(sp.getHinhAnh());
+            vec.add(sp.getGiamGia());
             vec.add(sp.getMoTa());
             dtmSanPham.addRow(vec);
         }
@@ -1237,6 +1278,13 @@ public class Menu extends javax.swing.JFrame {
                 // Tạo đối tượng MucDonHang
                 MucDonHang mucDonHang = new MucDonHang(soLuong, giaHienTai, giamGiaHienTai, maDonHang, maSanPham);
                 dsMucDonHang.add(mucDonHang);
+
+                // Cập nhật số lượng tồn kho cho từng sản phẩm
+                boolean isSoLuongUpdated = SanPhamDAO.updateSoLuongTonKho(maSanPham, soLuong);
+                if (!isSoLuongUpdated) {
+                    JOptionPane.showMessageDialog(this, "Lỗi khi cập nhật số lượng tồn kho cho sản phẩm: " + tenSP);
+                    return;
+                }
             }
 
             // Cập nhật tổng giảm giá vào đơn hàng

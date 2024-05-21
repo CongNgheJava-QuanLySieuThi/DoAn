@@ -123,4 +123,33 @@ public class SanPhamDAO {
         }
         return dsSanPham;
     }
+    public static boolean updateSoLuongTonKho(Long maSanPham, int soLuongMua) {
+        String query = "UPDATE SanPham SET SoLuongTonKho = SoLuongTonKho - ? WHERE MaSP = ?";
+        try (SQLServerDataProvider provider = new SQLServerDataProvider()) {
+            provider.open();
+            int affectedRows = provider.executeUpdate(query, soLuongMua, maSanPham);
+            return affectedRows > 0;
+        } catch (SQLException e) {
+            Logger.getLogger(SanPhamDAO.class.getName()).log(Level.SEVERE, null, e);
+            return false;
+        }
+    }
+    public static int laySoLuongTonKho(Long maSanPham) {
+        int soLuongTonKho = 0;
+        try {
+            String sql = "SELECT SoLuongTonKho FROM SanPham WHERE MaSP = ?";
+            SQLServerDataProvider provider = new SQLServerDataProvider();
+            provider.open();
+            PreparedStatement ps = provider.getConnection().prepareStatement(sql);
+            ps.setLong(1, maSanPham);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                soLuongTonKho = rs.getInt("SoLuongTonKho");
+            }
+            provider.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(SanPhamDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return soLuongTonKho;
+    }
 }

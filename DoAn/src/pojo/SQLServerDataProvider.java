@@ -12,7 +12,7 @@ public class SQLServerDataProvider implements AutoCloseable{
 
     // Phương thức mở kết nối tới cơ sở dữ liệu
     public void open() {
-        String strServer = "localhost";
+        String strServer = "NARIZMUSIC\\CHOCOPRO";
         String strDatabase = "QL_BH";
         try {
             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
