@@ -3,24 +3,14 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/E:/HK6/CN%20Java/DoAn%20PreUpload/DoAn/src/khachhang/Menu.java</file>
-            <file>file:/E:/HK6/CN%20Java/DoAn%20PreUpload/DoAn/src/pojo/SQLServerDataProvider.java</file>
-            <file>file:/E:/HK6/CN%20Java/DoAn%20PreUpload/DoAn/src/gui/view/User.java</file>
-            <file>file:/E:/HK6/CN%20Java/DoAn%20PreUpload/DoAn/src/gui/view/components/pagination/DefaultPaginationItemRender.java</file>
-            <file>file:/E:/HK6/CN%20Java/DoAn%20PreUpload/DoAn/src/gui/view/HangTonKhoView.java</file>
-            <file>file:/E:/HK6/CN%20Java/DoAn%20PreUpload/DoAn/src/pojo/HoaDon.java</file>
-            <file>file:/E:/HK6/CN%20Java/DoAn%20PreUpload/DoAn/src/gui/view/Main.java</file>
-            <file>file:/E:/HK6/CN%20Java/DoAn%20PreUpload/DoAn/src/dao/SanPhamDAO.java</file>
-            <file>file:/E:/HK6/CN%20Java/DoAn%20PreUpload/DoAn/src/gui/view/components/pagination/Page.java</file>
-            <file>file:/E:/HK6/CN%20Java/DoAn%20PreUpload/DoAn/src/gui/view/DonHangView.java</file>
-            <file>file:/E:/HK6/CN%20Java/DoAn%20PreUpload/DoAn/src/gui/view/TrangChuJPanel.java</file>
-            <file>file:/E:/HK6/CN%20Java/DoAn%20PreUpload/DoAn/src/gui/view/MainPage.java</file>
-            <file>file:/E:/HK6/CN%20Java/DoAn%20PreUpload/DoAn/src/gui/view/components/datepicker/DatePicker.java</file>
-            <file>file:/E:/HK6/CN%20Java/DoAn%20PreUpload/DoAn/src/gui/view/MucDonHang.java</file>
-            <file>file:/E:/HK6/CN%20Java/DoAn%20PreUpload/DoAn/src/dao/DonHangDAO.java</file>
-            <file>file:/E:/HK6/CN%20Java/DoAn%20PreUpload/DoAn/src/gui/view/components/pagination/PaginationComp.java</file>
-            <file>file:/E:/HK6/CN%20Java/DoAn%20PreUpload/DoAn/src/gui/view/components/pagination/PaginationEvent.java</file>
-            <file>file:/E:/HK6/CN%20Java/DoAn%20PreUpload/DoAn/src/dao/HangTonKhoService.java</file>
+            <file>file:/D:/Nam3_HK2/CongNghe_Java/DoAn/src/pojo/HoaDon.java</file>
+            <file>file:/D:/Nam3_HK2/CongNghe_Java/DoAn/src/pojo/NguoiDung.java</file>
+            <file>file:/D:/Nam3_HK2/CongNghe_Java/DoAn/src/khachhang/Menu.java</file>
+            <file>file:/D:/Nam3_HK2/CongNghe_Java/DoAn/src/pojo/DonHang.java</file>
+            <file>file:/D:/Nam3_HK2/CongNghe_Java/DoAn/src/gui/view/HoaDon.java</file>
+            <file>file:/D:/Nam3_HK2/CongNghe_Java/DoAn/src/gui/view/HangTonKhoView.java</file>
+            <file>file:/D:/Nam3_HK2/CongNghe_Java/DoAn/src/pojo/MucDonHang.java</file>
+            <file>file:/D:/Nam3_HK2/CongNghe_Java/DoAn/src/pojo/SQLServerDataProvider.java</file>
         </group>
     </open-files>
 </project-private>
