@@ -52,7 +52,7 @@ public class DonHang implements Serializable {
     }
 
     public Object[] toRow() {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm:ss dd/MM/yyyy");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         return new Object[]{
             this.madonhang,
             this.tendonhang,

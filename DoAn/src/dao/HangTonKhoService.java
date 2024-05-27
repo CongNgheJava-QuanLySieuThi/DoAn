@@ -12,7 +12,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
@@ -29,7 +28,7 @@ public class HangTonKhoService {
     private final SQLServerDataProvider provider = new SQLServerDataProvider();
     private final Logger LOGGER = Logger.getLogger(this.getClass().getName());
 
-    private final String SELECT_QUERY = "SELECT * FROM HangTonKho ORDER BY MAHTK OFFSET ? ROWS FETCH NEXT ? ROWS ONLY";
+    private final String SELECT_QUERY = "SELECT * FROM HangTonKho";
     private final String COUNT_QUERY = "SELECT COUNT(*) FROM HangTonKho";
     private final String FIND_BY_ID_QUERY = "SELECT HangTonKho.* FROM HangTonKho LEFT JOIN SANPHAM ON SANPHAM.MASP = HANGTONKHO.MASP WHERE MAHTK = ?";
 
@@ -52,15 +51,13 @@ public class HangTonKhoService {
         provider.open();
     }
 
-    public Pageable<HangTonKho> danhSachHangTonKho(int pageNumber, int pageSize) {
+    public Pageable<HangTonKho> danhSachHangTonKho() {
         List<HangTonKho> list = new ArrayList<>();
 
         try {
             Connection connection = provider.getConnection();
             PreparedStatement prepareStatement
                     = connection.prepareStatement(SELECT_QUERY);
-            prepareStatement.setInt(1, --pageNumber * pageSize);
-            prepareStatement.setInt(2, pageSize);
             ResultSet result = prepareStatement.executeQuery();
             while (result.next()) {
                 list.add(mapToObject(result));
@@ -150,8 +147,8 @@ public class HangTonKhoService {
             PreparedStatement pstmt = conn.prepareStatement(INSERT_QUERY);
             pstmt.setObject(1, donHangMoi.getSoLuongTrongKho());
             pstmt.setObject(2, donHangMoi.getNgayNhapHang());
-            pstmt.setObject(3, donHangMoi.getTrangThai());
-            pstmt.setObject(4, donHangMoi.getMaSanPham());
+            pstmt.setString(3, donHangMoi.getTrangThai());
+            pstmt.setLong(4, donHangMoi.getMaSanPham());
 
             int affectedRows = pstmt.executeUpdate();
             pstmt.close();

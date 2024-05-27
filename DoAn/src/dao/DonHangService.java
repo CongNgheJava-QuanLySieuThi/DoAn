@@ -23,7 +23,7 @@ public class DonHangService {
     private final SQLServerDataProvider provider = new SQLServerDataProvider();
     private final Logger LOGGER = Logger.getLogger(this.getClass().getName());
 
-    private final String SELECT_QUERY = "SELECT * FROM DonHang ORDER BY madonhang OFFSET ? ROWS FETCH NEXT ? ROWS ONLY";
+    private final String SELECT_QUERY = "SELECT * FROM DonHang";
     private final String COUNT_QUERY = "SELECT COUNT(*) FROM DonHang";
     private final String FIND_BY_NAME_QUERY = "SELECT * FROM DonHang WHERE LOWER(tendonhang) = ?";
 
@@ -41,15 +41,13 @@ public class DonHangService {
         provider.open();
     }
 
-    public Pageable<DonHang> danhSachDonHang(int pageNumber, int pageSize) {
+    public Pageable<DonHang> danhSachDonHang() {
         List<DonHang> list = new ArrayList<>();
 
         try {
             Connection connection = provider.getConnection();
             PreparedStatement prepareStatement
                     = connection.prepareStatement(SELECT_QUERY);
-            prepareStatement.setInt(1, --pageNumber * pageSize);
-            prepareStatement.setInt(2, pageSize);
             ResultSet result = prepareStatement.executeQuery();
             while (result.next()) {
                 list.add(mapToObject(result));

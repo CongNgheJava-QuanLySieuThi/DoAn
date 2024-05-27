@@ -2,7 +2,6 @@ package gui.view;
 
 import dao.HangTonKhoService;
 import gui.bean.Pageable;
-import gui.bean.Statistics;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Map;
@@ -20,18 +19,14 @@ import pojo.HangTonKho;
 public class HangTonKhoView extends javax.swing.JPanel {
 
     private final HangTonKhoService service = new HangTonKhoService();
-    private Integer pageNumber;
-    private Integer pageSize;
 
     /**
      * Creates new form HangTonKhoView
      */
     public HangTonKhoView() {
         initComponents();
-        this.pageNumber = 1;
-        this.pageSize = 5;
         initComponents();
-        loadTable(pageNumber, pageSize);
+        loadTable();
         resetSearchFieldBtn.setEnabled(true);
         deleteBtn.setEnabled(false);
         fromDatePicker.setDate(LocalDate.now().minusMonths(1));
@@ -43,11 +38,6 @@ public class HangTonKhoView extends javax.swing.JPanel {
     }
 
     private void addEvents() {
-        paginationComp.addEventPagination((int page) -> {
-            pageNumber = page;
-            loadTable(page, pageSize);
-        });
-
         fromDatePicker.addDateChangeListener((dce) -> {
             LocalDate newDate = dce.getNewDate();
 
@@ -89,7 +79,6 @@ public class HangTonKhoView extends javax.swing.JPanel {
         deleteBtn = new javax.swing.JButton();
         resetSearchFieldBtn = new javax.swing.JButton();
         jLabel16 = new javax.swing.JLabel();
-        pageSizeSelection = new javax.swing.JComboBox<>();
         jPanel11 = new javax.swing.JPanel();
         jLabel17 = new javax.swing.JLabel();
         jLabel18 = new javax.swing.JLabel();
@@ -131,7 +120,6 @@ public class HangTonKhoView extends javax.swing.JPanel {
         jLabel14 = new javax.swing.JLabel();
         fromDatePicker = new gui.view.components.datepicker.DatePicker();
         toDatePicker = new gui.view.components.datepicker.DatePicker();
-        paginationComp = new gui.view.components.pagination.PaginationComp();
 
         jScrollPane5.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
         jScrollPane5.setBorder(null);
@@ -195,13 +183,6 @@ public class HangTonKhoView extends javax.swing.JPanel {
 
         jLabel16.setText("Thông tin hàng tồn kho");
         jLabel16.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
-
-        pageSizeSelection.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "5", "10", "50", "100" }));
-        pageSizeSelection.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                pageSizeSelectionpageSizeSelectionActionPerformed(evt);
-            }
-        });
 
         jLabel17.setText("Ngày nhập hàng");
 
@@ -392,7 +373,7 @@ public class HangTonKhoView extends javax.swing.JPanel {
         jLabel10.setText("Tổng số hàng nhập kho");
         jLabel10.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
 
-        tongDonHangLabel.setText("jLabel12");
+        tongDonHangLabel.setText("0");
         tongDonHangLabel.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
 
         javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
@@ -423,7 +404,7 @@ public class HangTonKhoView extends javax.swing.JPanel {
         jLabel13.setText("Tổng số hàng xuất kho");
         jLabel13.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
 
-        tongDoanhThuLabel.setText("jLabel14");
+        tongDoanhThuLabel.setText("0");
         tongDoanhThuLabel.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
 
         javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
@@ -452,7 +433,7 @@ public class HangTonKhoView extends javax.swing.JPanel {
         jLabel1.setText("Hàng tồn kho khả dụng");
         jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
 
-        hangTonKhoKhaDungLabel.setText("jLabel2");
+        hangTonKhoKhaDungLabel.setText("0");
         hangTonKhoKhaDungLabel.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
 
         javax.swing.GroupLayout jPanel9Layout = new javax.swing.GroupLayout(jPanel9);
@@ -540,10 +521,6 @@ public class HangTonKhoView extends javax.swing.JPanel {
                                 .addComponent(resetSearchFieldBtn)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(deleteBtn))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel12Layout.createSequentialGroup()
-                                .addComponent(paginationComp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(pageSizeSelection, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 751, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(30, 30, 30)
                         .addComponent(jPanel11, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -556,7 +533,7 @@ public class HangTonKhoView extends javax.swing.JPanel {
                 .addGap(0, 0, 0)
                 .addComponent(jLabel16, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(30, 30, 30)
-                .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel12Layout.createSequentialGroup()
                         .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(searchField, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -565,15 +542,11 @@ public class HangTonKhoView extends javax.swing.JPanel {
                             .addComponent(deleteBtn)
                             .addComponent(resetSearchFieldBtn))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 415, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(7, 7, 7)
-                        .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(pageSizeSelection, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(paginationComp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jScrollPane4))
                     .addComponent(jPanel11, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(18, 18, 18)
                 .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, 204, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 14, Short.MAX_VALUE))
+                .addGap(14, 14, 14))
         );
 
         jScrollPane5.setViewportView(jPanel12);
@@ -622,7 +595,7 @@ public class HangTonKhoView extends javax.swing.JPanel {
             if (showConfirmDialog == 0) {
                 Long id = Long.valueOf(tableModel.getValueAt(selectedRow, 0).toString());
                 JOptionPane.showMessageDialog(null, service.xoaHangTonKho(id));
-                loadTable(pageNumber, pageSize);
+                loadTable();
             }
         } else {
             JOptionPane.showMessageDialog(null, "Bạn chưa chọn hàng để xóa!");
@@ -631,15 +604,9 @@ public class HangTonKhoView extends javax.swing.JPanel {
 
     private void resetSearchFieldBtnresetSearchFieldBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_resetSearchFieldBtnresetSearchFieldBtnActionPerformed
         searchField.setText("");
-        loadTable(pageNumber, pageSize);
+        loadTable();
         resetSearchFieldBtn.setEnabled(true);
     }//GEN-LAST:event_resetSearchFieldBtnresetSearchFieldBtnActionPerformed
-
-    private void pageSizeSelectionpageSizeSelectionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pageSizeSelectionpageSizeSelectionActionPerformed
-        String selectedValue = (String) pageSizeSelection.getSelectedItem();
-        pageSize = Integer.valueOf(selectedValue);
-        loadTable(pageNumber, pageSize);
-    }//GEN-LAST:event_pageSizeSelectionpageSizeSelectionActionPerformed
 
     private void insertBtninsertBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_insertBtninsertBtnActionPerformed
         if (validateFields(quantityInsertField, maSPInsertField) && validateFields(statusInsertField)) {
@@ -656,7 +623,7 @@ public class HangTonKhoView extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(null,
                     isInserted ? "Thêm thành công đơn hàng!" : "Thêm không thành công!"
             );
-            loadTable(pageNumber, pageSize);
+            loadTable();
             clearFields(quantityInsertField, maSPInsertField);
             clearFields(statusInsertField);
         }
@@ -687,7 +654,7 @@ public class HangTonKhoView extends javax.swing.JPanel {
             }
             donHangMoi.setNgayXuatHang(exportDay == null ? null : exportDay.atStartOfDay());
             JOptionPane.showMessageDialog(null, service.capNhatHangTonKho(maHang, donHangMoi));
-            loadTable(pageNumber, pageSize);
+            loadTable();
             clearFields(quantityInsertField, maSPInsertField);
             clearFields(statusInsertField);
         }
@@ -737,8 +704,6 @@ public class HangTonKhoView extends javax.swing.JPanel {
     private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JTextField maSPInsertField;
-    private javax.swing.JComboBox<String> pageSizeSelection;
-    private gui.view.components.pagination.PaginationComp paginationComp;
     private javax.swing.JTextField quantityEditField;
     private javax.swing.JTextField quantityInsertField;
     private javax.swing.JButton resetEditFormBtn;
@@ -757,29 +722,24 @@ public class HangTonKhoView extends javax.swing.JPanel {
     private javax.swing.JButton updateBtn;
     // End of variables declaration//GEN-END:variables
 
-    private void loadTable(int pageNumber, int pageSize) {
+    private void loadTable() {
         DefaultTableModel model = (DefaultTableModel) table.getModel();
         table.setRowHeight(35);
         model.setRowCount(0);
-        Pageable<HangTonKho> danhSach = service.danhSachHangTonKho(pageNumber, pageSize);
+        Pageable<HangTonKho> danhSach = service.danhSachHangTonKho();
         for (HangTonKho row : danhSach.getContents()) {
             model.addRow(row.toRow());
         }
 
-        paginationComp.setPagination(pageNumber, calculateTotalPage(danhSach.getTotals()));
         table.setModel(model);
         resetSearchFieldBtn.setEnabled(false);
         deleteBtn.setEnabled(false);
     }
 
-    private int calculateTotalPage(int total) {
-        return (int) Math.ceil((double) total / pageSize);
-    }
-
     private void fillFields(TableModel tableModel, int selectedRow) {
         quantityEditField.setText(tableModel.getValueAt(selectedRow, 1).toString());
         String value = tableModel.getValueAt(selectedRow, 2).toString();
-        importDayEditDatePicker.setDate(LocalDate.parse(value, DateTimeFormatter.ofPattern("HH:mm:ss dd/MM/yyyy")));
+        importDayEditDatePicker.setDate(LocalDate.parse(value, DateTimeFormatter.ofPattern("dd/MM/yyyy")));
         statusEditField.setSelectedItem(tableModel.getValueAt(selectedRow, 4).toString());
     }
 

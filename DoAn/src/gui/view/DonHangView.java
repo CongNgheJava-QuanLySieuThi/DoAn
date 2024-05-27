@@ -19,17 +19,13 @@ import javax.swing.table.TableModel;
 public class DonHangView extends javax.swing.JPanel {
 
     private final DonHangService service = new DonHangService();
-    private Integer pageNumber;
-    private Integer pageSize;
 
     /**
      * Creates new form DonHangView
      */
     public DonHangView() {
-        this.pageNumber = 1;
-        this.pageSize = 5;
         initComponents();
-        loadTable(pageNumber, pageSize);
+        loadTable();
         deleteBtn.setEnabled(false);
         resetSearchFieldBtn.setEnabled(false);
         fromDatePicker.setDate(LocalDate.now().minusMonths(1));
@@ -39,11 +35,6 @@ public class DonHangView extends javax.swing.JPanel {
     }
 
     private void addEvents() {
-        paginationComp.addEventPagination((int page) -> {
-            pageNumber = page;
-            loadTable(page, pageSize);
-        });
-
         fromDatePicker.addDateChangeListener((dce) -> {
             LocalDate newDate = dce.getNewDate();
 
@@ -85,7 +76,6 @@ public class DonHangView extends javax.swing.JPanel {
         deleteBtn = new javax.swing.JButton();
         resetSearchFieldBtn = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
-        pageSizeSelection = new javax.swing.JComboBox<>();
         jPanel3 = new javax.swing.JPanel();
         priceInsertField = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
@@ -123,7 +113,6 @@ public class DonHangView extends javax.swing.JPanel {
         jLabel14 = new javax.swing.JLabel();
         fromDatePicker = new gui.view.components.datepicker.DatePicker();
         toDatePicker = new gui.view.components.datepicker.DatePicker();
-        paginationComp = new gui.view.components.pagination.PaginationComp();
 
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
@@ -202,13 +191,6 @@ public class DonHangView extends javax.swing.JPanel {
 
         jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
         jLabel4.setText("Thông tin đơn hàng");
-
-        pageSizeSelection.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "5", "10", "50", "100" }));
-        pageSizeSelection.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                pageSizeSelectionActionPerformed(evt);
-            }
-        });
 
         jLabel6.setText("Tổng tiền");
 
@@ -520,10 +502,6 @@ public class DonHangView extends javax.swing.JPanel {
                         .addComponent(resetSearchFieldBtn)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(deleteBtn))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                        .addComponent(paginationComp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(pageSizeSelection, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 751, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(30, 30, 30)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -535,7 +513,7 @@ public class DonHangView extends javax.swing.JPanel {
                 .addGap(0, 0, 0)
                 .addComponent(jLabel4)
                 .addGap(30, 30, 30)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(searchField, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -544,13 +522,9 @@ public class DonHangView extends javax.swing.JPanel {
                             .addComponent(deleteBtn)
                             .addComponent(resetSearchFieldBtn))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 415, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(pageSizeSelection, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(paginationComp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jScrollPane3))
                     .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                .addGap(19, 19, 19)
                 .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, 204, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 18, Short.MAX_VALUE))
         );
@@ -603,7 +577,7 @@ public class DonHangView extends javax.swing.JPanel {
                 return;
             }
             JOptionPane.showMessageDialog(null, service.capNhatDonHang(maDh, donHangMoi));
-            loadTable(pageNumber, pageSize);
+            loadTable();
             clearFields(nameEditField, priceEditField, totalPriceEditField);
         }
     }//GEN-LAST:event_updateBtnActionPerformed
@@ -616,7 +590,7 @@ public class DonHangView extends javax.swing.JPanel {
             if (showConfirmDialog == 0) {
                 Long id = Long.valueOf(tableModel.getValueAt(selectedRow, 0).toString());
                 JOptionPane.showMessageDialog(null, service.xoaDonHang(id));
-                loadTable(pageNumber, pageSize);
+                loadTable();
             }
         } else {
             JOptionPane.showMessageDialog(null, "Bạn chưa chọn dòng nào để xóa!");
@@ -625,7 +599,7 @@ public class DonHangView extends javax.swing.JPanel {
 
     private void resetSearchFieldBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_resetSearchFieldBtnActionPerformed
         searchField.setText("");
-        loadTable(pageNumber, pageSize);
+        loadTable();
         resetSearchFieldBtn.setEnabled(true);
     }//GEN-LAST:event_resetSearchFieldBtnActionPerformed
 
@@ -652,20 +626,14 @@ public class DonHangView extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(null,
                     isInserted ? "Thêm thành công đơn hàng!" : "Thêm không thành công!"
             );
-            loadTable(pageNumber, pageSize);
-            clearFields(nameInsertField, priceInsertField, totalPriceInsertField);
+            loadTable();
+            clearFields(nameInsertField, priceInsertField, totalPriceInsertField, maNDField);
         }
     }//GEN-LAST:event_insertBtnActionPerformed
 
     private void resetInsertFormBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_resetInsertFormBtnActionPerformed
         clearFields(nameInsertField, priceInsertField, totalPriceInsertField, maNDField);
     }//GEN-LAST:event_resetInsertFormBtnActionPerformed
-
-    private void pageSizeSelectionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pageSizeSelectionActionPerformed
-        String selectedValue = (String) pageSizeSelection.getSelectedItem();
-        pageSize = Integer.valueOf(selectedValue);
-        loadTable(pageNumber, pageSize);
-    }//GEN-LAST:event_pageSizeSelectionActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -700,8 +668,6 @@ public class DonHangView extends javax.swing.JPanel {
     private javax.swing.JTextField maNDField;
     private javax.swing.JTextField nameEditField;
     private javax.swing.JTextField nameInsertField;
-    private javax.swing.JComboBox<String> pageSizeSelection;
-    private gui.view.components.pagination.PaginationComp paginationComp;
     private javax.swing.JTextField priceEditField;
     private javax.swing.JTextField priceInsertField;
     private javax.swing.JButton resetEditFormBtn;
@@ -720,29 +686,24 @@ public class DonHangView extends javax.swing.JPanel {
     private javax.swing.JButton updateBtn;
     // End of variables declaration//GEN-END:variables
 
-    private void loadTable(int pageNumber, int pageSize) {
+    private void loadTable() {
         DefaultTableModel model = (DefaultTableModel) table.getModel();
         table.setRowHeight(35);
         model.setRowCount(0);
-        Pageable<DonHang> danhSach = service.danhSachDonHang(pageNumber, pageSize);
+        Pageable<DonHang> danhSach = service.danhSachDonHang();
         for (DonHang row : danhSach.getContents()) {
             model.addRow(row.toRow());
         }
 
-//        paginationComp.setPagination(pageNumber, calculateTotalPage(danhSach.getTotals()));
         table.setModel(model);
         resetSearchFieldBtn.setEnabled(false);
         deleteBtn.setEnabled(false);
     }
 
-    private int calculateTotalPage(int total) {
-        return (int) Math.ceil((double) total / pageSize);
-    }
-
     private void fillFields(TableModel tableModel, int selectedRow) {
         nameEditField.setText(tableModel.getValueAt(selectedRow, 1).toString());
         priceEditField.setText(tableModel.getValueAt(selectedRow, 2).toString());
-        totalPriceEditField.setText(tableModel.getValueAt(selectedRow, 2).toString());
+        totalPriceEditField.setText(tableModel.getValueAt(selectedRow, 3).toString());
     }
 
     private boolean validateFields(JTextField... inputs) {
