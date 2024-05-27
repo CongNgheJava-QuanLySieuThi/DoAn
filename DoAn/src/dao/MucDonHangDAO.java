@@ -9,6 +9,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class MucDonHangDAO {
+    
     public static ArrayList<MucDonHang> layDanhSachMucDonHang() {
         ArrayList<MucDonHang> dsMucDonHang = new ArrayList<>();
         try {
@@ -111,4 +112,5 @@ public class MucDonHangDAO {
         }
         return dsMucDonHang;
     }
+    
 }

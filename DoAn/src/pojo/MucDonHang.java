@@ -108,4 +108,13 @@ public class MucDonHang implements Serializable {
     public void setTenSanPham(String tenSanPham) {
         this.TenSP = tenSanPham;
     }
+    private double thanhTien; 
+    // Constructor và các phương thức khác của lớp MucDonHang
+    public double getThanhTien() {
+        return thanhTien;
+    }
+
+    public void setThanhTien(double thanhTien) {
+        this.thanhTien = thanhTien;
+    }
 }

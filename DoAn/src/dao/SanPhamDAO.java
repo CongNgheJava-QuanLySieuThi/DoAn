@@ -152,4 +152,53 @@ public class SanPhamDAO {
         }
         return soLuongTonKho;
     }
+    public static String layTenSanPham(Long maSanPham) {
+        String tenSP="";
+        try {
+            String sql = "SELECT TenSP FROM SanPham WHERE MaSP = ?";
+            SQLServerDataProvider provider = new SQLServerDataProvider();
+            provider.open();
+            PreparedStatement ps = provider.getConnection().prepareStatement(sql);
+            ps.setLong(1, maSanPham);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                tenSP = rs.getString("TenSP");
+            }
+            provider.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(SanPhamDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return tenSP;
+    }
+    public static ArrayList<SanPham> timKiemSanPham(String tenSanPham) {
+        ArrayList<SanPham> dsSanPham = new ArrayList<>();
+        try {
+            String sql = "SELECT * FROM SanPham WHERE TenSP LIKE ?";
+            SQLServerDataProvider provider = new SQLServerDataProvider();
+            provider.open();
+            PreparedStatement ps = provider.getConnection().prepareStatement(sql);
+            ps.setString(1, "%" + tenSanPham + "%");
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                SanPham sp = new SanPham();
+                sp.setMaSanPham(rs.getLong("MaSP"));
+                sp.setTenSanPham(rs.getString("TenSP"));
+                sp.setGia(rs.getBigDecimal("Gia"));
+                sp.setGiamGia(rs.getInt("GiamGia"));
+                sp.setHinhAnh(rs.getString("HinhAnh"));
+                sp.setTuKhoa(rs.getString("TuKhoa"));
+                sp.setMoTa(rs.getString("MoTa"));
+                sp.setSoLuongTonKho(rs.getInt("SoLuongTonKho"));
+                sp.setNgayTao(rs.getTimestamp("NgayTao").toLocalDateTime());
+                sp.setNgayCapNhat(rs.getTimestamp("NgayCapNhat").toLocalDateTime());
+                sp.setMaDanhMuc(rs.getLong("MaDanhMuc"));
+                dsSanPham.add(sp);
+            }
+            provider.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(SanPhamDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return dsSanPham;
+    }
+
 }
