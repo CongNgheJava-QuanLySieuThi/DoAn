@@ -6,7 +6,9 @@
             <file>file:/C:/Users/kebao/OneDrive/Documents/Github/DoAn/DoAn/src/dao/NguoiDungDAO.java</file>
             <file>file:/C:/Users/kebao/OneDrive/Documents/Github/DoAn/DoAn/src/gui/view/Main.java</file>
             <file>file:/C:/Users/kebao/OneDrive/Documents/Github/DoAn/DoAn/src/dao/MucDonHangDAO.java</file>
+            <file>file:/C:/Users/kebao/OneDrive/Documents/Github/DoAn/DoAn/src/gui/view/HoaDon.java</file>
             <file>file:/C:/Users/kebao/OneDrive/Documents/Github/DoAn/DoAn/src/dao/HangTonKhoService.java</file>
+            <file>file:/C:/Users/kebao/OneDrive/Documents/Github/DoAn/DoAn/src/gui/view/TrangChuJPanel.java</file>
             <file>file:/C:/Users/kebao/OneDrive/Documents/Github/DoAn/DoAn/src/dao/HangTonKhoDAO.java</file>
             <file>file:/C:/Users/kebao/OneDrive/Documents/Github/DoAn/DoAn/src/dao/DonHangDAO.java</file>
             <file>file:/C:/Users/kebao/OneDrive/Documents/Github/DoAn/DoAn/src/gui/view/MucDonHang.java</file>
@@ -15,8 +17,11 @@
             <file>file:/C:/Users/kebao/OneDrive/Documents/Github/DoAn/DoAn/src/gui/view/QuanLySanPhamJPanel.java</file>
             <file>file:/C:/Users/kebao/OneDrive/Documents/Github/DoAn/DoAn/src/dao/DanhMucDAO.java</file>
             <file>file:/C:/Users/kebao/OneDrive/Documents/Github/DoAn/DoAn/src/dao/SanPhamDAO.java</file>
+            <file>file:/C:/Users/kebao/OneDrive/Documents/Github/DoAn/DoAn/src/gui/view/User.java</file>
             <file>file:/C:/Users/kebao/OneDrive/Documents/Github/DoAn/DoAn/src/dao/HoaDonDAO.java</file>
             <file>file:/C:/Users/kebao/OneDrive/Documents/Github/DoAn/DoAn/src/dao/DonHangService.java</file>
+            <file>file:/C:/Users/kebao/OneDrive/Documents/Github/DoAn/DoAn/src/gui/view/HangTonKhoView.java</file>
+            <file>file:/C:/Users/kebao/OneDrive/Documents/Github/DoAn/DoAn/src/gui/view/Login.java</file>
         </group>
     </open-files>
 </project-private>

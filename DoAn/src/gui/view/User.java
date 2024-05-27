@@ -8,6 +8,7 @@ package gui.view;
 import dao.NguoiDungDAO;
 import pojo.NguoiDung;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -47,9 +48,10 @@ public class User extends javax.swing.JPanel {
             for (NguoiDung nd : DSND) {
                 String maND = String.valueOf(nd.getMaND());
                 maNDList.add(maND);
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
                 model.addRow(new Object[]{
                     nd.getMaND(), nd.getHo(), nd.getTen(), nd.getTenTaiKhoan(),
-                    nd.getMatKhau(), nd.getChucVu(), nd.getNgayTao(), nd.getNgayCapNhat()
+                    nd.getMatKhau(), nd.getChucVu(), nd.getNgayTao().format(formatter), nd.getNgayCapNhat().format(formatter)
                 });
             }
         } else {

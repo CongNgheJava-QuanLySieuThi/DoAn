@@ -6,6 +6,7 @@
 package gui.view;
 
 import dao.DanhMucDAO;
+import java.time.format.DateTimeFormatter;
 import pojo.DanhMuc;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
@@ -43,8 +44,10 @@ public class TrangChuJPanel extends javax.swing.JPanel {
             for (DanhMuc dm : DSDM ) {
                 String maDM = String.valueOf(dm.getMaDanhMuc());
                 maDMList.add(maDM);
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
                 model.addRow(new Object[]{
-                    dm.getMaDanhMuc(), dm.getTenDanhMuc(), dm.getNgayTao()
+                    dm.getMaDanhMuc(), dm.getTenDanhMuc(),// Định nghĩa một DateTimeFormatter cho định dạng ngày/tháng/năm
+                    dm.getNgayTao().format(formatter)
                 });
             }
         } else {
@@ -111,14 +114,14 @@ public class TrangChuJPanel extends javax.swing.JPanel {
 
         jpnDanhMuc.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
-        jLabel2.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel2.setText("Mã Danh Mục:");
+        jLabel2.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
 
         jtfmaDanhMuc.setDisabledTextColor(new java.awt.Color(0, 0, 0));
         jtfmaDanhMuc.setEnabled(false);
 
-        jLabel3.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel3.setText("Tên Danh Mục:");
+        jLabel3.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
 
         jtftenDanhMuc.setDisabledTextColor(new java.awt.Color(0, 0, 0));
         jtftenDanhMuc.setEnabled(false);
@@ -129,13 +132,13 @@ public class TrangChuJPanel extends javax.swing.JPanel {
             jpnDanhMucLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jpnDanhMucLayout.createSequentialGroup()
                 .addGap(75, 75, 75)
-                .addComponent(jLabel2)
+                .addGroup(jpnDanhMucLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel3)
+                    .addComponent(jLabel2))
                 .addGap(27, 27, 27)
-                .addComponent(jtfmaDanhMuc, javax.swing.GroupLayout.PREFERRED_SIZE, 293, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(130, 130, 130)
-                .addComponent(jLabel3)
-                .addGap(27, 27, 27)
-                .addComponent(jtftenDanhMuc, javax.swing.GroupLayout.PREFERRED_SIZE, 293, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jpnDanhMucLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jtfmaDanhMuc, javax.swing.GroupLayout.PREFERRED_SIZE, 286, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jtftenDanhMuc, javax.swing.GroupLayout.PREFERRED_SIZE, 293, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jpnDanhMucLayout.setVerticalGroup(
@@ -143,11 +146,13 @@ public class TrangChuJPanel extends javax.swing.JPanel {
             .addGroup(jpnDanhMucLayout.createSequentialGroup()
                 .addGap(82, 82, 82)
                 .addGroup(jpnDanhMucLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jtfmaDanhMuc)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jtfmaDanhMuc, javax.swing.GroupLayout.DEFAULT_SIZE, 35, Short.MAX_VALUE)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addGroup(jpnDanhMucLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jtftenDanhMuc, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 35, Short.MAX_VALUE))
-                .addContainerGap(97, Short.MAX_VALUE))
+                .addContainerGap(44, Short.MAX_VALUE))
         );
 
         jPanel5.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
