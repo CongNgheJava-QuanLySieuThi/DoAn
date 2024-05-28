@@ -5,6 +5,7 @@
  */
 package gui.view;
 
+import NhanVien.Menu_NV;
 import pojo.SQLServerDataProvider;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -221,6 +222,10 @@ public class Login extends javax.swing.JFrame {
                     maND = rs.getLong(1);
                     Menu formKhachHang = new Menu(maND, ho, ten);
                     formKhachHang.setVisible(true);
+                } else if("Nhân viên".equalsIgnoreCase(role)){
+                    maND = rs.getLong(1);
+                    Menu_NV formNhanVien = new Menu_NV(maND, ho, ten);
+                    formNhanVien.setVisible(true);
                 }
 
                 // Đóng cửa sổ Login sau khi đăng nhập thành công

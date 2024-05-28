@@ -19,9 +19,17 @@ public class HoaDon implements Serializable {
     private Long maHD;
     private String tenHoaDon;
     private String phuongThucMuaHang;
-    private Long maDonHang;
     private Long maND;
     private LocalDateTime ngayTao;
+    private double TongTien;
+
+    public double getTongTien() {
+        return TongTien;
+    }
+
+    public void setTongTien(double TongTien) {
+        this.TongTien = TongTien;
+    }
 
     public HoaDon() {
     }
@@ -30,15 +38,17 @@ public class HoaDon implements Serializable {
             Long maHD,
             String tenHoaDon,
             String phuongThucMuaHang,
-            Long maDonHang,
+
             Long maND,
-            LocalDateTime ngayTao) {
+            LocalDateTime ngayTao,
+            double tongTien) {
         this.maHD = maHD;
         this.tenHoaDon = tenHoaDon;
         this.phuongThucMuaHang = phuongThucMuaHang;
-        this.maDonHang = maDonHang;
+
         this.maND = maND;
         this.ngayTao = ngayTao;
+        this.TongTien = tongTien;
     }
 
     public Long getMaHoaDon() {
@@ -65,13 +75,7 @@ public class HoaDon implements Serializable {
         this.phuongThucMuaHang = phuongThucMuaHang;
     }
 
-    public Long getMaDonHang() {
-        return maDonHang;
-    }
-
-    public void setMaDonHang(Long maDonHang) {
-        this.maDonHang = maDonHang;
-    }
+    
 
     public Long getMaNguoiDung() {
         return maND;
