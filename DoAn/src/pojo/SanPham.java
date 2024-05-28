@@ -61,7 +61,29 @@ public class SanPham implements Serializable {
         this.ngayCapNhat = ngayCapNhat;
         this.maDanhMuc = maDanhMuc;
     }
+    public SanPham(
 
+            String tenSP, 
+            BigDecimal gia, 
+            Integer giamGia, 
+            String hinhAnh, 
+            String tuKhoa, 
+            String moTa, 
+            Integer soLuongTonKho, 
+            LocalDateTime ngayTao, 
+            LocalDateTime ngayCapNhat, 
+            Long maDanhMuc) {
+        this.tenSP = tenSP;
+        this.gia = gia;
+        this.giamGia = giamGia;
+        this.hinhAnh = hinhAnh;
+        this.tuKhoa = tuKhoa;
+        this.moTa = moTa;
+        this.soLuongTonKho = soLuongTonKho;
+        this.ngayTao = ngayTao;
+        this.ngayCapNhat = ngayCapNhat;
+        this.maDanhMuc = maDanhMuc;
+    }
     public Long getMaSanPham() {
         return maSP;
     }

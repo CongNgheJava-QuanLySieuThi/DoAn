@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import pojo.SanPham;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.time.format.DateTimeFormatter;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -41,8 +42,8 @@ public class SanPhamDAO {
     public static boolean themSanPham(SanPham sp) {
         try {
             boolean kq = false;
-            String sql = String.format("INSERT INTO SanPham (TenSP, Gia, GiamGia, HinhAnh, TuKhoa, MoTa, SoLuongTonKho, NgayTao, NgayCapNhat, MaDanhMuc) VALUES ('%s', %f, %d, '%s', '%s', '%s', %d, '%s', '%s', %d)",
-                    sp.getTenSanPham(), sp.getGia(), sp.getGiamGia(), sp.getHinhAnh(), sp.getTuKhoa(), sp.getMoTa(), sp.getSoLuongTonKho(), sp.getNgayTao(), sp.getNgayCapNhat(), sp.getMaDanhMuc());
+            String sql = String.format("INSERT INTO SanPham (TenSP, Gia, GiamGia, HinhAnh, TuKhoa, MoTa, SoLuongTonKho, NgayTao, NgayCapNhat, MaDanhMuc) VALUES ('%s', '%s', %d, '%s', '%s', '%s', %d, '%s', '%s', %d)",
+                    sp.getTenSanPham(), sp.getGia().toString(), sp.getGiamGia(), sp.getHinhAnh(), sp.getTuKhoa(), sp.getMoTa(), sp.getSoLuongTonKho(), sp.getNgayTao().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")), sp.getNgayCapNhat().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")), sp.getMaDanhMuc());
             SQLServerDataProvider provider = new SQLServerDataProvider();
             provider.open();
             int n = provider.executeUpdate(sql);
@@ -78,8 +79,12 @@ public class SanPhamDAO {
     public static boolean capNhatSanPham(SanPham sp) {
         try {
             boolean kq = false;
-            String sql = String.format("UPDATE SanPham SET TenSP = '%s', Gia = %f, GiamGia = %d, HinhAnh = '%s', TuKhoa = '%s', MoTa = '%s', SoLuongTonKho = %d, NgayTao = '%s', NgayCapNhat = '%s', MaDanhMuc = %d WHERE MaSP= %d",
-                    sp.getTenSanPham(), sp.getGia(), sp.getGiamGia(), sp.getHinhAnh(), sp.getTuKhoa(), sp.getMoTa(), sp.getSoLuongTonKho(), sp.getNgayTao(), sp.getNgayCapNhat(), sp.getMaDanhMuc(), sp.getMaSanPham());
+            String ngayTaoFormatted = "";
+            if (sp.getNgayTao() != null) {
+                ngayTaoFormatted = sp.getNgayTao().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+            }
+            String sql = String.format("UPDATE SanPham SET TenSP = '%s', Gia = %s, GiamGia = %d, HinhAnh = '%s', TuKhoa = '%s', MoTa = '%s', SoLuongTonKho = %d, NgayTao = '%s', NgayCapNhat = '%s', MaDanhMuc = %d WHERE MaSP= %d",
+                    sp.getTenSanPham(), sp.getGia(), sp.getGiamGia(), sp.getHinhAnh(), sp.getTuKhoa(), sp.getMoTa(), sp.getSoLuongTonKho(), ngayTaoFormatted, sp.getNgayCapNhat().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")), sp.getMaDanhMuc(), sp.getMaSanPham());
             SQLServerDataProvider provider = new SQLServerDataProvider();
             provider.open();
             int n = provider.executeUpdate(sql);
@@ -93,6 +98,8 @@ public class SanPhamDAO {
         }
         return false;
     }
+
+    
     public static ArrayList<SanPham> layDanhSachSanPhamTheoDanhMuc(String tenDanhMuc) {
         ArrayList<SanPham> dsSanPham = new ArrayList<>();
         try {
