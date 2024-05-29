@@ -23,33 +23,30 @@ public class DonHang implements Serializable {
     private BigDecimal tonggiamgia;
     private LocalDateTime ngaytao;
     private Long maND;
+    private int TrangThai;
 
     public DonHang() {
     }
 
-    public DonHang(String tendonhang, BigDecimal tongtien, BigDecimal tonggiamgia, LocalDateTime ngaytao) {
+    public DonHang(String tendonhang, BigDecimal tongtien, BigDecimal tonggiamgia, LocalDateTime ngaytao, int TrangThai) {
         this.tendonhang = tendonhang;
         this.tongtien = tongtien;
         this.tonggiamgia = tonggiamgia;
         this.ngaytao = ngaytao;
+        this.TrangThai = TrangThai;
+    }   
+
+    public int getTrangThai() {
+        return TrangThai;
     }
 
-    public DonHang(Long madonhang, String tendonhang, BigDecimal tongtien, BigDecimal tonggiamgia, LocalDateTime ngaytao, Long maND) {
-        this.madonhang = madonhang;
-        this.tendonhang = tendonhang;
-        this.tongtien = tongtien;
-        this.tonggiamgia = tonggiamgia;
-        this.ngaytao = ngaytao;
-        this.maND = maND;
+    public void setTrangThai(int TrangThai) {
+        this.TrangThai = TrangThai;
     }
 
-    public DonHang(Long madonhang, String tendonhang, BigDecimal tongtien, BigDecimal tonggiamgia, LocalDateTime ngaytao) {
-        this.madonhang = madonhang;
-        this.tendonhang = tendonhang;
-        this.tongtien = tongtien;
-        this.tonggiamgia = tonggiamgia;
-        this.ngaytao = ngaytao;
-    }
+
+
+
 
     public Object[] toRow() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");

@@ -1,5 +1,6 @@
 package dao;
 
+import java.sql.Statement;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -36,37 +37,42 @@ public class DonHangDAO {
     }
 
     public static boolean themDonHang(DonHang dh) {
-        try {
-            boolean kq = false;
-            String sql = "INSERT INTO DonHang (Tendonhang, Tongtien, Tonggiamgia, Ngaytao, MaND) VALUES (?, ?, ?, ?, ?)";
-            SQLServerDataProvider provider = new SQLServerDataProvider();
-            provider.open();
+    SQLServerDataProvider provider = new SQLServerDataProvider();
+    try {
+        boolean kq = false;
+        String sql = "INSERT INTO DonHang (Tendonhang, Tongtien, Tonggiamgia, Ngaytao, MaND, TrangThai) VALUES (?, ?, ?, ?, ?, ?)";
 
-            PreparedStatement pstmt = provider.getConnection().prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS);
-            pstmt.setString(1, dh.getTendonhang());
-            pstmt.setBigDecimal(2, dh.getTongtien());
-            pstmt.setBigDecimal(3, dh.getTonggiamgia());
-            pstmt.setTimestamp(4, java.sql.Timestamp.valueOf(dh.getNgaytao()));
-            pstmt.setLong(5, dh.getMaNguoiDung());
+        provider.open();
+        PreparedStatement pstmt = provider.getConnection().prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+        
+        pstmt.setString(1, dh.getTendonhang());
+        pstmt.setBigDecimal(2, dh.getTongtien());
+        pstmt.setBigDecimal(3, dh.getTonggiamgia());
+        pstmt.setTimestamp(4, java.sql.Timestamp.valueOf(dh.getNgaytao()));
+        pstmt.setLong(5, dh.getMaNguoiDung());
+        pstmt.setInt(6, dh.getTrangThai());
 
-            int n = pstmt.executeUpdate();
-            if (n == 1) {
-                kq = true;
+        int n = pstmt.executeUpdate();
 
-                // Lấy mã đơn hàng tự động tăng
-                ResultSet generatedKeys = pstmt.getGeneratedKeys();
-                if (generatedKeys.next()) {
-                    dh.setMadonhang(generatedKeys.getLong(1));
-                }
+        if (n == 1) {
+            kq = true;
+
+            // Lấy mã đơn hàng tự động tăng
+            ResultSet generatedKeys = pstmt.getGeneratedKeys();
+            if (generatedKeys.next()) {
+                dh.setMadonhang(generatedKeys.getLong(1));
             }
-            provider.close();
-            return kq;
-        } catch (SQLException ex) {
-            Logger.getLogger(DonHangDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return false;
-    }
 
+        provider.close();
+        return kq;
+    } catch (SQLException ex) {
+        Logger.getLogger(DonHangDAO.class.getName()).log(Level.SEVERE, null, ex);
+    } finally {
+        provider.close();
+    }
+    return false;
+}
     public static boolean xoaDonHang(Long maDonHang) {
         try {
             boolean kq = false;
@@ -92,7 +98,7 @@ public class DonHangDAO {
     public static boolean capNhatDonHang(DonHang dh) {
         try {
             boolean kq = false;
-            String sql = "UPDATE DonHang SET Tendonhang=?, Tongtien=?, Tonggiamgia=?, Ngaytao=?, MaND=? WHERE Madonhang=?";
+            String sql = "UPDATE DonHang SET Tendonhang=?, Tongtien=?, Tonggiamgia=?, Ngaytao=?, MaND=?, TrangThai = ? WHERE Madonhang=?";
             SQLServerDataProvider provider = new SQLServerDataProvider();
             provider.open();
 
@@ -102,7 +108,8 @@ public class DonHangDAO {
             pstmt.setBigDecimal(3, dh.getTonggiamgia());
             pstmt.setTimestamp(4, java.sql.Timestamp.valueOf(dh.getNgaytao()));
             pstmt.setLong(5, dh.getMaNguoiDung());
-            pstmt.setLong(6, dh.getMadonhang());
+            pstmt.setLong(6, dh.getTrangThai());
+            pstmt.setLong(7, dh.getMadonhang());
 
             int n = pstmt.executeUpdate();
             if (n == 1) {
@@ -134,6 +141,7 @@ public class DonHangDAO {
                 dh.setTonggiamgia(rs.getBigDecimal("Tonggiamgia"));
                 dh.setNgaytao(rs.getTimestamp("Ngaytao").toLocalDateTime());
                 dh.setMaNguoiDung(rs.getLong("MaND"));
+                dh.setTrangThai(rs.getInt("TrangThai"));
                 dsDonHang.add(dh);
             }
             provider.close();

@@ -186,6 +186,8 @@ public class Menu extends javax.swing.JFrame {
         lblTongGiam = new javax.swing.JLabel();
         lblTongTien = new javax.swing.JLabel();
         lblNgayDat = new javax.swing.JLabel();
+        jLabel19 = new javax.swing.JLabel();
+        lblTrangThai = new javax.swing.JLabel();
         jPanel12 = new javax.swing.JPanel();
         jScrollPane4 = new javax.swing.JScrollPane();
         tblDanhSachDonHang = new javax.swing.JTable();
@@ -587,16 +589,9 @@ public class Menu extends javax.swing.JFrame {
                 "Tên sản phẩm", "Số lượng mua", "Giá giảm", "Thành tiền"
             }
         ) {
-            Class[] types = new Class [] {
-                java.lang.String.class, java.lang.Integer.class, java.lang.Double.class, java.lang.Double.class
-            };
             boolean[] canEdit = new boolean [] {
                 false, false, false, false
             };
-
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
-            }
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
@@ -686,6 +681,12 @@ public class Menu extends javax.swing.JFrame {
         lblNgayDat.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         lblNgayDat.setText("Ngày đặt");
 
+        jLabel19.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel19.setText("Trạng thái:");
+
+        lblTrangThai.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        lblTrangThai.setText("Trạng thái");
+
         javax.swing.GroupLayout jPanel9Layout = new javax.swing.GroupLayout(jPanel9);
         jPanel9.setLayout(jPanel9Layout);
         jPanel9Layout.setHorizontalGroup(
@@ -697,14 +698,16 @@ public class Menu extends javax.swing.JFrame {
                     .addComponent(jLabel16)
                     .addComponent(jLabel17)
                     .addComponent(jLabel8)
-                    .addComponent(jLabel1))
+                    .addComponent(jLabel1)
+                    .addComponent(jLabel19))
                 .addGap(24, 24, 24)
                 .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(txtMaDonHang, javax.swing.GroupLayout.PREFERRED_SIZE, 204, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblTenDonHang)
                     .addComponent(lblNgayDat)
                     .addComponent(lblTongTien)
-                    .addComponent(lblTongGiam))
+                    .addComponent(lblTongGiam)
+                    .addComponent(lblTrangThai))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 198, Short.MAX_VALUE)
                 .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -741,6 +744,10 @@ public class Menu extends javax.swing.JFrame {
                         .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel17)
                             .addComponent(lblNgayDat))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel19)
+                            .addComponent(lblTrangThai))
                         .addGap(0, 0, Short.MAX_VALUE))))
         );
 
@@ -752,19 +759,12 @@ public class Menu extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Mã đơn hàng", "Tên đơn hàng", "Tổng tiền đơn hàng", "Giá giảm", "Ngày đặt"
+                "Mã đơn hàng", "Tên đơn hàng", "Tổng tiền đơn hàng", "Giá giảm", "Ngày đặt", "Trạng thái"
             }
         ) {
-            Class[] types = new Class [] {
-                java.lang.Long.class, java.lang.String.class, java.lang.Double.class, java.lang.Double.class, java.lang.String.class
-            };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false
+                false, false, false, false, false, false
             };
-
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
-            }
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
@@ -782,6 +782,7 @@ public class Menu extends javax.swing.JFrame {
             tblDanhSachDonHang.getColumnModel().getColumn(2).setResizable(false);
             tblDanhSachDonHang.getColumnModel().getColumn(3).setResizable(false);
             tblDanhSachDonHang.getColumnModel().getColumn(4).setResizable(false);
+            tblDanhSachDonHang.getColumnModel().getColumn(5).setResizable(false);
         }
 
         javax.swing.GroupLayout jPanel12Layout = new javax.swing.GroupLayout(jPanel12);
@@ -1365,6 +1366,7 @@ public class Menu extends javax.swing.JFrame {
             lblTongTien.setText(String.valueOf(tblDanhSachDonHang.getValueAt(row, 2)));
             lblTongGiam.setText(String.valueOf(tblDanhSachDonHang.getValueAt(row, 3)));
             lblNgayDat.setText(String.valueOf(tblDanhSachDonHang.getValueAt(row, 4)));
+            lblTrangThai.setText(String.valueOf(tblDanhSachDonHang.getValueAt(row,5)));
         }
     }//GEN-LAST:event_tblDanhSachDonHangMouseClicked
 
@@ -1485,94 +1487,97 @@ public class Menu extends javax.swing.JFrame {
     }//GEN-LAST:event_lblThemVaoGioHangMouseClicked
 
     private void lblXacNhanMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblXacNhanMouseClicked
-        int choice = JOptionPane.showConfirmDialog(null, "Xác nhận thanh toán và xuất hóa đơn?", "Xác nhận mua", JOptionPane.YES_NO_CANCEL_OPTION);
-        switch (choice) {
-        case JOptionPane.YES_OPTION:
-            try {
-                // Thu thập thông tin đơn hàng
-                String tenDonHang = "Đơn hàng của " + lable_TenKhachHang.getText();
-                BigDecimal tongTien = new BigDecimal(txtTongHoaDon.getText());
-                BigDecimal tongGiamGia = new BigDecimal(lblTongGiamGia.getText());
-                LocalDateTime ngayTao = LocalDateTime.now();
-                Long maNguoiDung = maND;
+       int choice = JOptionPane.showConfirmDialog(null, "Xác nhận thanh toán và xuất hóa đơn?", "Xác nhận mua", JOptionPane.YES_NO_CANCEL_OPTION);
+switch (choice) {
+    case JOptionPane.YES_OPTION:
+        try {
+            // Thu thập thông tin đơn hàng
+            String tenDonHang = "Đơn hàng của " + lable_TenKhachHang.getText();
+            BigDecimal tongTien = new BigDecimal(txtTongHoaDon.getText());
+            BigDecimal tongGiamGia = new BigDecimal(lblTongGiamGia.getText());
+            LocalDateTime ngayTao = LocalDateTime.now();
+            Long maNguoiDung = maND;
+            int TrangThai = 0;
 
-                // Tạo đối tượng DonHang
-                DonHang donHang = new DonHang(tenDonHang, tongTien, tongGiamGia, ngayTao);
-                donHang.setMaNguoiDung(maNguoiDung);
+            // Tạo đối tượng DonHang
+            DonHang donHang = new DonHang(tenDonHang, tongTien, tongGiamGia, ngayTao, TrangThai);
+            donHang.setMaNguoiDung(maNguoiDung);
 
-                // Lưu đơn hàng vào cơ sở dữ liệu và lấy mã đơn hàng mới tạo
-                boolean isDonHangSaved = DonHangDAO.themDonHang(donHang);
-                if (!isDonHangSaved) {
-                    JOptionPane.showMessageDialog(null, "Lỗi khi lưu đơn hàng");
+            // Lưu đơn hàng vào cơ sở dữ liệu và lấy mã đơn hàng mới tạo
+            boolean isDonHangSaved = DonHangDAO.themDonHang(donHang);
+            if (!isDonHangSaved) {
+                JOptionPane.showMessageDialog(null, "Lỗi khi lưu đơn hàng");
+                return;
+            }
+
+            // Giả sử mã đơn hàng được trả về sau khi lưu
+            Long maDonHang = donHang.getMadonhang();
+
+            // Thu thập chi tiết sản phẩm từ bảng tblMatHangDaChon
+            List<MucDonHang> dsMucDonHang = new ArrayList<>();
+            DefaultTableModel modelMatHangDaChon = (DefaultTableModel) tblMatHangDaChon.getModel();
+            for (int i = 0; i < modelMatHangDaChon.getRowCount(); i++) {
+                Long maSanPham = Long.parseLong(modelMatHangDaChon.getValueAt(i, 0).toString());
+                String tenSP = modelMatHangDaChon.getValueAt(i, 1).toString();
+                BigDecimal giaHienTai = new BigDecimal(modelMatHangDaChon.getValueAt(i, 2).toString());
+                BigDecimal giamGiaHienTai = new BigDecimal(modelMatHangDaChon.getValueAt(i, 3).toString());
+                int soLuong = Integer.parseInt(modelMatHangDaChon.getValueAt(i, 4).toString());
+
+                // Tính tổng giảm giá
+                BigDecimal giamGia = giamGiaHienTai.multiply(BigDecimal.valueOf(soLuong));
+
+                // Tạo đối tượng MucDonHang
+                MucDonHang mucDonHang = new MucDonHang(soLuong, giaHienTai, giamGiaHienTai, maDonHang, maSanPham);
+                dsMucDonHang.add(mucDonHang);
+
+                // Cập nhật số lượng tồn kho cho từng sản phẩm
+                boolean isSoLuongUpdated = SanPhamDAO.updateSoLuongTonKho(maSanPham, soLuong);
+                if (!isSoLuongUpdated) {
+                    JOptionPane.showMessageDialog(null, "Lỗi khi cập nhật số lượng tồn kho cho sản phẩm: " + tenSP);
                     return;
                 }
-                // Giả sử mã đơn hàng được trả về sau khi lưu
-                Long maDonHang = donHang.getMadonhang();
-                // Thu thập chi tiết sản phẩm từ bảng tblMatHangDaChon
-                List<MucDonHang> dsMucDonHang = new ArrayList<>();
-                DefaultTableModel modelMatHangDaChon = (DefaultTableModel) tblMatHangDaChon.getModel();
-                for (int i = 0; i < modelMatHangDaChon.getRowCount(); i++) {
-                    Long maSanPham = Long.parseLong(modelMatHangDaChon.getValueAt(i, 0).toString());
-                    String tenSP = modelMatHangDaChon.getValueAt(i, 1).toString();
-                    BigDecimal giaHienTai = new BigDecimal(modelMatHangDaChon.getValueAt(i, 2).toString());
-                    BigDecimal giamGiaHienTai = new BigDecimal(modelMatHangDaChon.getValueAt(i, 3).toString());
-                    int soLuong = Integer.parseInt(modelMatHangDaChon.getValueAt(i, 4).toString());
-                    // Tính tổng giảm giá
-                    BigDecimal giamGia = giamGiaHienTai.multiply(BigDecimal.valueOf(soLuong)); // Giảm giá của mỗi mục đơn hàng
-                    
-                    // Tạo đối tượng MucDonHang
-                    MucDonHang mucDonHang = new MucDonHang(soLuong, giaHienTai, giamGiaHienTai, maDonHang, maSanPham);
-                    dsMucDonHang.add(mucDonHang);
-
-                    // Cập nhật số lượng tồn kho cho từng sản phẩm
-                    boolean isSoLuongUpdated = SanPhamDAO.updateSoLuongTonKho(maSanPham, soLuong);
-                    if (!isSoLuongUpdated) {
-                        JOptionPane.showMessageDialog(null, "Lỗi khi cập nhật số lượng tồn kho cho sản phẩm: " + tenSP);
-                        return;
-                    }
-                }
-                donHang.setTonggiamgia(tongGiamGia);
-                // Cập nhật tổng giảm giá vào đơn hàng
-                System.out.println(""+tongGiamGia);
-                // Cập nhật tổng tiền vào đơn hàng
-                donHang.setTongtien(tongTien);
-
-                // Lưu chi tiết sản phẩm vào cơ sở dữ liệu
-                boolean allMucDonHangSaved = true;
-                for (MucDonHang mucDonHang : dsMucDonHang) {
-                    boolean isMucDonHangSaved = MucDonHangDAO.themMucDonHang(mucDonHang);
-                    if (!isMucDonHangSaved) {
-                        allMucDonHangSaved = false;
-                        break;
-                    }
-                }
-
-                if (allMucDonHangSaved) {
-                    JOptionPane.showMessageDialog(null, "Đã mua! Cảm ơn quý khách!");
-                    DefaultTableModel dtmSanPhamMua = (DefaultTableModel) tblMatHangDaChon.getModel();
-                    dtmSanPhamMua.setRowCount(0);
-
-                    // Gọi hàm in hóa đơn ra PDF
-                    inHoaDonPDF(donHang, dsMucDonHang);
-                } else {
-                    JOptionPane.showMessageDialog(null, "Lỗi khi lưu chi tiết sản phẩm");
-                }
-
-            } catch (Exception ex) {
-                Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, null, ex);
-                JOptionPane.showMessageDialog(null, "Đã xảy ra lỗi: " + ex.getMessage());
             }
+
+            // Cập nhật tổng giảm giá và tổng tiền vào đơn hàng
+            donHang.setTonggiamgia(tongGiamGia);
+            donHang.setTongtien(tongTien);
+
+            // Lưu chi tiết sản phẩm vào cơ sở dữ liệu
+            boolean allMucDonHangSaved = true;
+            for (MucDonHang mucDonHang : dsMucDonHang) {
+                boolean isMucDonHangSaved = MucDonHangDAO.themMucDonHang(mucDonHang);
+                if (!isMucDonHangSaved) {
+                    allMucDonHangSaved = false;
+                    break;
+                }
+            }
+
+            if (allMucDonHangSaved) {
+                JOptionPane.showMessageDialog(null, "Đã mua! Cảm ơn quý khách!");
+                DefaultTableModel dtmSanPhamMua = (DefaultTableModel) tblMatHangDaChon.getModel();
+                dtmSanPhamMua.setRowCount(0);
+
+                // Gọi hàm in hóa đơn ra PDF nếu cần thiết
+                // inHoaDonPDF(donHang, dsMucDonHang);
+            } else {
+                JOptionPane.showMessageDialog(null, "Lỗi khi lưu chi tiết sản phẩm");
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "Đã xảy ra lỗi: " + ex.getMessage());
+        } finally {
             loadData();
-            break;
-        // Nếu người dùng chọn No, không làm gì cả
-        case JOptionPane.NO_OPTION:
-            break;
-        // Nếu người dùng chọn Cancel, không làm gì cả
-        case JOptionPane.CANCEL_OPTION:
-            break;
-        default:
-            break;
-    }
+        }
+        break;
+
+    case JOptionPane.NO_OPTION:
+        // Không làm gì cả
+        break;
+
+    case JOptionPane.CANCEL_OPTION:
+        // Không làm gì cả
+        break;
+}
     }//GEN-LAST:event_lblXacNhanMouseClicked
     private void inHoaDonPDF(DonHang donHang, List<MucDonHang> dsMucDonHang) {
         try {
@@ -1797,6 +1802,7 @@ public class Menu extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
+    private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel21;
@@ -1854,6 +1860,7 @@ public class Menu extends javax.swing.JFrame {
     private javax.swing.JLabel lblTongGiam;
     private javax.swing.JLabel lblTongGiamGia;
     private javax.swing.JLabel lblTongTien;
+    private javax.swing.JLabel lblTrangThai;
     private javax.swing.JLabel lblXacNhan;
     private javax.swing.JLabel lblXoaDonHang;
     private javax.swing.JList<String> listDanhMuc;
@@ -1897,7 +1904,7 @@ public class Menu extends javax.swing.JFrame {
     public void hienThiDanhSachDonHangCuaNguoiDung() {
         // Truy vấn cơ sở dữ liệu để lấy danh sách các đơn hàng của người dùng đang đăng nhập từ bảng tblDanhSachDonHang
         ArrayList<DonHang> dsDonHang = DonHangDAO.layDanhSachDonHangCuaNguoiDung(maND);
-
+        
         // Tạo một DefaultTableModel để chứa dữ liệu cho bảng
         DefaultTableModel model = new DefaultTableModel();
         
@@ -1907,7 +1914,7 @@ public class Menu extends javax.swing.JFrame {
         model.addColumn("Tổng tiền");
         model.addColumn("Giảm giá");
         model.addColumn("Ngày đặt");
-        
+        model.addColumn("Trạng thái");
         // Tạo DateTimeFormatter với định dạng mong muốn
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
@@ -1916,6 +1923,13 @@ public class Menu extends javax.swing.JFrame {
             Object[] row = dh.toRow();
             // Định dạng ngày đặt từ LocalDateTime thành chuỗi theo định dạng "dd/MM/yyyy"
             row[4] = dh.getNgaytao().format(formatter);
+            if(dh.getTrangThai()==1)
+            {
+                row[5]="Đã hoàn thành";
+            }else
+            {
+                row[5]="Chưa hoàn thành";
+            }
             model.addRow(row);
         }
         // Cập nhật model cho bảng

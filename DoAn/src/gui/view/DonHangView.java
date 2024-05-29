@@ -116,8 +116,8 @@ public class DonHangView extends javax.swing.JPanel {
 
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
-        jScrollPane5.setBorder(null);
         jScrollPane5.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+        jScrollPane5.setBorder(null);
 
         searchField.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
@@ -127,23 +127,23 @@ public class DonHangView extends javax.swing.JPanel {
 
         table.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null}
             },
             new String [] {
-                "#", "Tên đơn hàng", "Tổng tiền", "Tổng giảm giá", "Ngày tạo"
+                "#", "Tên đơn hàng", "Tổng tiền", "Tổng giảm giá", "Ngày tạo", "Trạng Thái"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false
+                false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -163,6 +163,7 @@ public class DonHangView extends javax.swing.JPanel {
             table.getColumnModel().getColumn(2).setResizable(false);
             table.getColumnModel().getColumn(3).setResizable(false);
             table.getColumnModel().getColumn(4).setResizable(false);
+            table.getColumnModel().getColumn(5).setResizable(false);
         }
 
         jLabel2.setText("Tìm kiếm");
@@ -189,16 +190,16 @@ public class DonHangView extends javax.swing.JPanel {
             }
         });
 
-        jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
         jLabel4.setText("Thông tin đơn hàng");
+        jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
 
         jLabel6.setText("Tổng tiền");
 
         jLabel7.setText("Tên đơn hàng");
         jLabel7.setPreferredSize(new java.awt.Dimension(100, 16));
 
-        jLabel8.setFont(new java.awt.Font("Segoe UI", 3, 12)); // NOI18N
         jLabel8.setText("Thêm đơn hàng mới");
+        jLabel8.setFont(new java.awt.Font("Segoe UI", 3, 12)); // NOI18N
 
         totalPriceLabel1.setText("Tổng giảm giá");
 
@@ -221,8 +222,8 @@ public class DonHangView extends javax.swing.JPanel {
         jLabel1.setText("Tên đơn hàng");
         jLabel1.setPreferredSize(new java.awt.Dimension(100, 16));
 
-        jLabel5.setFont(new java.awt.Font("Segoe UI", 3, 12)); // NOI18N
         jLabel5.setText("Chỉnh sửa đơn hàng");
+        jLabel5.setFont(new java.awt.Font("Segoe UI", 3, 12)); // NOI18N
 
         totalPriceLabel.setText("Tổng giảm giá");
 
@@ -362,18 +363,18 @@ public class DonHangView extends javax.swing.JPanel {
 
         jPanel5.setPreferredSize(new java.awt.Dimension(1164, 100));
 
-        jLabel11.setFont(new java.awt.Font("Segoe UI", 1, 38)); // NOI18N
         jLabel11.setText("Thống kê");
+        jLabel11.setFont(new java.awt.Font("Segoe UI", 1, 38)); // NOI18N
 
         jPanel4.setLayout(new javax.swing.BoxLayout(jPanel4, javax.swing.BoxLayout.X_AXIS));
 
         jPanel7.setPreferredSize(new java.awt.Dimension(300, 254));
 
-        jLabel10.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel10.setText("Tổng đơn hàng");
+        jLabel10.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
 
-        tongDonHangLabel.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
         tongDonHangLabel.setText("jLabel12");
+        tongDonHangLabel.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
 
         javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
         jPanel7.setLayout(jPanel7Layout);
@@ -400,11 +401,11 @@ public class DonHangView extends javax.swing.JPanel {
 
         jPanel8.setPreferredSize(new java.awt.Dimension(300, 0));
 
-        jLabel13.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel13.setText("Tổng doanh thu");
+        jLabel13.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
 
-        tongDoanhThuLabel.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
         tongDoanhThuLabel.setText("jLabel14");
+        tongDoanhThuLabel.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
 
         javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
         jPanel8.setLayout(jPanel8Layout);
@@ -561,25 +562,25 @@ public class DonHangView extends javax.swing.JPanel {
     }//GEN-LAST:event_tableMouseClicked
 
     private void updateBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateBtnActionPerformed
-        int selectedRow = table.getSelectedRow();
-        if (selectedRow == -1) {
-            JOptionPane.showMessageDialog(null, "Bạn chưa chọn dòng nào");
-            return;
-        }
-        if (validateFields(nameEditField, priceEditField, totalPriceEditField)) {
-            TableModel tableModel = table.getModel();
-            Long maDh = Long.valueOf(tableModel.getValueAt(selectedRow, 0).toString());
-            String tenDh = nameEditField.getText();
-            String gia = priceEditField.getText();
-            String tongGiamGia = totalPriceEditField.getText();
-            DonHang donHangMoi = taoDonHang(tenDh, gia, tongGiamGia);
-            if (donHangMoi == null) {
-                return;
-            }
-            JOptionPane.showMessageDialog(null, service.capNhatDonHang(maDh, donHangMoi));
-            loadTable();
-            clearFields(nameEditField, priceEditField, totalPriceEditField);
-        }
+//        int selectedRow = table.getSelectedRow();
+//        if (selectedRow == -1) {
+//            JOptionPane.showMessageDialog(null, "Bạn chưa chọn dòng nào");
+//            return;
+//        }
+//        if (validateFields(nameEditField, priceEditField, totalPriceEditField)) {
+//            TableModel tableModel = table.getModel();
+//            Long maDh = Long.valueOf(tableModel.getValueAt(selectedRow, 0).toString());
+//            String tenDh = nameEditField.getText();
+//            String gia = priceEditField.getText();
+//            String tongGiamGia = totalPriceEditField.getText();
+//            DonHang donHangMoi = taoDonHang(tenDh, gia, tongGiamGia);
+//            if (donHangMoi == null) {
+//                return;
+//            }
+//            JOptionPane.showMessageDialog(null, service.capNhatDonHang(maDh, donHangMoi));
+//            loadTable();
+//            clearFields(nameEditField, priceEditField, totalPriceEditField);
+//        }
     }//GEN-LAST:event_updateBtnActionPerformed
 
     private void deleteBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteBtnActionPerformed
@@ -612,23 +613,23 @@ public class DonHangView extends javax.swing.JPanel {
     }//GEN-LAST:event_resetEditFormBtnActionPerformed
 
     private void insertBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_insertBtnActionPerformed
-        if (validateFields(nameInsertField, priceInsertField, totalPriceInsertField, maNDField)) {
-            String tenDh = nameInsertField.getText();
-            String gia = priceInsertField.getText();
-            String tongGiamGia = totalPriceInsertField.getText();
-            DonHang donHangMoi = taoDonHang(tenDh, gia, tongGiamGia);
-            if (donHangMoi == null) {
-                return;
-            }
-            Long maND = Long.valueOf(maNDField.getText());
-            donHangMoi.setMaNguoiDung(maND);
-            boolean isInserted = service.them(donHangMoi);
-            JOptionPane.showMessageDialog(null,
-                    isInserted ? "Thêm thành công đơn hàng!" : "Thêm không thành công!"
-            );
-            loadTable();
-            clearFields(nameInsertField, priceInsertField, totalPriceInsertField, maNDField);
-        }
+//        if (validateFields(nameInsertField, priceInsertField, totalPriceInsertField, maNDField)) {
+//            String tenDh = nameInsertField.getText();
+//            String gia = priceInsertField.getText();
+//            String tongGiamGia = totalPriceInsertField.getText();
+//            DonHang donHangMoi = taoDonHang(tenDh, gia, tongGiamGia);
+//            if (donHangMoi == null) {
+//                return;
+//            }
+//            Long maND = Long.valueOf(maNDField.getText());
+//            donHangMoi.setMaNguoiDung(maND);
+//            boolean isInserted = service.them(donHangMoi);
+//            JOptionPane.showMessageDialog(null,
+//                    isInserted ? "Thêm thành công đơn hàng!" : "Thêm không thành công!"
+//            );
+//            loadTable();
+//            clearFields(nameInsertField, priceInsertField, totalPriceInsertField, maNDField);
+//        }
     }//GEN-LAST:event_insertBtnActionPerformed
 
     private void resetInsertFormBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_resetInsertFormBtnActionPerformed
@@ -732,19 +733,19 @@ public class DonHangView extends javax.swing.JPanel {
         table.setModel(tableModel);
     }
 
-    private DonHang taoDonHang(String tenDh, String giaStr, String tongGiamGiaStr) {
-        try {
-            return new DonHang(
-                    tenDh,
-                    BigDecimal.valueOf(Double.parseDouble(giaStr)),
-                    BigDecimal.valueOf(Double.parseDouble(tongGiamGiaStr)),
-                    LocalDateTime.now()
-            );
-        } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(null, "Vui lòng kiểm tra lại giá trị đầu vào!");
-            return null;
-        }
-    }
+//    private DonHang taoDonHang(String tenDh, String giaStr, String tongGiamGiaStr) {
+//        try {
+//            return new DonHang(
+//                    tenDh,
+//                    BigDecimal.valueOf(Double.parseDouble(giaStr)),
+//                    BigDecimal.valueOf(Double.parseDouble(tongGiamGiaStr)),
+//                    LocalDateTime.now()
+//            );
+//        } catch (NumberFormatException e) {
+//            JOptionPane.showMessageDialog(null, "Vui lòng kiểm tra lại giá trị đầu vào!");
+//            return null;
+//        }
+//    }
 
     private void loadThongKe(LocalDate from, LocalDate to) {
         Statistics statistics = service.thongKeTheoPhamVi(from, to);
