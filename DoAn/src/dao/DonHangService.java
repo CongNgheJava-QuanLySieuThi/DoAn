@@ -27,8 +27,8 @@ public class DonHangService {
     private final String COUNT_QUERY = "SELECT COUNT(*) FROM DonHang";
     private final String FIND_BY_NAME_QUERY = "SELECT * FROM DonHang WHERE LOWER(tendonhang) = ?";
 
-    private final String INSERT_QUERY = "INSERT INTO DonHang(tendonhang, tongtien, tonggiamgia, ngaytao, mand) VALUES (?, ?, ?, ?, ?)";
-    private final String UPDATE_QUERY = "UPDATE DonHang SET tendonhang = ?, tongtien = ?, tonggiamgia = ? WHERE madonhang = ?";
+//    private final String INSERT_QUERY = "INSERT INTO DonHang(tendonhang, tongtien, tonggiamgia, ngaytao, mand) VALUES (?, ?, ?, ?, ?)";
+    private final String UPDATE_QUERY = "UPDATE DonHang SET tendonhang = ?, tongtien = ?, tonggiamgia = ?,TrangThai=? WHERE madonhang = ?";
     private final String DELETE_QUERY = "DELETE FROM DonHang WHERE madonhang = ?";
 
     private final String STATICSTICAL_QUERY = "SELECT YEAR(NGAYTAO) AS Year, MONTH(NGAYTAO) AS Month, COUNT(*) AS SoLuongDonHang, SUM(TONGTIEN) AS TongTien "
@@ -43,7 +43,6 @@ public class DonHangService {
 
     public Pageable<DonHang> danhSachDonHang() {
         List<DonHang> list = new ArrayList<>();
-
         try {
             Connection connection = provider.getConnection();
             PreparedStatement prepareStatement
@@ -80,7 +79,7 @@ public class DonHangService {
             pstmt.setBigDecimal(2, donHang.getTongtien());
             pstmt.setBigDecimal(3, donHang.getTonggiamgia());
             pstmt.setLong(4, id);
-
+            pstmt.setInt(5,donHang.getTrangThai());
             int affectedRows = pstmt.executeUpdate();
             pstmt.close();
             if (affectedRows > 0) {
@@ -130,24 +129,24 @@ public class DonHangService {
         }
     }
 
-    public boolean them(DonHang donHangMoi) {
-        try {
-            Connection conn = provider.getConnection();
-            PreparedStatement pstmt = conn.prepareStatement(INSERT_QUERY);
-            pstmt.setString(1, donHangMoi.getTendonhang());
-            pstmt.setBigDecimal(2, donHangMoi.getTongtien());
-            pstmt.setBigDecimal(3, donHangMoi.getTonggiamgia());
-            pstmt.setString(4, donHangMoi.getNgaytao().toString());
-            pstmt.setLong(5, donHangMoi.getMaNguoiDung());
-
-            int affectedRows = pstmt.executeUpdate();
-            pstmt.close();
-            return affectedRows > 0;
-        } catch (SQLException e) {
-            LOGGER.log(Level.SEVERE, e.getMessage(), e);
-            return false;
-        }
-    }
+//    public boolean them(DonHang donHangMoi) {
+//        try {
+//            Connection conn = provider.getConnection();
+//            PreparedStatement pstmt = conn.prepareStatement(INSERT_QUERY);
+//            pstmt.setString(1, donHangMoi.getTendonhang());
+//            pstmt.setBigDecimal(2, donHangMoi.getTongtien());
+//            pstmt.setBigDecimal(3, donHangMoi.getTonggiamgia());
+//            pstmt.setString(4, donHangMoi.getNgaytao().toString());
+//            pstmt.setLong(5, donHangMoi.getMaNguoiDung());
+//
+//            int affectedRows = pstmt.executeUpdate();
+//            pstmt.close();
+//            return affectedRows > 0;
+//        } catch (SQLException e) {
+//            LOGGER.log(Level.SEVERE, e.getMessage(), e);
+//            return false;
+//        }
+//    }
 
     private DonHang mapToObject(ResultSet result) throws SQLException {
         if (result == null) {
@@ -161,6 +160,7 @@ public class DonHangService {
         dh.setTonggiamgia(result.getBigDecimal("Tonggiamgia"));
         dh.setNgaytao(result.getTimestamp("Ngaytao").toLocalDateTime());
         dh.setMaNguoiDung(result.getLong("MaND"));
+        dh.setTrangThai(result.getInt("TrangThai"));
         return dh;
     }
 

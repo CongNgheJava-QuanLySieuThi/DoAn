@@ -27,7 +27,7 @@ public class DonHang implements Serializable {
 
     public DonHang() {
     }
-
+    
     public DonHang(String tendonhang, BigDecimal tongtien, BigDecimal tonggiamgia, LocalDateTime ngaytao, int TrangThai) {
         this.tendonhang = tendonhang;
         this.tongtien = tongtien;
@@ -56,7 +56,8 @@ public class DonHang implements Serializable {
             this.tongtien,
             this.tonggiamgia,
             this.ngaytao.format(formatter),
-            this.maND
+            this.maND,
+            this.TrangThai
         };
     }
 

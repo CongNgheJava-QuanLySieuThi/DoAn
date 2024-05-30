@@ -27,6 +27,7 @@ public class DonHangDAO {
                 dh.setTonggiamgia(rs.getBigDecimal("Tonggiamgia"));
                 dh.setNgaytao(rs.getTimestamp("Ngaytao").toLocalDateTime());
                 dh.setMaNguoiDung(rs.getLong("MaND"));
+                dh.setTrangThai(rs.getInt("TrangThai"));
                 dsDonHang.add(dh);
             }
             provider.close();
