@@ -8,7 +8,7 @@ package gui.transition;
 import gui.bean.DanhMuc;
 import gui.view.DonHangView;
 import gui.view.HoaDon;
-import gui.view.MucDonHang;
+
 import gui.view.QuanLySanPhamJPanel;
 import gui.view.TrangChuJPanel;
 import gui.view.User;
@@ -86,9 +86,7 @@ public class TransitionController {
                 case "HoaDon":
                     node = new HoaDon();
                     break;
-                case "MucDonHang":
-                    node = new MucDonHang();
-                    break;
+                
                 case "User":
                     node = new User();
                     break;

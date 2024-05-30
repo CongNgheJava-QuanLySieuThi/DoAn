@@ -4,20 +4,59 @@
  */
 package gui.view;
 
+import dao.MucDonHangDAO;
+import java.math.BigDecimal;
+import java.util.ArrayList;
+import javax.swing.JFrame;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author Nguyễn Kế Bảo
  */
 public class ChiTietDonHang extends javax.swing.JFrame {
-
+    private static long MaDH;
     /**
      * Creates new form ChiTietDonHang
      */
-    public ChiTietDonHang() {
+    public ChiTietDonHang(long MaDH) {
+        this.MaDH = MaDH;
         initComponents();
         setLocationRelativeTo(null);
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        System.out.println(""+MaDH);
+        loadData();
     }
+    private void loadData() {
+        ArrayList<pojo.MucDonHang> dsMucDonHang = MucDonHangDAO.layDanhSachMucDonHangTheoMaDonHang(MaDH);
+        DefaultTableModel model = new DefaultTableModel();
 
+        // Thêm các cột vào model
+        model.addColumn("Tên sản phẩm");
+        model.addColumn("Số lượng mua");
+        model.addColumn("Giá giảm");
+        model.addColumn("Thành tiền");
+
+        // Thêm dữ liệu từ danh sách mục đơn hàng vào model
+        for (pojo.MucDonHang mucDonHang : dsMucDonHang) {
+            BigDecimal soLuong = new BigDecimal(mucDonHang.getSoLuong());
+            BigDecimal giaHienTai = mucDonHang.getGiaHienTai();
+
+            // Tính toán thành tiền
+            BigDecimal thanhTien = soLuong.multiply(giaHienTai);
+
+            // Thêm hàng mới vào model
+            model.addRow(new Object[]{
+                mucDonHang.getTenSanPham(), // Sử dụng phương thức lấy tên sản phẩm
+                mucDonHang.getSoLuong(),
+                mucDonHang.getGiamGiaHienTai(),
+                thanhTien
+            });
+        }
+
+        // Cập nhật model cho bảng 
+        tblChiTiet.setModel(model);
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -29,15 +68,15 @@ public class ChiTietDonHang extends javax.swing.JFrame {
 
         jPanel10 = new javax.swing.JPanel();
         jScrollPane5 = new javax.swing.JScrollPane();
-        tblChiTietDonHang = new javax.swing.JTable();
+        tblChiTiet = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jPanel10.setBackground(new java.awt.Color(204, 255, 204));
         jPanel10.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "CHI TIẾT ĐƠN HÀNG", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 1, 14))); // NOI18N
 
-        tblChiTietDonHang.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        tblChiTietDonHang.setModel(new javax.swing.table.DefaultTableModel(
+        tblChiTiet.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        tblChiTiet.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -53,7 +92,13 @@ public class ChiTietDonHang extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane5.setViewportView(tblChiTietDonHang);
+        jScrollPane5.setViewportView(tblChiTiet);
+        if (tblChiTiet.getColumnModel().getColumnCount() > 0) {
+            tblChiTiet.getColumnModel().getColumn(0).setResizable(false);
+            tblChiTiet.getColumnModel().getColumn(1).setResizable(false);
+            tblChiTiet.getColumnModel().getColumn(2).setResizable(false);
+            tblChiTiet.getColumnModel().getColumn(3).setResizable(false);
+        }
 
         javax.swing.GroupLayout jPanel10Layout = new javax.swing.GroupLayout(jPanel10);
         jPanel10.setLayout(jPanel10Layout);
@@ -122,7 +167,7 @@ public class ChiTietDonHang extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new ChiTietDonHang().setVisible(true);
+                new ChiTietDonHang(MaDH).setVisible(true);
             }
         });
     }
@@ -130,6 +175,6 @@ public class ChiTietDonHang extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel jPanel10;
     private javax.swing.JScrollPane jScrollPane5;
-    private javax.swing.JTable tblChiTietDonHang;
+    private javax.swing.JTable tblChiTiet;
     // End of variables declaration//GEN-END:variables
 }

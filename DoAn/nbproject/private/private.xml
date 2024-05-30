@@ -2,6 +2,16 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group/>
+        <group>
+            <file>file:/C:/Users/kebao/OneDrive/Documents/Github/DoAn/DoAn/src/gui/view/ChiTietDonHang.java</file>
+            <file>file:/C:/Users/kebao/OneDrive/Documents/Github/DoAn/DoAn/src/gui/view/Main.java</file>
+            <file>file:/C:/Users/kebao/OneDrive/Documents/Github/DoAn/DoAn/src/dao/DonHangDAO.java</file>
+            <file>file:/C:/Users/kebao/OneDrive/Documents/Github/DoAn/DoAn/src/dao/MucDonHangDAO.java</file>
+            <file>file:/C:/Users/kebao/OneDrive/Documents/Github/DoAn/DoAn/src/gui/view/DonHangView.java</file>
+            <file>file:/C:/Users/kebao/OneDrive/Documents/Github/DoAn/DoAn/src/khachhang/Menu.java</file>
+            <file>file:/C:/Users/kebao/OneDrive/Documents/Github/DoAn/DoAn/src/dao/DanhMucDAO.java</file>
+            <file>file:/C:/Users/kebao/OneDrive/Documents/Github/DoAn/DoAn/src/dao/ChiTietHoaDonDAO.java</file>
+            <file>file:/C:/Users/kebao/OneDrive/Documents/Github/DoAn/DoAn/src/dao/DonHangService.java</file>
+        </group>
     </open-files>
 </project-private>

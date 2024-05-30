@@ -1,5 +1,6 @@
 package dao;
 
+import com.sun.jdi.connect.spi.Connection;
 import java.sql.Statement;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -150,5 +151,26 @@ public class DonHangDAO {
             Logger.getLogger(DonHangDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
         return dsDonHang;
+    }
+    public static boolean capNhatTrangThaiDonHang(long maDH, int trangThai) {
+        try {
+            boolean kq = false;
+            String sql = "UPDATE DonHang SET TrangThai = ? WHERE Madonhang=?";
+            SQLServerDataProvider provider = new SQLServerDataProvider();
+            provider.open();
+            PreparedStatement pstmt = provider.getConnection().prepareStatement(sql);
+            pstmt.setInt(1, trangThai);
+            pstmt.setLong(2, maDH);
+
+            int n = pstmt.executeUpdate();
+            if (n == 1) {
+                kq = true;
+            }
+            provider.close();
+            return kq;
+        } catch (SQLException ex) {
+            Logger.getLogger(DonHangDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return false;
     }
 }
