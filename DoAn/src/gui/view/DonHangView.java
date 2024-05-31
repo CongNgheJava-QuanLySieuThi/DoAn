@@ -2,19 +2,17 @@ package gui.view;
 
 import dao.DonHangDAO;
 import dao.DonHangService;
-import dao.MucDonHangDAO;
 import dao.NguoiDungDAO;
 import pojo.DonHang;
-import gui.bean.Pageable;
-import gui.bean.Statistics;
-import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
+import java.util.List;
+import java.util.Map;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import pojo.NguoiDung;
+
 /**
  *
  * @author Yuuta
@@ -257,46 +255,46 @@ public class DonHangView extends javax.swing.JPanel {
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jSeparator1)
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(totalPriceLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtMaKhachHang, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                        .addComponent(btnChiTietDonHang)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnHoanThanh))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addContainerGap()
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 259, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(resetEditFormBtn))
+                                .addComponent(btnChiTietDonHang)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(btnHoanThanh))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(totalPriceLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                .addGap(12, 12, 12)
-                                .addComponent(priceEditField, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jSeparator1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 353, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addGap(7, 7, 7)
-                                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(totalPriceLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(nameEditField, javax.swing.GroupLayout.DEFAULT_SIZE, 250, Short.MAX_VALUE)
-                                    .addComponent(totalPriceEditField, javax.swing.GroupLayout.DEFAULT_SIZE, 250, Short.MAX_VALUE)))))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                        .addComponent(totalPriceLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, 104, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtTenKhachHang, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(totalPriceLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(txtTrangThai, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(txtMaKhachHang, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                                        .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 259, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(resetEditFormBtn))
+                                    .addGroup(jPanel3Layout.createSequentialGroup()
+                                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                            .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                            .addComponent(totalPriceLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                            .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 104, Short.MAX_VALUE))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                                .addComponent(nameEditField, javax.swing.GroupLayout.DEFAULT_SIZE, 250, Short.MAX_VALUE)
+                                                .addComponent(totalPriceEditField, javax.swing.GroupLayout.DEFAULT_SIZE, 250, Short.MAX_VALUE))
+                                            .addComponent(priceEditField, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(totalPriceLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(totalPriceLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, 104, Short.MAX_VALUE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(txtTenKhachHang, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(txtTrangThai, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE))))))
                 .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
@@ -323,13 +321,13 @@ public class DonHangView extends javax.swing.JPanel {
                     .addComponent(txtMaKhachHang, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(totalPriceLabel2))
                 .addGap(18, 18, 18)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(txtTenKhachHang, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(totalPriceLabel3))
-                .addGap(15, 15, 15)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(totalPriceLabel1)
-                    .addComponent(txtTrangThai, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(txtTrangThai, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(totalPriceLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(12, 12, 12)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnHoanThanh)
@@ -579,7 +577,7 @@ public class DonHangView extends javax.swing.JPanel {
             int response = JOptionPane.showConfirmDialog(this, "Bạn có chắc chắn muốn hoàn thành đơn hàng này?", "Xác nhận", JOptionPane.YES_NO_OPTION);
             if (response == JOptionPane.YES_OPTION) {
                 TableModel tableModel = table.getModel();
-                long MaDH = Long.valueOf(tableModel.getValueAt(selectedRow, 0).toString());
+                Long MaDH = Long.valueOf(tableModel.getValueAt(selectedRow, 0).toString());
                 boolean success = DonHangDAO.capNhatTrangThaiDonHang(MaDH, 1);
                 if (success) {
                     JOptionPane.showMessageDialog(this, "Đơn hàng đã được hoàn thành.", "Thành công", JOptionPane.INFORMATION_MESSAGE);
@@ -597,7 +595,7 @@ public class DonHangView extends javax.swing.JPanel {
         int selectedRow = table.getSelectedRow();
         if (selectedRow != -1) {
             TableModel tableModel = table.getModel();
-            long MaDH = Long.valueOf(tableModel.getValueAt(selectedRow, 0).toString());
+            Long MaDH = Long.valueOf(tableModel.getValueAt(selectedRow, 0).toString());
             ChiTietDonHang chitiet = new ChiTietDonHang(MaDH);
             chitiet.setVisible(true);
         } else {
@@ -656,8 +654,8 @@ public class DonHangView extends javax.swing.JPanel {
         DefaultTableModel model = (DefaultTableModel) table.getModel();
         table.setRowHeight(35);
         model.setRowCount(0);
-        Pageable<DonHang> danhSach = service.danhSachDonHang();
-        for (DonHang row : danhSach.getContents()) {
+        List<DonHang> danhSach = service.danhSachDonHang();
+        for (DonHang row : danhSach) {
             model.addRow(row.toRow());
         }
         table.setModel(model);
@@ -670,22 +668,15 @@ public class DonHangView extends javax.swing.JPanel {
         priceEditField.setText(tableModel.getValueAt(selectedRow, 2).toString());
         totalPriceEditField.setText(tableModel.getValueAt(selectedRow, 3).toString());
         txtMaKhachHang.setText(tableModel.getValueAt(selectedRow, 5).toString());
-        Long MaND = Long.parseLong(tableModel.getValueAt(selectedRow, 5).toString());
+        Long MaND = Long.valueOf(tableModel.getValueAt(selectedRow, 5).toString());
         NguoiDung nguoiDung = NguoiDungDAO.layThongTinNguoiDung(MaND);
-        txtTenKhachHang.setText(nguoiDung.getHo()+" "+nguoiDung.getTen());
-        if(tableModel.getValueAt(selectedRow, 6).toString().equals("1"))
+        txtTenKhachHang.setText(nguoiDung.getHo() + " " + nguoiDung.getTen());
+        if (tableModel.getValueAt(selectedRow, 6).toString().equals("1")) {
             txtTrangThai.setText("Đã hoàn thành");
-        else
+        } else {
             txtTrangThai.setText("Chưa hoàn thành");
-        
-    }
-    private boolean validateFields(JTextField... inputs) {
-        for (JTextField input : inputs) {
-            if (input.getText().isEmpty()) {
-                return false;
-            }
         }
-        return true;
+
     }
 
     private void clearFields(JTextField... inputs) {
@@ -705,27 +696,13 @@ public class DonHangView extends javax.swing.JPanel {
         table.setModel(tableModel);
     }
 
-//    private DonHang taoDonHang(String tenDh, String giaStr, String tongGiamGiaStr) {
-//        try {
-//            return new DonHang(
-//                    tenDh,
-//                    BigDecimal.valueOf(Double.parseDouble(giaStr)),
-//                    BigDecimal.valueOf(Double.parseDouble(tongGiamGiaStr)),
-//                    LocalDateTime.now()
-//            );
-//        } catch (NumberFormatException e) {
-//            JOptionPane.showMessageDialog(null, "Vui lòng kiểm tra lại giá trị đầu vào!");
-//            return null;
-//        }
-//    }
-
     private void loadThongKe(LocalDate from, LocalDate to) {
-        Statistics statistics = service.thongKeTheoPhamVi(from, to);
+        Map<Integer, Object> statistics = service.thongKeTheoPhamVi(from, to);
         if (statistics == null) {
             return;
         }
 
-        tongDoanhThuLabel.setText(statistics.getTotal().toString() + " VNĐ");
-        tongDonHangLabel.setText(statistics.getCount().toString() + " đơn");
+        tongDoanhThuLabel.setText(statistics.get(1).toString() + " VNĐ");
+        tongDonHangLabel.setText(statistics.get(2).toString() + " đơn");
     }
 }

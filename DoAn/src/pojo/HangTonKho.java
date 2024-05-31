@@ -41,9 +41,8 @@ public class HangTonKho implements Serializable {
         this.maSP = maSP;
     }
 
-    public HangTonKho(Long soLuongTrongKho, LocalDateTime ngayNhapHang, String trangThai) {
+    public HangTonKho(Long soLuongTrongKho, String trangThai) {
         this.soLuongTrongKho = soLuongTrongKho;
-        this.ngayNhapHang = ngayNhapHang;
         this.trangThai = trangThai;
     }
 
@@ -53,8 +52,7 @@ public class HangTonKho implements Serializable {
             this.maHTK,
             this.soLuongTrongKho,
             this.ngayNhapHang == null ? "" : this.ngayNhapHang.format(formatter),
-            this.ngayXuatHang == null ? "" : this.ngayXuatHang.format(formatter),
-            this.trangThai
+            this.ngayXuatHang == null ? "" : this.ngayXuatHang.format(formatter)
         };
     }
 

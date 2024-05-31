@@ -1,7 +1,5 @@
 package dao;
 
-import gui.bean.Statistics;
-import gui.bean.Pageable;
 import pojo.DonHang;
 import pojo.SQLServerDataProvider;
 import java.sql.Connection;
@@ -11,6 +9,7 @@ import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -21,13 +20,11 @@ import java.util.logging.Logger;
 public class DonHangService {
 
     private final SQLServerDataProvider provider = new SQLServerDataProvider();
-    private final Logger LOGGER = Logger.getLogger(this.getClass().getName());
+    private static final Logger LOGGER = Logger.getLogger(DonHangService.class.getName());
 
     private final String SELECT_QUERY = "SELECT * FROM DonHang";
-    private final String COUNT_QUERY = "SELECT COUNT(*) FROM DonHang";
     private final String FIND_BY_NAME_QUERY = "SELECT * FROM DonHang WHERE LOWER(tendonhang) = ?";
 
-//    private final String INSERT_QUERY = "INSERT INTO DonHang(tendonhang, tongtien, tonggiamgia, ngaytao, mand) VALUES (?, ?, ?, ?, ?)";
     private final String UPDATE_QUERY = "UPDATE DonHang SET tendonhang = ?, tongtien = ?, tonggiamgia = ?,TrangThai=? WHERE madonhang = ?";
     private final String DELETE_QUERY = "DELETE FROM DonHang WHERE madonhang = ?";
 
@@ -41,47 +38,28 @@ public class DonHangService {
         provider.open();
     }
 
-    public Pageable<DonHang> danhSachDonHang() {
+    public List<DonHang> danhSachDonHang() {
         List<DonHang> list = new ArrayList<>();
-        try {
-            Connection connection = provider.getConnection();
-            PreparedStatement prepareStatement
-                    = connection.prepareStatement(SELECT_QUERY);
-            ResultSet result = prepareStatement.executeQuery();
+        Connection connection = provider.getConnection();
+        try (ResultSet result = connection.prepareStatement(SELECT_QUERY).executeQuery()) {
             while (result.next()) {
                 list.add(mapToObject(result));
             }
-            prepareStatement.close();
-            result.close();
         } catch (SQLException e) {
             LOGGER.log(Level.SEVERE, e.getMessage(), e);
         }
-        return new Pageable<>(list, dem());
-    }
-
-    public int dem() {
-        try {
-            ResultSet result = provider.executeQuery(COUNT_QUERY);
-            int count = result.next() ? result.getInt(1) : 0;
-            result.close();
-            return count;
-        } catch (SQLException e) {
-            LOGGER.log(Level.SEVERE, e.getMessage(), e);
-            return 0;
-        }
+        return list;
     }
 
     public String capNhatDonHang(Long id, DonHang donHang) {
-        try {
-            Connection conn = provider.getConnection();
-            PreparedStatement pstmt = conn.prepareStatement(UPDATE_QUERY);
+        Connection conn = provider.getConnection();
+        try (PreparedStatement pstmt = conn.prepareStatement(UPDATE_QUERY)) {
             pstmt.setString(1, donHang.getTendonhang());
             pstmt.setBigDecimal(2, donHang.getTongtien());
             pstmt.setBigDecimal(3, donHang.getTonggiamgia());
             pstmt.setLong(4, id);
-            pstmt.setInt(5,donHang.getTrangThai());
+            pstmt.setInt(5, donHang.getTrangThai());
             int affectedRows = pstmt.executeUpdate();
-            pstmt.close();
             if (affectedRows > 0) {
                 return "Cập nhật thành công!";
             } else {
@@ -94,13 +72,10 @@ public class DonHangService {
     }
 
     public String xoaDonHang(Long madonhang) {
-        try {
-            Connection conn = provider.getConnection();
-            PreparedStatement pstmt = conn.prepareStatement(DELETE_QUERY);
+        Connection conn = provider.getConnection();
+        try (PreparedStatement pstmt = conn.prepareStatement(DELETE_QUERY)) {
             pstmt.setLong(1, madonhang);
-
             int affectedRows = pstmt.executeUpdate();
-            pstmt.close();
             if (affectedRows > 0) {
                 return "Xóa thành công!";
             } else {
@@ -113,40 +88,19 @@ public class DonHangService {
     }
 
     public DonHang timTheoTen(String name) {
-        try {
-            Connection conn = provider.getConnection();
-            PreparedStatement pstmt = conn.prepareStatement(FIND_BY_NAME_QUERY);
+        Connection conn = provider.getConnection();
+        try (PreparedStatement pstmt = conn.prepareStatement(FIND_BY_NAME_QUERY);) {
             pstmt.setString(1, name);
-
-            ResultSet result = pstmt.executeQuery();
-            DonHang donHang = result.next() ? mapToObject(result) : null;
-            pstmt.close();
-            result.close();
+            DonHang donHang;
+            try (ResultSet result = pstmt.executeQuery()) {
+                donHang = result.next() ? mapToObject(result) : null;
+            }
             return donHang;
         } catch (SQLException e) {
             LOGGER.log(Level.SEVERE, e.getMessage(), e);
             return null;
         }
     }
-
-//    public boolean them(DonHang donHangMoi) {
-//        try {
-//            Connection conn = provider.getConnection();
-//            PreparedStatement pstmt = conn.prepareStatement(INSERT_QUERY);
-//            pstmt.setString(1, donHangMoi.getTendonhang());
-//            pstmt.setBigDecimal(2, donHangMoi.getTongtien());
-//            pstmt.setBigDecimal(3, donHangMoi.getTonggiamgia());
-//            pstmt.setString(4, donHangMoi.getNgaytao().toString());
-//            pstmt.setLong(5, donHangMoi.getMaNguoiDung());
-//
-//            int affectedRows = pstmt.executeUpdate();
-//            pstmt.close();
-//            return affectedRows > 0;
-//        } catch (SQLException e) {
-//            LOGGER.log(Level.SEVERE, e.getMessage(), e);
-//            return false;
-//        }
-//    }
 
     private DonHang mapToObject(ResultSet result) throws SQLException {
         if (result == null) {
@@ -164,7 +118,7 @@ public class DonHangService {
         return dh;
     }
 
-    public Statistics thongKeTheoPhamVi(LocalDate from, LocalDate to) {
+    public Map<Integer, Object> thongKeTheoPhamVi(LocalDate from, LocalDate to) {
         Connection connection = provider.getConnection();
         try {
             PreparedStatement statement = connection.prepareStatement(STATICSTICAL_QUERY);
@@ -173,8 +127,8 @@ public class DonHangService {
 
             ResultSet resultSet = statement.executeQuery();
             return resultSet.next()
-                    ? new Statistics(resultSet.getInt("SoLuongDonHang"), resultSet.getDouble("TongTien"))
-                    : new Statistics(0, 0d);
+                    ? Map.of(1, resultSet.getInt("SoLuongDonHang"), 2, resultSet.getDouble("TongTien"))
+                    : Map.of(1, 0, 2, 0);
         } catch (SQLException e) {
             LOGGER.log(Level.SEVERE, e.getMessage(), e);
             return null;
