@@ -22,34 +22,7 @@ public class HangTonKhoView extends javax.swing.JPanel {
         loadTable();
         resetSearchFieldBtn.setEnabled(true);
         deleteBtn.setEnabled(false);
-        fromDatePicker.setDate(LocalDate.now().minusMonths(1));
-        toDatePicker.setDate(LocalDate.now());
         statusInsertField.setSelectedItem(1);
-        loadThongKe(LocalDate.now().minusMonths(1), LocalDate.now());
-        addEvents();
-    }
-
-    private void addEvents() {
-        fromDatePicker.addDateChangeListener((dce) -> {
-            LocalDate newDate = dce.getNewDate();
-
-            if (newDate.isAfter(toDatePicker.getDate())
-                    || newDate.equals(toDatePicker.getDate())) {
-                toDatePicker.setDate(newDate.plusDays(1));
-            }
-
-            loadThongKe(newDate, toDatePicker.getDate());
-        });
-
-        toDatePicker.addDateChangeListener((dce) -> {
-            LocalDate newDate = dce.getNewDate();
-
-            if (newDate.isBefore(fromDatePicker.getDate())
-                    || newDate.equals(fromDatePicker.getDate())) {
-                fromDatePicker.setDate(newDate.minusDays(1));
-            }
-            loadThongKe(fromDatePicker.getDate(), newDate);
-        });
     }
 
     @SuppressWarnings("unchecked")
@@ -87,22 +60,6 @@ public class HangTonKhoView extends javax.swing.JPanel {
         maSPInsertField = new javax.swing.JTextField();
         statusInsertField = new javax.swing.JComboBox<>();
         importDayInsertDatePicker = new gui.view.components.datepicker.DatePicker();
-        jPanel5 = new javax.swing.JPanel();
-        jLabel11 = new javax.swing.JLabel();
-        jPanel6 = new javax.swing.JPanel();
-        jPanel7 = new javax.swing.JPanel();
-        jLabel10 = new javax.swing.JLabel();
-        tongDonHangLabel = new javax.swing.JLabel();
-        jPanel8 = new javax.swing.JPanel();
-        jLabel13 = new javax.swing.JLabel();
-        tongDoanhThuLabel = new javax.swing.JLabel();
-        jPanel9 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
-        hangTonKhoKhaDungLabel = new javax.swing.JLabel();
-        jLabel12 = new javax.swing.JLabel();
-        jLabel14 = new javax.swing.JLabel();
-        fromDatePicker = new gui.view.components.datepicker.DatePicker();
-        toDatePicker = new gui.view.components.datepicker.DatePicker();
 
         jScrollPane5.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
         jScrollPane5.setBorder(null);
@@ -323,147 +280,6 @@ public class HangTonKhoView extends javax.swing.JPanel {
                 .addComponent(jPanel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jPanel5.setPreferredSize(new java.awt.Dimension(1164, 100));
-
-        jLabel11.setText("Thống kê");
-        jLabel11.setFont(new java.awt.Font("Segoe UI", 1, 38)); // NOI18N
-
-        jPanel6.setLayout(new javax.swing.BoxLayout(jPanel6, javax.swing.BoxLayout.X_AXIS));
-
-        jPanel7.setPreferredSize(new java.awt.Dimension(300, 254));
-
-        jLabel10.setText("Tổng số hàng nhập kho");
-        jLabel10.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-
-        tongDonHangLabel.setText("0");
-        tongDonHangLabel.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
-
-        javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
-        jPanel7.setLayout(jPanel7Layout);
-        jPanel7Layout.setHorizontalGroup(
-            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel7Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(tongDonHangLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 291, Short.MAX_VALUE)
-                    .addComponent(jLabel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap())
-        );
-        jPanel7Layout.setVerticalGroup(
-            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel7Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel10)
-                .addGap(18, 18, 18)
-                .addComponent(tongDonHangLabel)
-                .addContainerGap())
-        );
-
-        jPanel6.add(jPanel7);
-
-        jPanel8.setPreferredSize(new java.awt.Dimension(300, 0));
-
-        jLabel13.setText("Tổng số hàng xuất kho");
-        jLabel13.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-
-        tongDoanhThuLabel.setText("0");
-        tongDoanhThuLabel.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
-
-        javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
-        jPanel8.setLayout(jPanel8Layout);
-        jPanel8Layout.setHorizontalGroup(
-            jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel8Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(tongDoanhThuLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 291, Short.MAX_VALUE)
-                    .addComponent(jLabel13, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap())
-        );
-        jPanel8Layout.setVerticalGroup(
-            jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel8Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(tongDoanhThuLabel)
-                .addContainerGap())
-        );
-
-        jPanel6.add(jPanel8);
-
-        jLabel1.setText("Hàng tồn kho khả dụng");
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-
-        hangTonKhoKhaDungLabel.setText("0");
-        hangTonKhoKhaDungLabel.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
-
-        javax.swing.GroupLayout jPanel9Layout = new javax.swing.GroupLayout(jPanel9);
-        jPanel9.setLayout(jPanel9Layout);
-        jPanel9Layout.setHorizontalGroup(
-            jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel9Layout.createSequentialGroup()
-                .addGap(0, 0, 0)
-                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 530, Short.MAX_VALUE)
-                    .addComponent(hangTonKhoKhaDungLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(0, 0, 0))
-        );
-        jPanel9Layout.setVerticalGroup(
-            jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel9Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(hangTonKhoKhaDungLabel)
-                .addGap(0, 0, 0))
-        );
-
-        jPanel6.add(jPanel9);
-
-        jLabel12.setText("Bắt đầu");
-
-        jLabel14.setText("Kết thúc");
-
-        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
-        jPanel5.setLayout(jPanel5Layout);
-        jPanel5Layout.setHorizontalGroup(
-            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel5Layout.createSequentialGroup()
-                .addGap(0, 0, 0)
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(jPanel5Layout.createSequentialGroup()
-                        .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 298, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jLabel14, javax.swing.GroupLayout.DEFAULT_SIZE, 60, Short.MAX_VALUE)
-                            .addComponent(jLabel12, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(fromDatePicker, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(toDatePicker, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addContainerGap())))
-        );
-        jPanel5Layout.setVerticalGroup(
-            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel5Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(jPanel5Layout.createSequentialGroup()
-                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel12)
-                            .addComponent(fromDatePicker, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel14)
-                            .addComponent(toDatePicker, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addComponent(jLabel11, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
-        );
-
         javax.swing.GroupLayout jPanel12Layout = new javax.swing.GroupLayout(jPanel12);
         jPanel12.setLayout(jPanel12Layout);
         jPanel12Layout.setHorizontalGroup(
@@ -485,8 +301,7 @@ public class HangTonKhoView extends javax.swing.JPanel {
                                 .addComponent(deleteBtn))
                             .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 751, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
-                        .addComponent(jPanel11, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, 1136, Short.MAX_VALUE))
+                        .addComponent(jPanel11, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addContainerGap(80, Short.MAX_VALUE))
         );
         jPanel12Layout.setVerticalGroup(
@@ -506,9 +321,7 @@ public class HangTonKhoView extends javax.swing.JPanel {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 454, Short.MAX_VALUE))
                     .addComponent(jPanel11, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(18, 18, 18)
-                .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, 204, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(14, 14, 14))
+                .addContainerGap())
         );
 
         jScrollPane5.setViewportView(jPanel12);
@@ -524,8 +337,8 @@ public class HangTonKhoView extends javax.swing.JPanel {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 788, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 566, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, 0))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -630,16 +443,8 @@ public class HangTonKhoView extends javax.swing.JPanel {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton deleteBtn;
     private gui.view.components.datepicker.DatePicker exportDayEditDatePicker;
-    private gui.view.components.datepicker.DatePicker fromDatePicker;
-    private javax.swing.JLabel hangTonKhoKhaDungLabel;
     private gui.view.components.datepicker.DatePicker importDayInsertDatePicker;
     private javax.swing.JButton insertBtn;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel11;
-    private javax.swing.JLabel jLabel12;
-    private javax.swing.JLabel jLabel13;
-    private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
@@ -652,11 +457,6 @@ public class HangTonKhoView extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel10;
     private javax.swing.JPanel jPanel11;
     private javax.swing.JPanel jPanel12;
-    private javax.swing.JPanel jPanel5;
-    private javax.swing.JPanel jPanel6;
-    private javax.swing.JPanel jPanel7;
-    private javax.swing.JPanel jPanel8;
-    private javax.swing.JPanel jPanel9;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JSeparator jSeparator1;
@@ -670,9 +470,6 @@ public class HangTonKhoView extends javax.swing.JPanel {
     private javax.swing.JTextField searchField;
     private javax.swing.JComboBox<String> statusInsertField;
     private javax.swing.JTable table;
-    private gui.view.components.datepicker.DatePicker toDatePicker;
-    private javax.swing.JLabel tongDoanhThuLabel;
-    private javax.swing.JLabel tongDonHangLabel;
     private javax.swing.JLabel totalPriceLabel2;
     private javax.swing.JButton updateBtn;
     // End of variables declaration//GEN-END:variables
@@ -748,16 +545,5 @@ public class HangTonKhoView extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(null, "Vui lòng kiểm tra lại giá trị đầu vào!");
             return null;
         }
-    }
-
-    private void loadThongKe(LocalDate from, LocalDate to) {
-        Map<Integer, Object> statistics = service.thongKeTheoPhamVi(from, to);
-        if (statistics == null) {
-            return;
-        }
-
-        tongDonHangLabel.setText(statistics.get(1).toString() + " sản phẩm");
-        tongDoanhThuLabel.setText(statistics.get(2).toString() + " sản phẩm");
-        hangTonKhoKhaDungLabel.setText(statistics.get(3).toString() + " sản phẩm");
     }
 }

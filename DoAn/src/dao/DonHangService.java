@@ -130,7 +130,7 @@ public class DonHangService {
         try {
             PreparedStatement statement = connection.prepareStatement(STATICSTICAL_QUERY);
             statement.setObject(1, from);
-            statement.setObject(2, to);
+            statement.setObject(2, to.plusDays(1));
 
             ResultSet resultSet = statement.executeQuery();
             return resultSet.next()

@@ -696,7 +696,7 @@ public class DonHangView extends javax.swing.JPanel {
             return;
         }
 
-        tongDoanhThuLabel.setText(statistics.get(1).toString() + " VNĐ");
-        tongDonHangLabel.setText(statistics.get(2).toString() + " đơn");
+        tongDonHangLabel.setText(statistics.get(1).toString() + " đơn");
+        tongDoanhThuLabel.setText(statistics.get(2).toString() + " VNĐ");
     }
 }
