@@ -22,8 +22,9 @@ public class HangTonKhoService {
     private final String SELECT_QUERY = "SELECT * FROM HangTonKho";
     private final String FIND_BY_ID_QUERY = "SELECT HangTonKho.* FROM HangTonKho LEFT JOIN SANPHAM ON SANPHAM.MASP = HANGTONKHO.MASP WHERE MAHTK = ?";
 
-    private final String INSERT_QUERY = "INSERT INTO HangTonKho(soluongtrongkho, ngaynhaphang, trangthai, masp) VALUES (?, ?, ?, ?)";
-    private final String UPDATE_QUERY = "UPDATE HangTonKho SET soluongtrongkho = soluongtrongkho - ?, ngayxuathang = ? WHERE MAHTK = ?";
+    private final String INSERT_QUERY = "INSERT INTO HangTonKho(soluongtrongkho, ngaynhaphang, trangthai) VALUES (?, ?, ?)";
+    private final String UPDATE_QUANTITY_OF_PRODUCT = "UPDATE HangTonKho SET soluongtrongkho = ?, ngayxuathang = ?, trang thai = ? WHERE MASP = ?";
+    private final String UPDATE_INVENTORY_QUANTITY = "UPDATE HangTonKho SET soluongtrongkho = soluongtrongkho - ?, ngayxuathang = ? WHERE MAHTK = ?";
     private final String UPDATE_PRODUCT_QUANTITY = "UPDATE SANPHAM SET SOLUONGTONKHO = SOLUONGTONKHO + ? WHERE MASP = (SELECT MASP FROM HangTonKho WHERE MAHTK = ?)";
     private final String DELETE_QUERY = "DELETE FROM HangTonKho WHERE MAHTK = ?";
 
@@ -55,12 +56,12 @@ public class HangTonKhoService {
         return list;
     }
 
-    public String capNhatHangTonKho(Long id, HangTonKho donHang) {
+    public String capNhatHangTonKhoVaSanPham(Long id, HangTonKho donHang) {
         try {
             Connection conn = provider.getConnection();
             conn.setAutoCommit(false);
 
-            try (PreparedStatement pstmtUpdateProduct = conn.prepareStatement(UPDATE_PRODUCT_QUANTITY); PreparedStatement pstmtUpdateInventory = conn.prepareStatement(UPDATE_QUERY)) {
+            try (PreparedStatement pstmtUpdateProduct = conn.prepareStatement(UPDATE_PRODUCT_QUANTITY); PreparedStatement pstmtUpdateInventory = conn.prepareStatement(UPDATE_INVENTORY_QUANTITY)) {
                 pstmtUpdateProduct.setLong(1, donHang.getSoLuongTrongKho());
                 pstmtUpdateProduct.setLong(2, id);
 
@@ -115,18 +116,17 @@ public class HangTonKhoService {
         }
     }
 
-    public boolean them(HangTonKho donHangMoi) {
+    public String them(HangTonKho donHangMoi) {
         Connection conn = provider.getConnection();
         try (PreparedStatement pstmt = conn.prepareStatement(INSERT_QUERY);) {
             pstmt.setObject(1, donHangMoi.getSoLuongTrongKho());
             pstmt.setObject(2, donHangMoi.getNgayNhapHang());
             pstmt.setString(3, donHangMoi.getTrangThai());
-            pstmt.setLong(4, donHangMoi.getMaSanPham());
 
-            return pstmt.executeUpdate() > 0;
+            return pstmt.executeUpdate() > 0 ? "Thêm mới thành công" : "Thêm mới thất bại";
         } catch (SQLException e) {
             LOGGER.log(Level.SEVERE, e.getMessage(), e);
-            return false;
+            return "Lỗi server không xác định";
         }
     }
 
@@ -175,6 +175,21 @@ public class HangTonKhoService {
             pstmt.executeUpdate();
         } catch (SQLException e) {
             LOGGER.log(Level.SEVERE, e.getMessage(), e);
+        }
+    }
+
+    public String capNhatHangTonKho(Long maSP, HangTonKho donHangMoi) {
+        Connection conn = provider.getConnection();
+        try (PreparedStatement pstmt = conn.prepareStatement(UPDATE_QUANTITY_OF_PRODUCT)) {
+            pstmt.setObject(1, donHangMoi.getSoLuongTrongKho());
+            pstmt.setObject(2, donHangMoi.getNgayNhapHang());
+            pstmt.setString(3, donHangMoi.getTrangThai());
+            pstmt.setLong(4, donHangMoi.getMaSanPham());
+
+            return pstmt.executeUpdate() > 0 ? "Cập nhật số lượng thành công" : "Cập nhật số lượng thất bại";
+        } catch (SQLException e) {
+            LOGGER.log(Level.SEVERE, e.getMessage(), e);
+            return "Lỗi server không xác định";
         }
     }
 }

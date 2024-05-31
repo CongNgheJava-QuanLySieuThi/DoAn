@@ -24,7 +24,7 @@ public class HangTonKhoView extends javax.swing.JPanel {
         deleteBtn.setEnabled(false);
         fromDatePicker.setDate(LocalDate.now().minusMonths(1));
         toDatePicker.setDate(LocalDate.now());
-        statusInsertField.setSelectedItem(null);
+        statusInsertField.setSelectedItem(1);
         loadThongKe(LocalDate.now().minusMonths(1), LocalDate.now());
         addEvents();
     }
@@ -262,7 +262,6 @@ public class HangTonKhoView extends javax.swing.JPanel {
         jLabel9.setText("Mã sản phẩm");
 
         statusInsertField.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Trong kho", "Xuất kho", "Hết hàng", "Hỏng hóc" }));
-        statusInsertField.setEnabled(false);
 
         javax.swing.GroupLayout jPanel11Layout = new javax.swing.GroupLayout(jPanel11);
         jPanel11.setLayout(jPanel11Layout);
@@ -572,7 +571,7 @@ public class HangTonKhoView extends javax.swing.JPanel {
     }//GEN-LAST:event_resetSearchFieldBtnresetSearchFieldBtnActionPerformed
 
     private void insertBtninsertBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_insertBtninsertBtnActionPerformed
-        if (validateFields(quantityInsertField, maSPInsertField) && validateFields(statusInsertField)) {
+        if (validateFields(quantityInsertField) && validateFields(statusInsertField) && importDayInsertDatePicker != null) {
             String soLuong = quantityInsertField.getText();
             LocalDate ngayNhap = importDayInsertDatePicker.getDate();
             String trangThai = statusInsertField.getSelectedItem().toString();
@@ -581,12 +580,15 @@ public class HangTonKhoView extends javax.swing.JPanel {
                 return;
             }
             donHangMoi.setNgayNhapHang(ngayNhap.atStartOfDay());
-            Long maND = Long.valueOf(maSPInsertField.getText());
-            donHangMoi.setMaSanPham(maND);
-            boolean isInserted = service.them(donHangMoi);
-            JOptionPane.showMessageDialog(null,
-                    isInserted ? "Thêm thành công đơn hàng!" : "Thêm không thành công!"
-            );
+            Long maSP = Long.valueOf(maSPInsertField.getText());
+            donHangMoi.setMaSanPham(maSP);
+
+            String response = validateFields(maSPInsertField)
+                    ? service.them(donHangMoi)
+                    : service.capNhatHangTonKho(maSP, donHangMoi);
+
+            JOptionPane.showMessageDialog(this.getParent(), response);
+
             loadTable();
             clearFields(quantityInsertField, maSPInsertField);
             clearFields(statusInsertField);
@@ -613,7 +615,7 @@ public class HangTonKhoView extends javax.swing.JPanel {
             HangTonKho donHangMoi = new HangTonKho();
             donHangMoi.setSoLuongTrongKho(soLuong);
             donHangMoi.setNgayXuatHang(exportDay == null ? null : exportDay.atStartOfDay());
-            JOptionPane.showMessageDialog(null, service.capNhatHangTonKho(maHang, donHangMoi));
+            JOptionPane.showMessageDialog(null, service.capNhatHangTonKhoVaSanPham(maHang, donHangMoi));
             loadTable();
             clearFields(quantityEditField);
         }

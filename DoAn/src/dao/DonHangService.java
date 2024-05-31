@@ -28,11 +28,18 @@ public class DonHangService {
     private final String UPDATE_QUERY = "UPDATE DonHang SET tendonhang = ?, tongtien = ?, tonggiamgia = ?,TrangThai=? WHERE madonhang = ?";
     private final String DELETE_QUERY = "DELETE FROM DonHang WHERE madonhang = ?";
 
-    private final String STATICSTICAL_QUERY = "SELECT YEAR(NGAYTAO) AS Year, MONTH(NGAYTAO) AS Month, COUNT(*) AS SoLuongDonHang, SUM(TONGTIEN) AS TongTien "
-            + "FROM DONHANG "
-            + "WHERE NGAYTAO BETWEEN ? AND ? "
-            + "GROUP BY YEAR(NGAYTAO), MONTH(NGAYTAO) "
-            + "ORDER BY Year, Month";
+    private final String STATICSTICAL_QUERY = """
+        SELECT 
+            YEAR(NGAYTAO) AS Year, 
+            MONTH(NGAYTAO) AS Month, 
+            COUNT(*) AS SoLuongDonHang, 
+            SUM(TONGTIEN) AS TongTien
+        FROM DONHANG
+        WHERE NGAYTAO >= ? AND NGAYTAO <= ? 
+          AND TRANGTHAI = 1
+        GROUP BY YEAR(NGAYTAO), MONTH(NGAYTAO)
+        ORDER BY Year, Month
+    """;
 
     public DonHangService() {
         provider.open();
