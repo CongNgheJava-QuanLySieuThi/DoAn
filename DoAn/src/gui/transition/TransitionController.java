@@ -86,7 +86,7 @@ public class TransitionController {
                 case "HoaDon":
                     node = new HoaDon();
                     break;
-                
+
                 case "User":
                     node = new User();
                     break;

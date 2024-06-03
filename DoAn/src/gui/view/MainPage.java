@@ -35,7 +35,6 @@ public class MainPage extends javax.swing.JFrame {
         listItem.add(new DanhMuc("HangTonKho", jpnHangTonKho, jlbHangTonKho));
         listItem.add(new DanhMuc("HoaDon", jpnHoaDon, jlbHoaDon));
         listItem.add(new DanhMuc("User", jpnUser, jlbUser));
-        listItem.add(new DanhMuc("MucDonHang", jpnMucDonHang, jlbMucDonHang));
 
         trans.setEvent(listItem);
         setLocationRelativeTo(null);
@@ -68,8 +67,6 @@ public class MainPage extends javax.swing.JFrame {
         jlbUser = new javax.swing.JLabel();
         jpnHoaDon = new javax.swing.JPanel();
         jlbHoaDon = new javax.swing.JLabel();
-        jpnMucDonHang = new javax.swing.JPanel();
-        jlbMucDonHang = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
         jpnView = new javax.swing.JPanel();
 
@@ -239,27 +236,6 @@ public class MainPage extends javax.swing.JFrame {
                 .addGap(16, 16, 16))
         );
 
-        jlbMucDonHang.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        jlbMucDonHang.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resource/Image/category_FILL0_wght400_GRAD0_opsz24.png"))); // NOI18N
-        jlbMucDonHang.setText("QUẢN LÝ MỤC ĐƠN HÀNG");
-
-        javax.swing.GroupLayout jpnMucDonHangLayout = new javax.swing.GroupLayout(jpnMucDonHang);
-        jpnMucDonHang.setLayout(jpnMucDonHangLayout);
-        jpnMucDonHangLayout.setHorizontalGroup(
-            jpnMucDonHangLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpnMucDonHangLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jlbMucDonHang)
-                .addGap(23, 23, 23))
-        );
-        jpnMucDonHangLayout.setVerticalGroup(
-            jpnMucDonHangLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpnMucDonHangLayout.createSequentialGroup()
-                .addContainerGap(18, Short.MAX_VALUE)
-                .addComponent(jlbMucDonHang)
-                .addGap(17, 17, 17))
-        );
-
         jButton1.setBackground(new java.awt.Color(255, 0, 0));
         jButton1.setText("Đăng xuất");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -282,12 +258,10 @@ public class MainPage extends javax.swing.JFrame {
                     .addComponent(jpnDanhMuc, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jpnUser, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jpnHoaDon, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jpnMucDonHang, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(jpnMenuLayout.createSequentialGroup()
+                        .addComponent(jButton1)
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
-            .addGroup(jpnMenuLayout.createSequentialGroup()
-                .addGap(119, 119, 119)
-                .addComponent(jButton1)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jpnMenuLayout.setVerticalGroup(
             jpnMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -305,11 +279,9 @@ public class MainPage extends javax.swing.JFrame {
                 .addComponent(jpnHoaDon, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jpnUser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jpnMucDonHang, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(39, 39, 39)
+                .addGap(18, 18, 18)
                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(197, Short.MAX_VALUE))
+                .addContainerGap(289, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jpnViewLayout = new javax.swing.GroupLayout(jpnView);
@@ -386,7 +358,6 @@ public class MainPage extends javax.swing.JFrame {
     private javax.swing.JLabel jlbDonHang;
     private javax.swing.JLabel jlbHangTonKho;
     private javax.swing.JLabel jlbHoaDon;
-    private javax.swing.JLabel jlbMucDonHang;
     private javax.swing.JLabel jlbSanPham;
     private javax.swing.JLabel jlbTrangChu;
     private javax.swing.JLabel jlbUser;
@@ -395,7 +366,6 @@ public class MainPage extends javax.swing.JFrame {
     private javax.swing.JPanel jpnHangTonKho;
     private javax.swing.JPanel jpnHoaDon;
     private javax.swing.JPanel jpnMenu;
-    private javax.swing.JPanel jpnMucDonHang;
     private javax.swing.JPanel jpnRoot;
     private javax.swing.JPanel jpnSanPham;
     private javax.swing.JPanel jpnUser;

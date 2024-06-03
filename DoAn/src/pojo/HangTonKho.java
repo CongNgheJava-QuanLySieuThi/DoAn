@@ -12,7 +12,7 @@ import java.time.format.DateTimeFormatter;
  *
  * @author Phi_Vu
  */
-public class HangTonKho implements Serializable {
+public class HangTonKho implements Recordable, Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -22,6 +22,7 @@ public class HangTonKho implements Serializable {
     private LocalDateTime ngayXuatHang;
     private String trangThai;
     private Long maSP;
+    private String tenSP;
 
     public HangTonKho() {
     }
@@ -41,18 +42,20 @@ public class HangTonKho implements Serializable {
         this.maSP = maSP;
     }
 
-    public HangTonKho(Long soLuongTrongKho, String trangThai) {
+    public HangTonKho(Long soLuongTrongKho) {
         this.soLuongTrongKho = soLuongTrongKho;
-        this.trangThai = trangThai;
     }
 
+    @Override
     public Object[] toRow() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         return new Object[]{
             this.maHTK,
+            this.tenSP,
             this.soLuongTrongKho,
             this.ngayNhapHang == null ? "" : this.ngayNhapHang.format(formatter),
-            this.ngayXuatHang == null ? "" : this.ngayXuatHang.format(formatter)
+            this.ngayXuatHang == null ? "" : this.ngayXuatHang.format(formatter),
+            this.maSP
         };
     }
 
@@ -102,5 +105,21 @@ public class HangTonKho implements Serializable {
 
     public void setMaSanPham(Long maSP) {
         this.maSP = maSP;
+    }
+
+    public Long getMaSP() {
+        return maSP;
+    }
+
+    public void setMaSP(Long maSP) {
+        this.maSP = maSP;
+    }
+
+    public String getTenSP() {
+        return tenSP;
+    }
+
+    public void setTenSP(String tenSP) {
+        this.tenSP = tenSP;
     }
 }

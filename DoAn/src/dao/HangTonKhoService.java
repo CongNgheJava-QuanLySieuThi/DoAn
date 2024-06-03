@@ -1,17 +1,21 @@
 package dao;
 
 import java.sql.Connection;
-import java.sql.Date;
+import java.sql.Timestamp;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import pojo.HangNhapKho;
 import pojo.HangTonKho;
+import pojo.HangXuatKho;
+import pojo.Recordable;
 import pojo.SQLServerDataProvider;
 
 public class HangTonKhoService {
@@ -19,11 +23,14 @@ public class HangTonKhoService {
     private final SQLServerDataProvider provider = new SQLServerDataProvider();
     private static final Logger LOGGER = Logger.getLogger(HangTonKhoService.class.getName());
 
-    private final String SELECT_QUERY = "SELECT * FROM HangTonKho";
+    private final String SELECT_QUERY = "SELECT HangTonKho.*, SANPHAM.TENSP FROM HangTonKho LEFT JOIN SANPHAM ON SANPHAM.MASP = HANGTONKHO.MASP";
+    private final String SELECT_NHAP_KHO_QUERY = "SELECT NhapKho.*, SANPHAM.TENSP FROM NhapKho LEFT JOIN SANPHAM ON SANPHAM.MASP = NhapKho.MASP";
+    private final String SELECT_XUAT_KHO_QUERY = "SELECT XuatKho.*, SANPHAM.TENSP FROM XuatKho LEFT JOIN SANPHAM ON SANPHAM.MASP = XuatKho.MASP";
+
     private final String FIND_BY_ID_QUERY = "SELECT HangTonKho.* FROM HangTonKho LEFT JOIN SANPHAM ON SANPHAM.MASP = HANGTONKHO.MASP WHERE MAHTK = ?";
 
     private final String INSERT_QUERY = "INSERT INTO HangTonKho(soluongtrongkho, ngaynhaphang, trangthai) VALUES (?, ?, ?)";
-    private final String UPDATE_QUANTITY_OF_PRODUCT = "UPDATE HangTonKho SET soluongtrongkho = ?, ngayxuathang = ?, trang thai = ? WHERE MASP = ?";
+    private final String UPDATE_QUANTITY_OF_PRODUCT = "UPDATE HangTonKho SET soluongtrongkho = soluongtrongkho + ?, ngayxuathang = ?, trangthai = ? WHERE MASP = ?";
     private final String UPDATE_INVENTORY_QUANTITY = "UPDATE HangTonKho SET soluongtrongkho = soluongtrongkho - ?, ngayxuathang = ? WHERE MAHTK = ?";
     private final String UPDATE_PRODUCT_QUANTITY = "UPDATE SANPHAM SET SOLUONGTONKHO = SOLUONGTONKHO + ? WHERE MASP = (SELECT MASP FROM HangTonKho WHERE MAHTK = ?)";
     private final String DELETE_QUERY = "DELETE FROM HangTonKho WHERE MAHTK = ?";
@@ -48,7 +55,35 @@ public class HangTonKhoService {
 
         try (ResultSet result = connection.prepareStatement(SELECT_QUERY).executeQuery()) {
             while (result.next()) {
-                list.add(mapToObject(result));
+                list.add(mapToHTK(result));
+            }
+        } catch (SQLException e) {
+            LOGGER.log(Level.SEVERE, e.getMessage(), e);
+        }
+        return list;
+    }
+
+    public List<HangNhapKho> danhSachHangNhapKho() {
+        List<HangNhapKho> list = new ArrayList<>();
+        Connection connection = provider.getConnection();
+
+        try (ResultSet result = connection.prepareStatement(SELECT_NHAP_KHO_QUERY).executeQuery()) {
+            while (result.next()) {
+                list.add(mapToHNK(result));
+            }
+        } catch (SQLException e) {
+            LOGGER.log(Level.SEVERE, e.getMessage(), e);
+        }
+        return list;
+    }
+
+    public List<HangXuatKho> danhSachHangXuatKho() {
+        List<HangXuatKho> list = new ArrayList<>();
+        Connection connection = provider.getConnection();
+
+        try (ResultSet result = connection.prepareStatement(SELECT_XUAT_KHO_QUERY).executeQuery()) {
+            while (result.next()) {
+                list.add(mapToHXK(result));
             }
         } catch (SQLException e) {
             LOGGER.log(Level.SEVERE, e.getMessage(), e);
@@ -107,7 +142,7 @@ public class HangTonKhoService {
 
             HangTonKho donHang;
             try (ResultSet result = pstmt.executeQuery()) {
-                donHang = result.next() ? mapToObject(result) : null;
+                donHang = result.next() ? mapToHTK(result) : null;
             }
             return donHang;
         } catch (SQLException e) {
@@ -149,20 +184,51 @@ public class HangTonKhoService {
         }
     }
 
-    private HangTonKho mapToObject(ResultSet result) throws SQLException {
+    private HangTonKho mapToHTK(ResultSet result) throws SQLException {
         if (result == null) {
             return null;
         }
-        Date nhapHang = result.getDate(3);
-        Date xuatHang = result.getDate(4);
+        Timestamp nhapHang = result.getTimestamp(3);
+        Timestamp xuatHang = result.getTimestamp(4);
 
         HangTonKho dh = new HangTonKho();
         dh.setMaHTK(result.getLong(1));
         dh.setSoLuongTrongKho(result.getLong(2));
-        dh.setNgayNhapHang(nhapHang == null ? null : nhapHang.toLocalDate().atStartOfDay());
-        dh.setNgayXuatHang(xuatHang == null ? null : xuatHang.toLocalDate().atStartOfDay());
+        dh.setNgayNhapHang(nhapHang == null ? null : nhapHang.toLocalDateTime());
+        dh.setNgayXuatHang(xuatHang == null ? null : xuatHang.toLocalDateTime());
         dh.setTrangThai(result.getString(5));
         dh.setMaSanPham(result.getLong(6));
+        dh.setTenSP(result.getString("TENSP"));
+        return dh;
+    }
+
+    private HangNhapKho mapToHNK(ResultSet result) throws SQLException {
+        if (result == null) {
+            return null;
+        }
+
+        Timestamp nhapHang = result.getTimestamp(4);
+
+        HangNhapKho dh = new HangNhapKho();
+        dh.setMaHNK(result.getLong(1));
+        dh.setSoluong(result.getLong(3));
+        dh.setNgayNhap(nhapHang == null ? null : nhapHang.toLocalDateTime());
+        dh.setTenSP(result.getString("TENSP"));
+
+        return dh;
+    }
+
+    private HangXuatKho mapToHXK(ResultSet result) throws SQLException {
+        if (result == null) {
+            return null;
+        }
+        Timestamp xuatHang = result.getTimestamp(4);
+
+        HangXuatKho dh = new HangXuatKho();
+        dh.setMaHXK(result.getLong(1));
+        dh.setSoluong(result.getLong(3));
+        dh.setNgayXuat(xuatHang == null ? null : xuatHang.toLocalDateTime());
+        dh.setTenSP(result.getString("TENSP"));
         return dh;
     }
 
